@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <script src="../js/config.js"></script>
+    <title>Ramadan Timetable</title>
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style-static.css">
+    <style>
+        /* layout overrides removed */
+
+        html,
+        body {
+            overflow: hidden !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: stretch !important;
+        }
+
+        .scroll-content {
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+            width: 100%;
+            padding: 0 0 16px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ramadan-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .ramadan-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin: 4px 0 0;
+            opacity: 0.8;
+        }
+
+        .table-responsive {
+            flex: 1;
+            min-height: 0;
+            width: 100%;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            background: var(--bg-color);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .table-responsive {
+            background: rgba(6, 18, 14, 0.95);
+            border-color: rgba(219, 141, 13, 0.2);
+        }
+
+        .dark-mode .ramadan-table th {
+            background-color: var(--primary-gold) !important;
+            color: #08100c !important;
+        }
+
+        .ramadan-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .ramadan-table th {
+            position: sticky;
+            top: 0;
+            z-index: 12;
+            background-color: var(--primary-green) !important;
+            color: white !important;
+            padding: 14px 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.8rem;
+            border: none;
+        }
+
+        .ramadan-table th small {
+            display: block;
+            font-size: 0.65rem;
+            opacity: 0.85;
+            font-weight: normal;
+            margin-top: 2px;
+            text-transform: none;
+        }
+
+        .ramadan-table td {
+            padding: 10px 4px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            color: var(--text-primary);
+        }
+
+        /* Table formatting */
+        .ramadan-table tr.today-row {
+            background-color: var(--primary-gold) !important;
+            animation: glowPulse 2.5s ease-in-out infinite;
+            color: white !important;
+        }
+
+        .ramadan-table tr.today-row td {
+            color: white !important;
+            font-weight: 700;
+            padding: 12px 4px;
+            background: none !important;
+            /* Remove cell backgrounds to show row rounding */
+        }
+
+        .ramadan-table tr.today-row td:first-child {
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+        }
+
+        .ramadan-table tr.today-row td:last-child {
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        .ramadan-table tr.friday-row {
+            background-color: rgba(219, 141, 13, 0.12);
+        }
+
+        .ramadan-table tr.friday-row td:first-child {
+            font-weight: bold;
+            color: var(--primary-gold);
+        }
+
+        /* Fajr Column Highlight (col 3) */
+        .ramadan-table td:nth-child(3),
+        .ramadan-table th:nth-child(3) {
+            background-color: rgba(16, 185, 129, 0.08);
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+
+        .dark-mode .ramadan-table td:nth-child(3) {
+            background-color: rgba(16, 185, 129, 0.15);
+        }
+
+        .ramadan-table th:nth-child(3) {
+            background-color: var(--primary-green) !important;
+            color: white !important;
+        }
+
+        /* Maghrib Column Highlight (col 7) */
+        .ramadan-table td:nth-child(7),
+        .ramadan-table th:nth-child(7) {
+            background-color: rgba(219, 141, 13, 0.08);
+            font-weight: bold;
+            color: var(--primary-gold);
+        }
+
+        .dark-mode .ramadan-table td:nth-child(7) {
+            background-color: rgba(219, 141, 13, 0.15);
+        }
+
+        .ramadan-table th:nth-child(7) {
+            background-color: var(--primary-gold) !important;
+            color: white !important;
+        }
+
+        .ramadan-footer-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 16px;
+            text-align: left;
+            flex-shrink: 0;
+            overflow-y: auto;
+            max-height: 38vh;
+            padding: 0 16px calc(8px + env(safe-area-inset-bottom));
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(3, 99, 53, 0.08);
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            color: var(--primary-gold);
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .feature-text h3 {
+            color: var(--primary-green);
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-text ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            list-style-type: square;
+        }
+
+        .feature-text li {
+            margin-bottom: 8px;
+        }
+
+        .dark-mode .feature-card {
+            background: rgba(6, 30, 20, 0.6);
+            border-color: rgba(var(--primary-gold-rgb), 0.3);
+        }
+
+        .dark-mode .feature-text h3 {
+            color: var(--primary-gold);
+        }
+
+        @media (max-width: 600px) {
+            /* layout overrides removed */
+
+            .page-title {
+                font-size: 1.25rem;
+                margin-bottom: 12px;
+            }
+
+            .ramadan-table {
+                font-size: 0.88rem;
+                min-width: 550px;
+                /* Ensure table has enough width to trigger scroll on small screens */
+            }
+
+            .ramadan-table th,
+            .ramadan-table td {
+                padding: 10px 2px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .ramadan-table {
+                font-size: 0.85rem;
+                min-width: 500px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="page-header">
+            <h1 class="page-title"><i class="mdi mdi-moon-waning-crescent"></i> Ramadan 1447 / 2026</h1>
+            <div class="header-actions">
+                <button class="btn-icon" id="theme-toggle-btn" title="Toggle Theme">
+                    <i class="mdi mdi-weather-night"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Islamic Geometric Divider -->
+        <div class="geometric-divider">
+            <div class="line"></div>
+            <div class="center-icon"></div>
+            <div class="line"></div>
+        </div>
+
+        <div class="scroll-content">
+            <div class="ramadan-header">
+            </div>
+
+            <div class="table-responsive">
+                <table class="ramadan-table">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Date</th>
+                            <th>Fajr<small>Start Fast</small></th>
+                            <th>Sunrise</th>
+                            <th>Dhuhr/Jumuah</th>
+                            <th>Asr</th>
+                            <th>Maghrib<small>Iftar</small></th>
+                            <th>Isha</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ramadan-body">
+                        <tr>
+                            <td colspan="8" style="padding: 40px; text-align: center; color: var(--text-secondary);">
+                                <i class="mdi mdi-loading mdi-spin"
+                                    style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
+                                Loading schedule...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <script>
+                function renderRamadanSchedule() {
+                    const tbody = document.getElementById('ramadan-body');
+                    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    const now = new Date();
+                    const currentDay = now.getDate();
+                    const currentMonth = now.getMonth() + 1;
+
+                    try {
+                        const yearData = window.getYearlyPrayerData ? window.getYearlyPrayerData() : [];
+                        // Filter for Ramadan
+                        const ramadanData = yearData.filter(row => row.hijri && row.hijri.toLowerCase().includes('ramadan'));
+
+                        if (ramadanData && ramadanData.length > 0) {
+                            const fragment = document.createDocumentFragment();
+                            let ramadanDay = 1;
+
+                            ramadanData.forEach(row => {
+                                const tr = document.createElement('tr');
+
+                                // Highlight Friday
+                                if (row.weekday === 'Fri') {
+                                    tr.classList.add('friday-row');
+                                }
+
+                                // Highlight Today
+                                if (row.day === currentDay && row.month === currentMonth) {
+                                    tr.classList.add('today-row');
+                                }
+                                
+                                const tdRamadan = document.createElement('td');
+                                const smallDay = document.createElement('small');
+                                smallDay.style.opacity = '0.7';
+                                smallDay.textContent = row.weekday;
+                                tdRamadan.appendChild(document.createTextNode(String(ramadanDay++)));
+                                tdRamadan.appendChild(document.createElement('br'));
+                                tdRamadan.appendChild(smallDay);
+
+                                const tdDate = document.createElement('td');
+                                const formattedDate = `${String(row.day).padStart(2, '0')} ${monthNames[row.month - 1]}`;
+                                tdDate.innerHTML = `<div>${formattedDate}</div><div style="font-size: 0.85em; opacity: 0.8; margin-top:2px;">${window.escapeHTML ? window.escapeHTML(row.hijri) : row.hijri}</div>`;
+
+                                const esc = window.escapeHTML || (t => t);
+
+                                const tdFajr = document.createElement('td');
+                                tdFajr.innerHTML = `<div>${esc(row.fajr)}</div><div style="font-size: 0.85em; opacity: 0.8;">Iq: ${esc(row.fajr_iqamah)}</div>`;
+
+                                const tdSunrise = document.createElement('td');
+                                tdSunrise.textContent = row.sunrise;
+
+                                const tdDhuhr = document.createElement('td');
+                                if (row.weekday === 'Fri') {
+                                    var jumuahArr = row.jumuah || [];
+                                    if (jumuahArr.length === 0) {
+                                        tdDhuhr.innerHTML = `<div><span style="color:#d32f2f;font-weight:600;">Not offered</span></div><div style="font-size: 0.75em; opacity: 0.6; margin-top: 2px;">(Dhuhr: ${esc(row.dhuhr)})</div>`;
+                                    } else if (jumuahArr.length === 1) {
+                                        var timeStr = esc(typeof jumuahArr[0] === 'object' && jumuahArr[0] !== null ? jumuahArr[0].time : jumuahArr[0]);
+                                        tdDhuhr.innerHTML = `<div>Jumuah / ${timeStr}</div><div style="font-size: 0.75em; opacity: 0.6; margin-top: 2px;">(Dhuhr: ${esc(row.dhuhr)})</div>`;
+                                    } else {
+                                        var jumuahStr = jumuahArr.map(function(entry) {
+                                            return esc(typeof entry === 'object' && entry !== null ? entry.time : entry);
+                                        }).join(' / ');
+                                        var jumuahStyle = jumuahArr.length >= 3 ? "font-size: 0.85em;" : "";
+                                        tdDhuhr.innerHTML = `<div style="${jumuahStyle}">${jumuahStr}</div><div style="font-size: 0.85em; opacity: 0.8;">Jumuah</div><div style="font-size: 0.75em; opacity: 0.6; margin-top: 2px;">(Dhuhr: ${esc(row.dhuhr)})</div>`;
+                                    }
+                                } else {
+                                    tdDhuhr.innerHTML = `<div>${esc(row.dhuhr)}</div><div style="font-size: 0.85em; opacity: 0.8;">Iq: ${esc(row.dhuhr_iqamah)}</div>`;
+                                }
+
+                                const tdAsr = document.createElement('td');
+                                tdAsr.innerHTML = `<div>${esc(row.asr)}</div><div style="font-size: 0.85em; opacity: 0.8;">Iq: ${esc(row.asr_iqamah)}</div>`;
+
+                                const tdMaghrib = document.createElement('td');
+                                tdMaghrib.innerHTML = `<div>${esc(row.maghrib)}</div><div style="font-size: 0.85em; opacity: 0.8;">Iq: ${esc(row.maghrib_iqamah)}</div>`;
+
+                                const tdIsha = document.createElement('td');
+                                tdIsha.innerHTML = `<div>${esc(row.isha)}</div><div style="font-size: 0.85em; opacity: 0.8;">Iq: ${esc(row.isha_iqamah)}</div>`;
+
+                                tr.appendChild(tdRamadan);
+                                tr.appendChild(tdDate);
+                                tr.appendChild(tdFajr);
+                                tr.appendChild(tdSunrise);
+                                tr.appendChild(tdDhuhr);
+                                tr.appendChild(tdAsr);
+                                tr.appendChild(tdMaghrib);
+                                tr.appendChild(tdIsha);
+                                fragment.appendChild(tr);
+                            });
+
+                            tbody.innerHTML = '';
+                            tbody.appendChild(fragment);
+
+                            const todayRow = tbody.querySelector('.today-row');
+                            if (todayRow) {
+                                setTimeout(() => {
+                                    todayRow.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                                }, 300);
+                            }
+                        } else {
+                            tbody.innerHTML = '<tr><td colspan="8" style="padding: 20px; color: var(--text-secondary);">No Ramadan schedule available for the current year.</td></tr>';
+                        }
+                    } catch (error) {
+                        console.error('Error rendering Ramadan schedule:', error);
+                        tbody.innerHTML = '<tr><td colspan="8" style="padding: 20px; color: #d32f2f;">Error loading schedule. Please try again later.</td></tr>';
+                    }
+                }
+
+                // Wait for prayer-times.js to load the year data
+                window.addEventListener('prayerDataLoaded', renderRamadanSchedule);
+                
+                // Also check if data is already loaded (in case the event fired before our script ran)
+                window.addEventListener('DOMContentLoaded', () => {
+                    if (window.getYearlyPrayerData && window.getYearlyPrayerData().length > 0) {
+                        renderRamadanSchedule();
+                    }
+                });
+            </script>
+
+        </div><!-- end scroll-content -->
+
+        <div class="ramadan-footer-info" id="ramadan-footer-info">
+            <!-- Dynamic footer cards will be rendered here -->
+        </div>
+
+        <script>
+            // Render Ramadan Feature Cards
+            document.addEventListener('DOMContentLoaded', () => {
+                const footerContainer = document.getElementById('ramadan-footer-info');
+                if (!APP_CONFIG || !APP_CONFIG.ramadanFeaturesCards || APP_CONFIG.ramadanFeaturesCards.length === 0) {
+                    footerContainer.style.display = 'none';
+                    return;
+                }
+
+                const esc = window.escapeHTML || (s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'));
+                const san = window.sanitizeHTML || esc;
+                const cardsHtml = APP_CONFIG.ramadanFeaturesCards.map(card => `
+                    <div class="feature-card">
+                        <i class="mdi ${esc(card.icon || '')} feature-icon"></i>
+                        <div class="feature-text">
+                            <h3>${esc(card.title || '')}</h3>
+                            ${san(card.description || '')}
+                        </div>
+                    </div>
+                `).join('');
+
+                footerContainer.innerHTML = cardsHtml;
+            });
+        </script>
+
+        <div class="page-brand"></div>
+    </div>
+    <script src="../js/hijri-converter.js"></script>
+    <script src="../js/prayer-times.js"></script>
+</body>
+
+</html>

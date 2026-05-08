@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <script src="../js/config.js"></script>
+    <title>Prayer Times - Yearly</title>
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style-static.css">
+    <style>
+        .pt-container {
+            padding: 0 !important;
+        }
+
+        html,
+        body {
+            overflow: hidden !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: stretch !important;
+        }
+
+        .scroll-content {
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+            width: 100%;
+            padding: 0 0 16px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pt-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .pt-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin: 4px 0 0;
+            opacity: 0.8;
+        }
+
+        .pt-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: nowrap;
+        }
+
+        .pt-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            border: 1px solid rgba(3, 99, 53, 0.2);
+            background: rgba(3, 99, 53, 0.06);
+            color: var(--primary-green);
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: "Outfit", sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .pt-nav-btn:hover {
+            background: rgba(3, 99, 53, 0.12);
+        }
+
+        .pt-nav-btn:active {
+            transform: scale(0.97);
+        }
+
+        .pt-month-label {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            min-width: 160px;
+            text-align: center;
+        }
+
+        .table-responsive {
+            flex: 1;
+            min-height: 0;
+            width: 100%;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            background: var(--bg-color);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .table-responsive {
+            background: rgba(6, 18, 14, 0.95);
+            border-color: rgba(219, 141, 13, 0.2);
+        }
+
+        .dark-mode .pt-table th {
+            background-color: var(--primary-gold) !important;
+            color: #08100c !important;
+        }
+
+        .pt-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .pt-table th {
+            position: sticky;
+            top: 0;
+            z-index: 12;
+            background-color: var(--primary-green) !important;
+            color: white !important;
+            padding: 18px 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 1rem;
+            border: none;
+            min-width: 100px;
+        }
+
+        /* Sticky First Column (Day) */
+        .pt-table th:first-child,
+        .pt-table td:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 10;
+            background-color: var(--bg-color);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .pt-table th:first-child {
+            z-index: 15;
+            background-color: var(--primary-green) !important;
+        }
+
+        .dark-mode .pt-table td:first-child {
+            background-color: #08100c;
+        }
+
+        .dark-mode .pt-table th:first-child {
+            background-color: var(--primary-gold) !important;
+        }
+
+        .pt-table tr.today-row td:first-child {
+            background-color: var(--primary-gold) !important;
+            box-shadow: none;
+        }
+
+        .pt-table td {
+            padding: 15px 6px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .pt-table tr.highlighted-row {
+            background-color: rgba(var(--primary-gold-rgb), 0.2) !important;
+            box-shadow: inset 0 0 0 1px rgba(var(--primary-gold-rgb), 0.3);
+        }
+
+        .dark-mode .pt-table tr.highlighted-row {
+            background-color: rgba(var(--primary-gold-rgb), 0.3) !important;
+        }
+
+        .pt-table tr.highlighted-row td:first-child {
+            background-color: var(--bg-color) !important;
+            background-image: linear-gradient(rgba(var(--primary-gold-rgb), 0.2), rgba(var(--primary-gold-rgb), 0.2)) !important;
+        }
+
+        .dark-mode .pt-table tr.highlighted-row td:first-child {
+            background-color: #08100c !important;
+            background-image: linear-gradient(rgba(var(--primary-gold-rgb), 0.3), rgba(var(--primary-gold-rgb), 0.3)) !important;
+        }
+
+        .schedule-change-row {
+            background-color: rgba(var(--primary-gold-rgb), 0.1) !important;
+            color: var(--primary-gold);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .schedule-change-row td {
+            padding: 12px !important;
+            border-bottom: 2px solid rgba(var(--primary-gold-rgb), 0.2) !important;
+            text-align: center !important;
+        }
+
+        .dark-mode .schedule-change-row {
+            background-color: rgba(var(--primary-gold-rgb), 0.15) !important;
+        }
+
+        /* Table formatting */
+        .pt-table tr.today-row {
+            background-color: var(--primary-gold) !important;
+            animation: glowPulse 2.5s ease-in-out infinite;
+            color: white !important;
+        }
+
+        .pt-table tr.today-row td {
+            color: white !important;
+            font-weight: 700;
+            padding: 12px 4px;
+            background: none !important;
+            /* Remove cell backgrounds to show row rounding */
+        }
+
+        .pt-table tr.today-row td:first-child {
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+        }
+
+        .pt-table tr.today-row td:last-child {
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 8px rgba(219, 141, 13, 0.4), inset 0 0 0 2px var(--primary-gold);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(219, 141, 13, 0.7), inset 0 0 0 2px var(--primary-gold);
+            }
+        }
+
+        .pt-table tr.friday-row {
+            background-color: rgba(219, 141, 13, 0.12);
+        }
+
+        .pt-table tr.friday-row td:first-child {
+            font-weight: bold;
+            color: var(--primary-gold);
+        }
+
+        .pt-fallback-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: rgba(219, 141, 13, 0.15);
+            color: #b37300;
+            margin-left: 8px;
+            font-weight: 500;
+        }
+
+        .pt-export-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .pt-bottom-controls {
+            position: sticky;
+            bottom: 40px;
+            z-index: 19;
+            background: var(--bg-color);
+            border-top: 1px solid rgba(var(--primary-green-rgb), 0.12);
+            padding: 10px 0 8px;
+            flex-shrink: 0;
+        }
+
+        .dark-mode .pt-bottom-controls {
+            border-top-color: rgba(var(--primary-gold-rgb), 0.2);
+        }
+
+        .btn-export {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: white;
+            color: var(--text-primary);
+        }
+
+        .dark-mode .btn-export {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(219, 141, 13, 0.3);
+            color: var(--primary-gold);
+        }
+
+        .btn-export:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-export i {
+            font-size: 1.1rem;
+        }
+
+        .btn-pdf {
+            color: #d32f2f;
+        }
+
+        .btn-csv {
+            color: #2e7d32;
+        }
+
+        .dark-mode .btn-pdf,
+        .dark-mode .btn-csv {
+            color: var(--primary-gold);
+        }
+
+        .pt-disclaimer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            opacity: 0.8;
+            padding: 0 15px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 600px) {
+            .pt-container {
+                padding: 10px 4px !important;
+            }
+
+            .page-title {
+                font-size: 1.25rem;
+                margin-bottom: 12px;
+            }
+
+            .pt-table {
+                font-size: 0.88rem;
+                min-width: 550px;
+            }
+
+            .pt-table th,
+            .pt-table td {
+                padding: 10px 2px;
+            }
+
+            .pt-nav-btn {
+                padding: 8px 14px;
+                font-size: 0.82rem;
+            }
+
+            .pt-month-label {
+                font-size: 1.05rem;
+                min-width: 120px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .pt-table {
+                font-size: 0.85rem;
+                min-width: 500px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="page-header">
+            <h1 class="page-title"><i class="mdi mdi-calendar-clock"></i> Prayer Times <span id="pt-year"></span></h1>
+            <div class="header-actions">
+                <button class="btn-icon" id="theme-toggle-btn" title="Toggle Theme">
+                    <i class="mdi mdi-weather-night"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Islamic Geometric Divider -->
+        <div class="geometric-divider">
+            <div class="line"></div>
+            <div class="center-icon"></div>
+            <div class="line"></div>
+        </div>
+
+        <div class="pt-header"></div>
+
+        <div class="scroll-content">
+            <div class="table-responsive">
+                <table class="pt-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px; min-width: 80px;">Day</th>
+                            <th style="width: 140px; min-width: 140px;">Hijri</th>
+                            <th>Fajr</th>
+                            <th>Sunrise</th>
+                            <th>Dhuhr/Jumuah</th>
+                            <th>Asr</th>
+                            <th>Maghrib</th>
+                            <th>Isha</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pt-body">
+                        <tr>
+                            <td colspan="8" style="padding: 40px; text-align: center; color: var(--text-secondary);">
+                                <i class="mdi mdi-loading mdi-spin"
+                                    style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
+                                Loading prayer times...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div><!-- end scroll-content -->
+
+        <div class="pt-bottom-controls">
+            <div class="pt-nav">
+                <button class="pt-nav-btn" id="pt-prev" aria-label="Previous Month">
+                    <i class="mdi mdi-chevron-left"></i> Prev
+                </button>
+                <span class="pt-month-label" id="pt-month-label"></span>
+                <button class="pt-nav-btn" id="pt-next" aria-label="Next Month">
+                    Next <i class="mdi mdi-chevron-right"></i>
+                </button>
+            </div>
+
+            <div class="pt-export-group">
+                <button class="btn-export btn-pdf" id="export-pdf" title="Export Full Year as PDF">
+                    <i class="mdi mdi-file-pdf-box"></i> Export PDF
+                </button>
+                <button class="btn-export btn-csv" id="export-csv" title="Export Full Year as CSV">
+                    <i class="mdi mdi-file-table"></i> Export CSV
+                </button>
+            </div>
+
+            <div class="pt-disclaimer">
+                * Note: Iqamah times are subject to change. The Hijri date is estimated and may not be completely
+                accurate.
+            </div>
+        </div>
+
+        <div class="page-brand"></div>
+    </div>
+
+    <script src="../js/jspdf.umd.min.js"></script>
+    <script src="../js/jspdf.plugin.autotable.min.js"></script>
+    <script src="../js/hijri-converter.js"></script>
+    <script src="../js/prayer-times.js"></script>
+    <script src="../js/prayer-export.js"></script>
+</body>
+
+</html>

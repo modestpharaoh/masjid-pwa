@@ -1,0 +1,360 @@
+{
+  "categories": [
+    {
+      "label": "Arabic Brief Tafsirs",
+      "isTafsir": true,
+      "isBriefTafsir": true,
+      "resources": [
+        {
+          "id": "16",
+          "name": "Ar - التفسير الميسر"
+        }
+      ]
+    },
+    {
+      "label": "Arabic Tafsirs",
+      "isTafsir": true,
+      "resources": [
+        {
+          "id": "93",
+          "name": "Ar - التفسير الوسيط"
+        },
+        {
+          "id": "14",
+          "name": "Ar - تفسير ابن كثير"
+        },
+        {
+          "id": "94",
+          "name": "Ar - تفسير البغوي"
+        },
+        {
+          "id": "91",
+          "name": "Ar - تفسير السعدي"
+        },
+        {
+          "id": "15",
+          "name": "Ar - تفسير الطبري"
+        },
+        {
+          "id": "90",
+          "name": "Ar - تفسير القرطبي"
+        }
+      ]
+    },
+    {
+      "label": "Bengali Translations",
+      "resources": [
+        {
+          "id": "213",
+          "name": "Bn - Dr. Abu Bakr Muhammad Zakaria"
+        },
+        {
+          "id": "162",
+          "name": "Bn - Rawai Al-bayan - Bayaan Foundation"
+        },
+        {
+          "id": "163",
+          "name": "Bn - Sheikh Mujibur Rahman - Darussalaam"
+        },
+        {
+          "id": "161",
+          "name": "Bn - Taisirul Quran - Tawheed Publication"
+        }
+      ]
+    },
+    {
+      "label": "Bosnian Translations",
+      "resources": [
+        {
+          "id": "126",
+          "name": "Bs - Besim Korkut"
+        },
+        {
+          "id": "214",
+          "name": "Bs - Dar Al-Salam Center"
+        },
+        {
+          "id": "25",
+          "name": "Bs - Muhamed Mehanović"
+        }
+      ]
+    },
+    {
+      "label": "Chinese Translations",
+      "resources": [
+        {
+          "id": "56",
+          "name": "Zh - Ma Jian (Simplified)"
+        },
+        {
+          "id": "109",
+          "name": "Zh - Muhammad Makin"
+        }
+      ]
+    },
+    {
+      "label": "English Tafsirs",
+      "isTafsir": true,
+      "resources": [
+        {
+          "id": "168",
+          "name": "En - Ma'arif al-Qur'an - Mufti Muhammad Shafi"
+        },
+        {
+          "id": "169",
+          "name": "En - Tafsir Ibn Kathir"
+        }
+      ]
+    },
+    {
+      "label": "English Translations",
+      "resources": [
+        {
+          "id": "22",
+          "name": "En - A. Yusuf Ali"
+        },
+        {
+          "id": "149",
+          "name": "En - Bridges Foundation - Fadel Soliman"
+        },
+        {
+          "id": "85",
+          "name": "En - M.A.S. Abdel Haleem"
+        },
+        {
+          "id": "20",
+          "name": "En - Sahih International"
+        }
+      ]
+    },
+    {
+      "label": "French Translations",
+      "resources": [
+        {
+          "id": "136",
+          "name": "Fr - Montada Islamic Foundation"
+        },
+        {
+          "id": "31",
+          "name": "Fr - Muhammad Hamidullah"
+        },
+        {
+          "id": "779",
+          "name": "Fr - Rashid Maash"
+        }
+      ]
+    },
+    {
+      "label": "German Translations",
+      "resources": [
+        {
+          "id": "208",
+          "name": "De - Abu Reda Muhammad ibn Ahmad"
+        },
+        {
+          "id": "27",
+          "name": "De - Frank Bubenheim and Nadeem"
+        }
+      ]
+    },
+    {
+      "label": "Hebrew Translations",
+      "resources": [
+        {
+          "id": "233",
+          "name": "He - Dar Al-Salam Center"
+        }
+      ]
+    },
+    {
+      "label": "Hindi Translations",
+      "resources": [
+        {
+          "id": "122",
+          "name": "Hi - Maulana Azizul Haque al-Umari"
+        }
+      ]
+    },
+    {
+      "label": "Indonesian Translations",
+      "resources": [
+        {
+          "id": "33",
+          "name": "Id - Indonesian Islamic Affairs Ministry"
+        },
+        {
+          "id": "134",
+          "name": "Id - King Fahad Quran Complex"
+        },
+        {
+          "id": "141",
+          "name": "Id - The Sabiq Company"
+        }
+      ]
+    },
+    {
+      "label": "Italian Translations",
+      "resources": [
+        {
+          "id": "153",
+          "name": "It - Hamza Roberto Piccardo"
+        },
+        {
+          "id": "209",
+          "name": "It - Othman al-Sharif"
+        }
+      ]
+    },
+    {
+      "label": "Korean Translations",
+      "resources": [
+        {
+          "id": "219",
+          "name": "Ko - Hamed Choi"
+        },
+        {
+          "id": "36",
+          "name": "Ko - Korean"
+        }
+      ]
+    },
+    {
+      "label": "Kurdish Translations",
+      "resources": [
+        {
+          "id": "81",
+          "name": "Ku - Burhan Muhammad-Amin"
+        },
+        {
+          "id": "143",
+          "name": "Ku - Muhammad Saleh Bamoki"
+        }
+      ]
+    },
+    {
+      "label": "Portuguese Translations",
+      "resources": [
+        {
+          "id": "103",
+          "name": "Pt - Helmi Nasr"
+        },
+        {
+          "id": "43",
+          "name": "Pt - Samir El-Hayek"
+        }
+      ]
+    },
+    {
+      "label": "Russian Translations",
+      "resources": [
+        {
+          "id": "79",
+          "name": "Ru - Abu Adel"
+        },
+        {
+          "id": "45",
+          "name": "Ru - Elmir Kuliev"
+        },
+        {
+          "id": "78",
+          "name": "Ru - Ministry of Awqaf, Egypt"
+        }
+      ]
+    },
+    {
+      "label": "Spanish Translations",
+      "resources": [
+        {
+          "id": "140",
+          "name": "Es - Montada Islamic Foundation"
+        },
+        {
+          "id": "199",
+          "name": "Es - Noor International Center"
+        },
+        {
+          "id": "83",
+          "name": "Es - Sheikh Isa Garcia"
+        }
+      ]
+    },
+    {
+      "label": "Transliteration",
+      "resources": [
+        {
+          "id": "57",
+          "name": "En - Transliteration"
+        }
+      ]
+    },
+    {
+      "label": "Turkish Translations",
+      "resources": [
+        {
+          "id": "210",
+          "name": "Tr - Dar Al-Salam Center"
+        },
+        {
+          "id": "52",
+          "name": "Tr - Elmalili Hamdi Yazir"
+        },
+        {
+          "id": "124",
+          "name": "Tr - Muslim Shahin"
+        },
+        {
+          "id": "112",
+          "name": "Tr - Shaban Britch"
+        },
+        {
+          "id": "77",
+          "name": "Tr - Turkish Translation - Diyanet Isleri"
+        }
+      ]
+    },
+    {
+      "label": "Ukrainian Translations",
+      "resources": [
+        {
+          "id": "217",
+          "name": "Uk - Dr. Mikhailo Yaqubovic"
+        }
+      ]
+    },
+    {
+      "label": "Urdu Tafsirs",
+      "isTafsir": true,
+      "resources": [
+        {
+          "id": "159",
+          "name": "Ur - Bayan ul Quran - Dr. Israr Ahmad"
+        },
+        {
+          "id": "157",
+          "name": "Ur - Fi Zilal al-Quran - Sayyid Ibrahim Qutb"
+        },
+        {
+          "id": "160",
+          "name": "Ur - Tafsir Ibn Kathir"
+        }
+      ]
+    },
+    {
+      "label": "Urdu Translations",
+      "resources": [
+        {
+          "id": "234",
+          "name": "Ur - Fatah Muhammad Jalandhari"
+        },
+        {
+          "id": "151",
+          "name": "Ur - Shaykh al-Hind Mahmud al-Hasan"
+        },
+        {
+          "id": "97",
+          "name": "Ur - Tafheem e Qur'an - Syed Abu Ali Maududi"
+        }
+      ]
+    }
+  ]
+}

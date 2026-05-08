@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <script src="../js/config.js"></script>
+    <title>Azkar</title>
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style-static.css">
+    <style>
+        html,
+        body {
+            overflow: hidden !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: stretch !important;
+        }
+
+        .scroll-content {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .view-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .view-container.active {
+            display: flex;
+        }
+
+        /* Detail View Toggles */
+        .detail-toggles {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(var(--primary-green-rgb), 0.06);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border: 1px solid rgba(var(--primary-green-rgb), 0.15);
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .toggle-container.active {
+            background: rgba(var(--primary-green-rgb), 0.15);
+            color: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+
+        .font-size-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(var(--primary-green-rgb), 0.06);
+            border: 1px solid rgba(var(--primary-green-rgb), 0.15);
+            border-radius: 16px;
+            padding: 4px 8px;
+        }
+
+        .font-size-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.2s;
+            padding: 0;
+        }
+
+        .font-size-btn:hover {
+            background: rgba(var(--primary-green-rgb), 0.15);
+            color: var(--primary-green);
+        }
+
+        .font-size-btn:disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        .font-size-label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            min-width: 28px;
+            text-align: center;
+            user-select: none;
+        }
+
+        /* Category Cards */
+        .category-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            margin-bottom: 30px;
+            align-items: stretch;
+        }
+
+        .category-card {
+            background: rgba(var(--card-bg-rgb), 0.6);
+            border: 1px solid rgba(var(--primary-green-rgb), 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            height: auto;
+            min-height: 80px;
+            position: relative;
+            overflow: hidden;
+            flex: 0 0 auto;
+        }
+
+        .category-card:active {
+            transform: scale(0.98);
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            color: var(--primary-green);
+            background: rgba(var(--primary-green-rgb), 0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .category-titles {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            width: 100%;
+            gap: 15px;
+        }
+
+        .category-info h3 {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            text-align: left;
+        }
+
+        .category-arabic-title {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            font-size: 1rem !important;
+            color: var(--primary-gold) !important;
+            direction: rtl;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .category-info p {
+            margin: 5px 0 0;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Detail View */
+        .detail-title {
+            margin: 0;
+            font-size: 1.2rem;
+            color: var(--primary-green);
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 15px;
+            overflow: hidden;
+            padding: 0 10px;
+        }
+
+        .detail-arabic-title {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            font-size: 1.1rem;
+            color: var(--primary-gold);
+            direction: rtl;
+            white-space: nowrap;
+        }
+
+        .progress-indicator {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: bold;
+            background: rgba(var(--primary-green-rgb), 0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        /* Zekr Content */
+        .zekr-card {
+            width: 100%;
+            background: rgba(var(--card-bg-rgb), 0.8);
+            border-radius: 15px;
+            padding: 24px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(var(--primary-green-rgb), 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .zekr-arabic {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            font-size: 1.7rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .zekr-transliteration {
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .zekr-transliteration.show {
+            display: block;
+        }
+
+        .zekr-english {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--primary-green);
+            display: none;
+        }
+
+        .zekr-english.show {
+            display: block;
+        }
+
+        .zekr-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .zekr-reference {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0;
+            display: inline-block;
+        }
+
+        .zekr-count-note {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-gold);
+            background: rgba(var(--primary-gold-rgb), 0.1);
+            padding: 2px 8px;
+            border-radius: 8px;
+        }
+
+        /* Interaction Bar - fixed above page-brand */
+        .interaction-bar {
+            width: 100%;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px 16px;
+            border-top: 1px solid rgba(var(--primary-green-rgb), 0.1);
+            background: var(--bg-color);
+        }
+
+        .counter-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skip-btn {
+            background: none;
+            border: 1px solid rgba(var(--primary-green-rgb), 0.3);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 5px;
+        }
+
+        .skip-btn:hover {
+            background: rgba(var(--primary-green-rgb), 0.05);
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .skip-btn:active {
+            transform: scale(0.95);
+        }
+
+        .counter-btn {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 4px solid rgba(var(--primary-green-rgb), 0.1);
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            overflow: hidden;
+        }
+
+        .counter-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* is-next: keep same circle, hide progress ring */
+        .counter-btn.is-next .azkar-progress-ring {
+            display: none;
+        }
+
+        #counter-action-icon {
+            font-size: 2.2rem;
+            color: var(--primary-green);
+            z-index: 2;
+        }
+
+        .counter-val {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1;
+            z-index: 2;
+        }
+
+        .counter-target {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            z-index: 2;
+        }
+
+        .counter-action-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            z-index: 2;
+            display: none;
+        }
+
+        /* Circular progress styling specifically for Azkar */
+        .azkar-progress-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .azkar-progress-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .azkar-progress-ring circle {
+            transition: stroke-dashoffset 0.2s;
+            stroke-linecap: round;
+            fill: transparent;
+            stroke-width: 6;
+        }
+
+        .azkar-progress-bg {
+            stroke: transparent;
+        }
+
+        .azkar-progress-fg {
+            stroke: var(--primary-green);
+        }
+
+        .completion-message {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .completion-icon {
+            font-size: 4rem;
+            color: var(--primary-gold);
+            margin-bottom: 10px;
+        }
+
+        .dark-mode .category-card {
+            background: rgba(6, 30, 20, 0.4);
+        }
+
+        .dark-mode .zekr-card {
+            background: rgba(6, 30, 20, 0.6);
+        }
+
+        .dark-mode .counter-btn {
+            background: rgba(var(--primary-green-rgb), 0.15);
+        }
+
+        /* Loading */
+        .loader {
+            border: 3px solid rgba(var(--primary-green-rgb), 0.1);
+            border-top: 3px solid var(--primary-green);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 40px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1rem;
+            font-family: 'Outfit', sans-serif;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), #059669);
+            color: white;
+            box-shadow: 0 8px 20px rgba(var(--primary-green-rgb), 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(var(--primary-green-rgb), 0.35);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        .dark-mode .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), #065f46);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container text-center">
+        <!-- Main List View -->
+        <div id="categories-view" class="view-container active">
+            <div class="page-header">
+                <h1 class="page-title"><i class="mdi mdi-book-open"></i> Azkar</h1>
+                <div class="header-actions">
+                    <button class="btn-icon" id="theme-toggle-btn" title="Toggle Theme">
+                        <i class="mdi mdi-weather-night"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Islamic Geometric Divider -->
+            <div class="geometric-divider">
+                <div class="line"></div>
+                <div class="center-icon"></div>
+                <div class="line"></div>
+            </div>
+
+            <div class="scroll-content">
+                <div class="search-container">
+                    <i class="mdi mdi-magnify"></i>
+                    <input type="text" id="azkar-search" class="search-input" placeholder="Search Azkar...">
+                </div>
+
+                <div id="loading" class="loader"></div>
+
+                <div class="category-grid" id="category-grid">
+                    <!-- Categories will be rendered here dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Zekr View -->
+        <div id="detail-view" class="view-container">
+            <div class="reader-header">
+                <button class="back-btn" id="back-btn"><i class="mdi mdi-arrow-left"></i></button>
+                <h2 class="detail-title" id="detail-category-title">Morning Azkar</h2>
+                <div class="header-actions">
+                    <span class="progress-indicator" id="progress-indicator">1 / 10</span>
+                    <button class="btn-icon" id="detail-theme-toggle-btn" title="Toggle Theme">
+                        <i class="mdi mdi-weather-night"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="scroll-content">
+                <div id="zekr-content">
+                    <div class="zekr-card">
+                        <div class="zekr-arabic" id="zekr-arabic">...</div>
+                        <div class="zekr-transliteration" id="zekr-transliteration">...</div>
+                        <div class="zekr-english" id="zekr-english">...</div>
+                        <div class="zekr-meta">
+                            <span class="zekr-reference" id="zekr-reference"></span>
+                            <span class="zekr-count-note" id="zekr-count-note"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="completion-message" class="completion-message">
+                    <i class="mdi mdi-check-decagram completion-icon"></i>
+                    <h2 style="color: var(--primary-green);">Completed</h2>
+                    <p style="color: var(--text-secondary);">May Allah accept it from you.</p>
+                    <button class="btn btn-primary" onclick="window.backToCategories()" style="margin-top: 20px;">Back
+                        to
+                        Categories</button>
+                </div>
+            </div>
+
+            <div class="interaction-bar">
+                <div class="counter-area" id="counter-area">
+                    <button class="counter-btn" id="zekr-action-btn" aria-label="Next Zekr">
+                        <div class="azkar-progress-ring">
+                            <svg viewBox="0 0 100 100">
+                                <circle class="azkar-progress-bg" cx="50" cy="50" r="46"></circle>
+                                <circle class="azkar-progress-fg" id="zekr-progress" cx="50" cy="50" r="46"></circle>
+                            </svg>
+                        </div>
+                        <span class="counter-val" id="counter-val">0</span>
+                        <span class="counter-target" id="counter-target">Target: 1</span>
+                        <span id="counter-action-icon" class="mdi mdi-arrow-right" style="display: none;"></span>
+                        <span class="counter-action-text" id="counter-action-text">Next</span>
+                    </button>
+                    <button class="skip-btn" id="skip-btn">Skip Zekr</button>
+                </div>
+                <div class="detail-toggles">
+                    <div class="toggle-container" id="translit-toggle" title="Transliteration">
+                        <i class="mdi mdi-toggle-switch-off"></i>
+                        <span>Translit</span>
+                    </div>
+                    <div class="toggle-container" id="english-toggle" title="English Translation">
+                        <i class="mdi mdi-toggle-switch-off"></i>
+                        <span>English</span>
+                    </div>
+                    <div class="toggle-container" id="vibration-toggle" title="Vibration">
+                        <i class="mdi mdi-vibrate"></i>
+                    </div>
+                    <div class="font-size-control" title="Arabic font size">
+                        <button class="font-size-btn" id="font-size-dec" aria-label="Decrease font size"><span
+                                style="font-size:0.75em;font-weight:600;">A-</span></button>
+                        <span class="font-size-label" id="font-size-label">M</span>
+                        <button class="font-size-btn" id="font-size-inc" aria-label="Increase font size"><span
+                                style="font-size:1em;font-weight:600;">A+</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-brand"></div>
+    </div>
+
+    <script src="../js/azkar.js"></script>
+</body>
+
+</html>

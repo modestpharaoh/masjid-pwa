@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <script src="../js/config.js"></script>
+    <title>Donate</title>
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style-static.css">
+    <style>
+        html,
+        body {
+            overflow: hidden !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: stretch !important;
+        }
+
+        .scroll-content {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .donate-intro {
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .donate-card {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(3, 99, 53, 0.08);
+            text-align: left;
+        }
+
+        .donate-card-title {
+            color: var(--primary-green);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(3, 99, 53, 0.1);
+            padding-bottom: 12px;
+        }
+
+        .bank-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .bank-detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bank-detail-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bank-detail-value {
+            font-family: inherit;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px dashed rgba(3, 99, 53, 0.3);
+            margin-top: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            word-break: break-all;
+        }
+
+        .bank-detail-value.mono {
+            font-family: monospace;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: none;
+            color: var(--primary-gold);
+            cursor: pointer;
+            padding: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.2s;
+            margin-left: 12px;
+            flex-shrink: 0;
+        }
+
+        .copy-btn:hover {
+            background: rgba(219, 141, 13, 0.15);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .donate-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .btn-donate {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-donate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-sumup {
+            background: linear-gradient(135deg, var(--primary-green), #0a8a4e);
+        }
+
+        .btn-paypal {
+            background: linear-gradient(135deg, #003087, #0079C1);
+        }
+
+        .donate-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(3, 99, 53, 0.15);
+        }
+
+        .donate-tab {
+            flex: 1;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--text-secondary);
+            border: none;
+            font-family: inherit;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .donate-tab.active {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .donate-tab:not(.active):hover {
+            background: rgba(3, 99, 53, 0.08);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .sumup-scroll-wrapper {
+            width: 100%;
+            height: 450px;
+            border-radius: 12px;
+            overflow-y: scroll;
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE/Edge */
+        }
+
+        .sumup-scroll-wrapper::-webkit-scrollbar {
+            display: none;
+            /* Chrome/Safari */
+        }
+
+        .sumup-embed {
+            width: 100%;
+            height: 1500px;
+            border: none;
+            background: white;
+            display: block;
+        }
+
+
+
+        .paypal-info {
+            text-align: center;
+            padding: 24px 16px;
+        }
+
+        .paypal-info p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .info-note {
+            font-size: 0.85rem;
+            color: var(--primary-green);
+            background: rgba(3, 99, 53, 0.08);
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            line-height: 1.5;
+            border-left: 4px solid var(--primary-green);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            text-align: left;
+        }
+
+        .info-note i {
+            font-size: 1.2rem;
+            margin-top: -1px;
+        }
+
+        /* Simplified fallback link style */
+        .info-note a {
+            color: var(--primary-green);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .dark-mode .donate-card {
+            background: rgba(3, 99, 53, 0.2);
+            border-color: rgba(219, 141, 13, 0.3);
+        }
+
+        .dark-mode .bank-detail-value {
+            background: rgba(0, 0, 0, 0.3);
+            border-color: rgba(219, 141, 13, 0.4);
+        }
+
+        .dark-mode .donate-tab {
+            background: rgba(6, 30, 20, 0.6);
+            color: var(--text-secondary);
+        }
+
+        .dark-mode .donate-tab.active {
+            background: var(--primary-gold);
+            color: #08100c;
+        }
+
+        .dark-mode .sumup-embed {
+            background: #fff;
+            /* Keep embed white for readability of SumUp UI */
+            filter: brightness(0.9);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="page-header">
+            <h1 class="page-title"><i class="mdi mdi-hand-heart"></i> Support Masjid</h1>
+            <div class="header-actions">
+                <button class="btn-icon" id="theme-toggle-btn" title="Toggle Theme">
+                    <i class="mdi mdi-weather-night"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Islamic Geometric Divider -->
+        <div class="geometric-divider">
+            <div class="line"></div>
+            <div class="center-icon"></div>
+            <div class="line"></div>
+        </div>
+
+        <div class="scroll-content">
+            <div class="donate-intro" style="text-align: center;">
+                <strong>Your Masjid is the heart of the community.</strong><br>
+                By contributing, you help create a welcoming space for prayer, learning, and kindness that serves the
+                local community.
+            </div>
+
+            <!-- Placeholder if all donation methods are hidden -->
+            <div id="donations-under-construction" class="donate-card"
+                style="display: none; text-align: center; padding: 40px 20px;">
+                <i class="mdi mdi-hammer-wrench"
+                    style="font-size: 48px; display: block; margin-bottom: 16px; color: var(--primary-gold);"></i>
+                <h3 style="color: var(--primary-green); margin-bottom: 8px;">Donation Systems Coming Soon</h3>
+                <p style="color: var(--text-secondary); line-height: 1.5; margin: 0;">We are currently setting up our
+                    digital donation systems. Please check back later or contact the Masjid office directly for other
+                    ways to support us.</p>
+            </div>
+
+            <div class="donate-card">
+                <div class="donate-card-title">
+                    <i class="mdi mdi-bank"></i> Bank Transfer
+                </div>
+                <div class="info-note">
+                    <i class="mdi mdi-information-outline"></i>
+                    <span>We kindly encourage donations via <strong>Bank Transfer</strong> to avoid additional
+                        transaction fees, ensuring your full contribution goes directly to the Masjid.</span>
+                </div>
+
+                <div class="bank-details">
+                    <div class="bank-detail-item">
+                        <span class="bank-detail-label">Account Name</span>
+                        <div class="bank-detail-value">
+                            <span id="acc-name-val">Masjid Name</span>
+                            <button class="copy-btn" onclick="copyText('acc-name-val', this)"
+                                aria-label="Copy Account Name">
+                                <i class="mdi mdi-content-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bank-detail-item">
+                        <span class="bank-detail-label">Bank Name</span>
+                        <div class="bank-detail-value">
+                            <span id="bank-name-val">Bank Name</span>
+                            <button class="copy-btn" onclick="copyText('bank-name-val', this)"
+                                aria-label="Copy Bank Name">
+                                <i class="mdi mdi-content-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bank-detail-item">
+                        <span class="bank-detail-label">IBAN</span>
+                        <div class="bank-detail-value mono">
+                            <span id="iban-val">IE00 BANK 0000 0000 0000 00</span>
+                            <button class="copy-btn" onclick="copyText('iban-val', this)" aria-label="Copy IBAN">
+                                <i class="mdi mdi-content-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bank-detail-item">
+                        <span class="bank-detail-label">BIC (Swift Code)</span>
+                        <div class="bank-detail-value mono">
+                            <span id="bic-val">BANKIE2D</span>
+                            <button class="copy-btn" onclick="copyText('bic-val', this)" aria-label="Copy BIC">
+                                <i class="mdi mdi-content-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bank-detail-item">
+                        <span class="bank-detail-label">Account Number</span>
+                        <div class="bank-detail-value mono">
+                            <span id="acc-val">00000000</span>
+                            <button class="copy-btn" onclick="copyText('acc-val', this)"
+                                aria-label="Copy Account Number">
+                                <i class="mdi mdi-content-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="donate-card">
+                <div class="donate-card-title">
+                    <i class="mdi mdi-credit-card-outline"></i> Online Donations
+                </div>
+
+                <div class="donate-tabs">
+                    <button class="donate-tab active" onclick="switchTab('card')">
+                        <i class="mdi mdi-credit-card"></i> Card/SumUp
+                    </button>
+                    <button class="donate-tab" onclick="switchTab('paypal')">
+                        <i class="mdi mdi-paypal"></i> PayPal
+                    </button>
+                </div>
+
+                <!-- Card Tab: Embedded SumUp -->
+                <div id="tab-card" class="tab-content active">
+                    <div class="info-note">
+                        <i class="mdi mdi-information-outline"></i>
+                        <span>Having trouble? <a href="#" target="_blank" id="sumup-fallback">Click here to open in a
+                                new tab.</a>
+                        </span>
+                    </div>
+                    <div class="sumup-scroll-wrapper">
+                        <iframe class="sumup-embed" src="about:blank" scrolling="no" loading="lazy" allow="payment"
+                            title="Donate via Card"></iframe>
+                    </div>
+                </div>
+
+                <!-- PayPal Tab: External Link -->
+                <div id="tab-paypal" class="tab-content">
+                    <div class="paypal-info">
+                        <i class="mdi mdi-paypal" style="font-size: 48px; color: #003087;"></i>
+                        <p>PayPal donations are processed securely on PayPal's website. Tap the button below to proceed.
+                        </p>
+                        <a href="#" target="_blank" class="btn-donate btn-paypal">
+                            <i class="mdi mdi-open-in-new"></i> Donate via PayPal
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="page-brand"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Load config from parent (PWA shell) or local script tag
+            const config = (window.parent && window.parent.APP_CONFIG) || (typeof APP_CONFIG !== 'undefined' ? APP_CONFIG : null);
+            if (!config) return;
+
+            // Update Intro
+            const intro = document.querySelector('.donate-intro');
+            if (intro) {
+                const genericMessage = `<strong>Your ${config.masjidName} is the heart of the community.</strong><br>
+                By contributing, you help create a welcoming space for prayer, learning, and kindness that serves the local community.`;
+
+                if (config.masjidDonationMessage && config.masjidDonationMessage.trim()) {
+                    // sanitizeHTML strips script/iframe/event-handler elements while keeping safe rich text
+                    intro.innerHTML = window.sanitizeHTML ? window.sanitizeHTML(config.masjidDonationMessage) : config.masjidDonationMessage;
+                } else {
+                    intro.innerHTML = genericMessage;
+                }
+            }
+
+            // Update Donation URLs
+            const onlineSection = document.querySelector('.donate-card:has(.mdi-credit-card-outline)');
+            const hasSumUp = config.masjidDonationSumUpUrl && config.masjidDonationSumUpUrl.trim();
+            const hasPayPal = config.masjidDonationPayPalUrl && config.masjidDonationPayPalUrl.trim();
+
+            if (onlineSection) {
+                if (!hasSumUp && !hasPayPal) {
+                    onlineSection.style.display = 'none';
+                } else {
+                    // Update SumUp
+                    const sumupTab = document.querySelector('.donate-tab:has(.mdi-credit-card)');
+                    const sumupContent = document.getElementById('tab-card');
+                    if (!hasSumUp) {
+                        if (sumupTab) sumupTab.style.display = 'none';
+                        if (sumupContent) sumupContent.style.display = 'none';
+                        // Switch to PayPal if SumUp is hidden
+                        switchTab('paypal');
+                    } else {
+                        const sumupEmbed = document.querySelector('.sumup-embed');
+                        if (sumupEmbed) sumupEmbed.src = config.masjidDonationSumUpUrl;
+                        const sumupLink = document.getElementById('sumup-fallback');
+                        if (sumupLink) sumupLink.href = config.masjidDonationSumUpUrl;
+                    }
+
+                    // Update PayPal
+                    const paypalTab = document.querySelector('.donate-tab:has(.mdi-paypal)');
+                    const paypalContent = document.getElementById('tab-paypal');
+                    if (!hasPayPal) {
+                        if (paypalTab) paypalTab.style.display = 'none';
+                        if (paypalContent) paypalContent.style.display = 'none';
+                        // Keep Card active if PayPal is hidden
+                        switchTab('card');
+                    } else {
+                        const paypalLink = document.querySelector('.btn-paypal');
+                        if (paypalLink) paypalLink.href = config.masjidDonationPayPalUrl;
+                    }
+
+                    // If only one is present, hide the tabs bar
+                    if (!hasSumUp || !hasPayPal) {
+                        const tabsBar = document.querySelector('.donate-tabs');
+                        if (tabsBar) tabsBar.style.display = 'none';
+                    }
+                }
+            }
+
+            // Update Bank Detail Values
+            const bankSection = document.querySelector('.donate-card:has(.mdi-bank)');
+            const coreBankFields = [config.masjidBankName, config.masjidBankAccountName, config.masjidBankIban, config.masjidBankBic];
+            const hasCoreBank = coreBankFields.every(f => f && f.trim());
+
+            if (bankSection) {
+                if (hasCoreBank) {
+                    document.getElementById('acc-name-val').textContent = config.masjidBankAccountName;
+                    document.getElementById('bank-name-val').textContent = config.masjidBankName;
+                    document.getElementById('iban-val').textContent = config.masjidBankIban;
+                    document.getElementById('bic-val').textContent = config.masjidBankBic;
+
+                    // Account number is optional
+                    const accNoVal = document.getElementById('acc-val');
+                    if (accNoVal) {
+                        if (config.masjidBankAccountNumber && config.masjidBankAccountNumber.trim()) {
+                            accNoVal.textContent = config.masjidBankAccountNumber;
+                        } else {
+                            const item = accNoVal.closest('.bank-detail-item');
+                            if (item) item.style.display = 'none';
+                        }
+                    }
+                } else {
+                    bankSection.style.display = 'none';
+                }
+            }
+
+            // Final check: If both sections are hidden, show construction message
+            if (!hasCoreBank && !hasSumUp && !hasPayPal) {
+                const constructionMsg = document.getElementById('donations-under-construction');
+                if (constructionMsg) constructionMsg.style.display = 'block';
+            }
+        });
+
+        function copyText(elementId, btn) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const icon = btn.querySelector('i');
+                const oldClass = icon.className;
+                icon.className = 'mdi mdi-check';
+                setTimeout(() => {
+                    icon.className = oldClass;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.donate-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            if (tab === 'card') {
+                document.querySelector('.donate-tab:first-child').classList.add('active');
+                document.getElementById('tab-card').classList.add('active');
+            } else {
+                document.querySelector('.donate-tab:last-child').classList.add('active');
+                document.getElementById('tab-paypal').classList.add('active');
+            }
+        }
+    </script>
+</body>
+
+</html>

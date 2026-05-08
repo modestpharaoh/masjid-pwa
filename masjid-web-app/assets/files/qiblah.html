@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <script src="../js/config.js"></script>
+    <title>Qiblah Direction</title>
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style-static.css">
+    <style>
+        .compass-box {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: rgba(var(--primary-green-rgb), 0.1);
+            border: 4px solid var(--primary-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .compass-box {
+            background: rgba(6, 30, 20, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border-color: var(--primary-gold);
+        }
+
+        .compass-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .cardinal-points {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            font-weight: 700;
+            color: var(--primary-green);
+            font-size: 1.2rem;
+        }
+
+        .point {
+            position: absolute;
+            width: 20px;
+            text-align: center;
+            left: calc(50% - 10px);
+        }
+
+        .point-n {
+            top: 10px;
+        }
+
+        .point-e {
+            top: calc(50% - 12px);
+            left: auto;
+            right: 10px;
+        }
+
+        .point-s {
+            bottom: 10px;
+        }
+
+        .point-w {
+            top: calc(50% - 12px);
+            left: 10px;
+        }
+
+        .compass-needle-box {
+            position: relative;
+            width: 40px;
+            height: 200px;
+            transform: rotate(0deg);
+            /* Initialized via JS */
+            z-index: 2;
+        }
+
+        .needle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            left: 5px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+        }
+
+        .needle-top {
+            top: 0;
+            border-bottom: 100px solid var(--primary-gold);
+        }
+
+        .needle-bottom {
+            bottom: 0;
+            border-top: 100px solid #ddd;
+        }
+
+        .kaaba-icon {
+            position: absolute;
+            top: -48px;
+            left: 1px;
+            width: 38px;
+            height: 38px;
+            transform: rotate(0deg);
+            /* Initialized via JS */
+        }
+
+        .info-box {
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(3, 99, 53, 0.05);
+            margin-top: 20px;
+            border: 1px solid rgba(3, 99, 53, 0.08);
+        }
+
+        .dark-mode .info-box {
+            background: rgba(6, 30, 20, 0.6);
+            border-color: rgba(219, 141, 13, 0.3);
+        }
+
+        .location-text {
+            color: var(--primary-green);
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .degree-text {
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .enable-compass-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(3, 99, 53, 0.2);
+            display: none;
+            align-items: center;
+            gap: 8px;
+            margin: 20px auto;
+            transition: transform 0.2s;
+        }
+
+        .enable-compass-btn:active {
+            transform: scale(0.95);
+        }
+
+        .enable-compass-btn.show {
+            display: inline-flex;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            margin: 20px auto;
+        }
+
+        html,
+        body {
+            overflow: hidden !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: stretch !important;
+        }
+
+        .scroll-content {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .page-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: var(--bg-color);
+        }
+
+        .page-brand {
+            position: sticky;
+            bottom: 0;
+            z-index: 20;
+            background: var(--bg-color);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container text-center">
+        <div class="page-header">
+            <h1 class="page-title"><i class="mdi mdi-compass-outline"></i> Qiblah Finder</h1>
+            <div class="header-actions">
+                <button class="btn-icon theme-toggle-btn" id="theme-toggle-btn" title="Toggle Theme">
+                    <i class="mdi mdi-weather-night"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Islamic Geometric Divider -->
+        <div class="geometric-divider">
+            <div class="line"></div>
+            <div class="center-icon"></div>
+            <div class="line"></div>
+        </div>
+
+        <div class="scroll-content">
+
+            <div class="compass-box" id="compass">
+                <div class="cardinal-points">
+                    <div class="point point-n">N</div>
+                    <div class="point point-e">E</div>
+                    <div class="point point-s">S</div>
+                    <div class="point point-w">W</div>
+                </div>
+
+                <div class="compass-needle-box" id="needle-box">
+                    <svg viewBox="0 0 64 64" class="kaaba-icon" id="kaaba" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="12" y="12" width="40" height="40" fill="#111" rx="3" />
+                        <rect x="12" y="24" width="40" height="5" fill="var(--primary-gold)" />
+                        <path d="M34 52 V38 c0 -4 10 -4 10 0 V52 Z" fill="var(--primary-gold)" />
+                    </svg>
+                    <div class="needle needle-top"></div>
+                    <div class="needle needle-bottom"></div>
+                </div>
+            </div>
+
+            <div class="buttons-container">
+                <button id="enableCompass" class="enable-compass-btn">
+                    <i class="mdi mdi-compass"></i> Enable Live Compass
+                </button>
+
+                <button id="useMyLocation" class="enable-compass-btn show"
+                    style="background: var(--primary-gold); box-shadow: 0 4px 15px rgba(219, 141, 13, 0.2);">
+                    <i class="mdi mdi-map-marker"></i> Use My Location
+                </button>
+            </div>
+
+            <div class="info-box">
+                <div class="location-text">Dublin City, Ireland</div>
+                <div class="degree-text">Qiblah: 114.1° ESE</div>
+                <div id="status-display" style="color: var(--text-secondary); margin-top: 5px;">(Measured from True
+                    North)
+                </div>
+            </div>
+
+            <div class="page-note">
+                The Qiblah direction is hardcoded for <strong>Dublin City</strong>.
+                <span id="instruction-text">When using a physical compass, ensure it is level and away from metal
+                    objects.</span>
+            </div>
+
+        </div>
+
+        <div class="page-brand"></div>
+    </div>
+
+    <script src="../js/qiblah.js"></script>
+</body>
+
+</html>

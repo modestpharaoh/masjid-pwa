@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Quran Radio - Masjid</title>
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Main Page Layout */
+        .prayer-page {
+            display: flex;
+            flex-direction: column;
+            height: 100dvh !important;
+            width: 100vw;
+            overflow: hidden !important;
+            position: relative;
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #f0fdf4 100%);
+            transition: background 0.5s ease;
+        }
+
+        .dark-mode .prayer-page {
+            background: linear-gradient(135deg, #08100c 0%, #061e14 50%, #032d19 100%);
+        }
+
+        .radio-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5vh;
+            padding: 2vh 5vw 80px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            z-index: 1;
+        }
+
+        .radio-card {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card-bg);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: var(--glass-border);
+            border-radius: 20px;
+            padding: 2vh 4vw;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            gap: 15px;
+        }
+
+        .radio-card:hover {
+            transform: translateY(-2px);
+            background: rgba(var(--primary-green-rgb), 0.18);
+            border-color: var(--primary-green);
+        }
+
+        .radio-card.active {
+            background: rgba(var(--primary-gold-rgb), 0.15);
+            border-color: var(--primary-gold);
+            box-shadow: 0 8px 25px rgba(var(--primary-gold-rgb), 0.2);
+        }
+
+        .radio-info {
+            display: flex;
+            align-items: center;
+            gap: 4vw;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .radio-icon-wrapper {
+            width: 55px;
+            height: 55px;
+            min-width: 55px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+        }
+
+        .dark-mode .radio-icon-wrapper {
+            background: #1a1a1a;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .radio-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .radio-details {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .radio-name {
+            font-size: clamp(1rem, 3.2vw, 1.4rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .radio-location {
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .play-btn {
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(var(--primary-green-rgb), 0.3);
+            flex-shrink: 0;
+        }
+
+        .radio-card.active .play-btn {
+            background: var(--primary-gold);
+        }
+
+        .play-btn i {
+            font-size: 24px;
+        }
+
+        .playing-animation {
+            display: none;
+            gap: 3px;
+            align-items: flex-end;
+            height: 18px;
+            margin-top: 4px;
+        }
+
+        .radio-card.active.is-playing .playing-animation {
+            display: flex;
+        }
+
+        .bar {
+            width: 3px;
+            background: var(--primary-gold);
+            border-radius: 1px;
+            animation: equalize 1s infinite ease-in-out;
+        }
+
+        .bar:nth-child(1) {
+            height: 8px;
+            animation-delay: -0.2s;
+        }
+
+        .bar:nth-child(2) {
+            height: 14px;
+            animation-delay: -0.4s;
+        }
+
+        .bar:nth-child(3) {
+            height: 6px;
+            animation-delay: -0.6s;
+        }
+
+        .bar:nth-child(4) {
+            height: 10px;
+            animation-delay: -0.8s;
+        }
+
+        @keyframes equalize {
+
+            0%,
+            100% {
+                height: 6px;
+            }
+
+            50% {
+                height: 16px;
+            }
+        }
+
+        /* Landscape Split-Screen Layout */
+        @media (orientation: landscape) {
+            .prayer-page {
+                flex-direction: row !important;
+                overflow: visible !important;
+            }
+
+            .prayer-header {
+                width: 38% !important;
+                height: 100dvh !important;
+                padding: 5vh 2vw !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                text-align: center !important;
+            }
+
+            .prayer-header h1 {
+                font-size: clamp(1.8rem, 5vh, 2.5rem) !important;
+            }
+
+            .prayer-header p {
+                font-size: 1rem !important;
+                margin-top: 1vh !important;
+            }
+
+            .geometric-divider {
+                flex-direction: column !important;
+                width: 4% !important;
+                height: 80vh !important;
+                padding: 0 !important;
+                margin: auto 0 !important;
+                background: none !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 15px !important;
+            }
+
+            .geometric-divider .line {
+                display: block !important;
+                width: 2px !important;
+                height: auto !important;
+                flex: 1 !important;
+                background: linear-gradient(to bottom, transparent, var(--primary-gold), transparent) !important;
+            }
+
+            .geometric-divider .center-icon {
+                display: block !important;
+                width: 28px !important;
+                height: 28px !important;
+                flex-shrink: 0 !important;
+            }
+
+            .radio-container {
+                width: 58% !important;
+                padding: 5vh 3vw 120px !important;
+                gap: 1.5vh !important;
+            }
+
+            .radio-card {
+                padding: 1.5vh 2vw !important;
+                border-radius: 15px !important;
+            }
+        }
+
+        /* Portrait small screens */
+        @media (orientation: portrait) and (max-height: 700px) {
+            .radio-card {
+                padding: 1.5vh 4vw;
+            }
+
+            .radio-icon-wrapper {
+                width: 45px;
+                height: 45px;
+                min-width: 45px;
+            }
+
+            .radio-logo {
+                width: 32px;
+                height: 32px;
+            }
+
+            .play-btn {
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
+            }
+
+            .play-btn i {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body style="margin: 0; padding: 0;">
+    <div class="prayer-page">
+        <!-- Corner Decorations -->
+        <div class="corner-decor top-left"></div>
+        <div class="corner-decor top-right"></div>
+        <div class="corner-decor bottom-left"></div>
+        <div class="corner-decor bottom-right"></div>
+
+        <div class="prayer-header" style="text-align: center; padding-top: 5vh;">
+            <h1 style="color: var(--text-primary); font-size: clamp(1.8rem, 6vh, 3rem); font-weight: 800; margin: 0; display: flex; align-items: center; justify-content: center; gap: 15px;">
+                <i class="mdi mdi-radio"></i> Quran Radio</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-top: 0.5vh;">Listen to Holy Quran Streams
+                Live</p>
+        </div>
+
+        <div class="geometric-divider">
+            <div class="line"></div>
+            <div class="center-icon"></div>
+            <div class="line"></div>
+        </div>
+
+        <div class="radio-container" id="radio-list">
+            <!-- Radio stations will be injected here by JavaScript -->
+        </div>
+
+    </div>
+
+    <script src="../js/radio.js"></script>
+</body>
+
+</html>

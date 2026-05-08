@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <script src="../js/config.js"></script>
+    <title>About Us</title>
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style-static.css">
+    <style>
+        html,
+        body {
+            overflow: hidden !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: stretch !important;
+        }
+
+        .scroll-content {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .about-section {
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        .about-section h2 {
+            color: var(--primary-green);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(3, 99, 53, 0.1);
+            padding-bottom: 8px;
+        }
+
+        .about-content {
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(3, 99, 53, 0.08);
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            color: var(--primary-gold);
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .feature-text h3 {
+            margin: 0 0 4px 0;
+            font-size: 1.05rem;
+            color: var(--primary-green);
+        }
+
+        .feature-text p {
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        .dark-mode .about-section h2 {
+            color: var(--primary-gold);
+            border-bottom-color: rgba(219, 141, 13, 0.2);
+        }
+
+        .dark-mode .feature-card {
+            background: rgba(3, 99, 53, 0.2);
+            border-color: rgba(219, 141, 13, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="page-header">
+            <h1 class="page-title" id="about-title"><i class="mdi mdi-information-outline"></i> About</h1>
+            <div class="header-actions">
+                <button class="btn-icon" id="theme-toggle-btn" title="Toggle Theme">
+                    <i class="mdi mdi-weather-night"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Islamic Geometric Divider -->
+        <div class="geometric-divider">
+            <div class="line"></div>
+            <div class="center-icon"></div>
+            <div class="line"></div>
+        </div>
+
+        <div class="scroll-content">
+            <div class="about-section">
+                <h2><i class="mdi mdi-history"></i> Our Story</h2>
+                <div class="about-content">
+                    <p id="about-description" style="margin-top: 0; margin-bottom: 0;"></p>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2><i class="mdi mdi-octagram"></i> What We Do</h2>
+                <div id="features-container">
+                    <!-- Features will be injected here -->
+                </div>
+            </div>
+
+        </div>
+
+        <div class="page-brand"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Load config from parent (PWA shell) or local script tag
+            const config = (window.parent && window.parent.APP_CONFIG) || (typeof APP_CONFIG !== 'undefined' ? APP_CONFIG : null);
+            if (!config) return;
+
+            const aboutTitle = document.getElementById('about-title');
+            if (aboutTitle) aboutTitle.innerHTML = `<i class="mdi mdi-information-outline"></i> About ${config.masjidName}`;
+
+            const aboutDesc = document.getElementById('about-description');
+            if (aboutDesc) {
+                const fallbackDescription = `Welcome to ${config.masjidName}. Our Masjid is a community-focused mosque dedicated to providing a peaceful place of worship, spiritual growth, and educational services for the local Muslim community. We strive to foster a welcoming environment for all and promote the values of Islam through positive engagement and community service.`;
+                
+                if (config.masjidDescription && config.masjidDescription.trim()) {
+                    // sanitizeHTML strips script/iframe/event-handler elements while keeping safe rich text
+                    aboutDesc.innerHTML = window.sanitizeHTML ? window.sanitizeHTML(config.masjidDescription) : config.masjidDescription;
+                } else {
+                    aboutDesc.textContent = fallbackDescription;
+                }
+            }
+
+            // Render Features
+            const featuresContainer = document.getElementById('features-container');
+            if (featuresContainer) {
+                if (config.masjidFeatures && config.masjidFeatures.length > 0) {
+                    const esc = window.escapeHTML || (s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'));
+                    const san = window.sanitizeHTML || (s => esc(s));
+                    featuresContainer.innerHTML = config.masjidFeatures.map(feature => `
+                        <div class="feature-card">
+                            <i class="mdi ${esc(feature.icon || '')} feature-icon"></i>
+                            <div class="feature-text">
+                                <h3>${esc(feature.title || '')}</h3>
+                                <p>${san(feature.description || '')}</p>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    const section = featuresContainer.closest('.about-section');
+                    if (section) section.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

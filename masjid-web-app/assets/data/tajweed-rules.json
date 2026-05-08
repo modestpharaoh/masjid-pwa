@@ -1,0 +1,197 @@
+[
+    {
+        "title": "Madd Laazim (Necessary)",
+        "arTitle": "المد اللازم",
+        "description": "A prolonged stretch of 6 counts. It occurs when a Madd letter is followed by a letter with a Shaddah or a Sukun in the same word.",
+        "arDescription": "تطويل الصوت بمقدار 6 حركات. يحدث عندما يلي حرف المد سكون أصلي أو شدّة في كلمة واحدة.",
+        "dotColor": "var(--madda-necessary-color)",
+        "examples": [
+            {
+                "arabic": "وَلَا ٱلضَّ<tajweed class=madda_necessary>آ</tajweed>لِّينَ",
+                "verse": "1:7"
+            }
+        ]
+    },
+    {
+        "title": "Madd Waajib (Obligatory)",
+        "arTitle": "المد الواجب المتصل",
+        "description": "A prolongation of 4-5 counts. This occurs when a Madd letter is followed by a Hamza (ء) within the same word.",
+        "arDescription": "تطويل الصوت بمقدار 4-5 حركات عند وجود الهمزة بعد حرف المد في كلمة واحدة.",
+        "dotColor": "var(--madda-obligatory-color)",
+        "examples": [
+            {
+                "arabic": "إِذَا جَ<tajweed class=madda_obligatory>آ</tajweed>ءَ نَصْرُ ٱللَّهِ",
+                "verse": "110:1"
+            }
+        ]
+    },
+    {
+        "title": "Madd Jaa'iz (Permissible)",
+        "arTitle": "المد الجائز المنفصل",
+        "description": "A prolongation of 2, 4, or 5 counts. This occurs when a Madd letter is at the end of a word and the next word begins with a Hamza (ء).",
+        "arDescription": "تطويل الصوت بمقدار 2 أو 4 أو 5 حركات عندما يكون حرف المد في آخر الكلمة والهمزة في أول الكلمة التي تليها.",
+        "dotColor": "var(--madda-permissible-color)",
+        "examples": [
+            {
+                "arabic": "لِإِيلَـٰفِ قُرَ<tajweed class=madda_permissible>ي</tajweed>شٍ",
+                "verse": "106:1"
+            }
+        ]
+    },
+    {
+        "title": "Madd Tabee'i (Normal)",
+        "arTitle": "المد الطبيعي",
+        "description": "The natural prolongation of 2 counts for the letters Alif, Waw, and Ya when they are not followed by a Hamza or a Sukun.",
+        "arDescription": "تطويل الحرف بمقدار حركتين (الألف، الواو، الياء) ما لم يتبعه همز أو سكون.",
+        "dotColor": "var(--madda-normal-color)",
+        "examples": [
+            {
+                "arabic": "فَٱلْمور<tajweed class=madda_normal>ِيَٰ</tajweed>تِ قَدْحًا",
+                "verse": "100:2"
+            }
+        ]
+    },
+    {
+        "title": "Ghunnah (Nasalization)",
+        "arTitle": "الغنة",
+        "description": "A deep nasal sound released through the nose for 2 counts on نّ or مّ.",
+        "arDescription": "صوت يخرج من الخيشوم بمقدار حركتين عند النطق بالنون أو الميم المشددتين.",
+        "dotColor": "var(--ghunnah-color)",
+        "examples": [
+            {
+                "arabic": "ثُ<tajweed class=ghunnah>مَّ</tajweed> لَتُسْـَٔلُ<tajweed class=ghunnah>نَّ</tajweed> يَوْمَئِذٍ عَنِ ٱل<tajweed class=ghunnah>نَّ</tajweed>عِيمِ",
+                "verse": "102:8"
+            }
+        ]
+    },
+    {
+        "title": "Idgham with Ghunnah",
+        "arTitle": "الإدغام بغنة",
+        "description": "Assimilation with Nasalization when Noon Saakinah (نْ) or Tanween is followed by the letters (و م ن ي).",
+        "arDescription": "دمج النون الساكنة أو التنوين في أحد حروف (ي ن م و) مع إصدار غنة.",
+        "dotColor": "var(--ghunnah-color)",
+        "examples": [
+            {
+                "arabic": "لَهَبٍ <tajweed class=idgham_with_ghunnah>وَ</tajweed>تَبَّ",
+                "verse": "111:1"
+            }
+        ]
+    },
+    {
+        "title": "Ikhfaa' (Hiding)",
+        "arTitle": "الإخفاء",
+        "description": "Intermediate pronunciation of silent Noon (نْ) or Tanween.",
+        "arDescription": "نطق النون الساكنة أو التنوين بحالة متوسطة بين الإظهار والإدغام عند ملاقاتها لحروف الإخفاء.",
+        "dotColor": "var(--ikhafa-color)",
+        "examples": [
+            {
+                "arabic": "مِ<tajweed class=ikhfa>ن ش</tajweed>َرِّ ٱلْوَسْوَاسِ",
+                "verse": "114:4"
+            }
+        ]
+    },
+    {
+        "title": "Ikhfaa' Shafawi",
+        "arTitle": "الإخفاء الشفوي",
+        "description": "Applies when a silent Meem (مْ) precedes the letter Ba (ب). It is pronounced with a light nasal sound (Ghunnah).",
+        "arDescription": "إخفاء الميم الساكنة مع الغنة إذا وقع بعدها حرف الباء.",
+        "dotColor": "var(--ikhafa-color)",
+        "examples": [
+            {
+                "arabic": "تَرْمِيه<tajweed class=ikhfa_shafawi>ِم ب</tajweed>ِحِجَارَةٍ",
+                "verse": "105:4"
+            }
+        ]
+    },
+    {
+        "title": "Qalqala (Echoing)",
+        "arTitle": "القلقلة",
+        "description": "Echoing sound made when letters (ق ط ب ج د) carry a Sukun.",
+        "arDescription": "اضطراب الصوت عند النطق بحروف (ق ط ب ج د) الساكنة حتى يسمع لها نبرة قوية.",
+        "dotColor": "var(--qalqalah-color)",
+        "examples": [
+            {
+                "arabic": "لَمْ يَلِ<tajweed class=qalaqah>دْ</tajweed> وَلَمْ يُولَ<tajweed class=qalaqah>دْ</tajweed>",
+                "verse": "112:3"
+            }
+        ]
+    },
+    {
+        "title": "Hamzat Al-Wasl",
+        "arTitle": "همزة الوصل",
+        "description": "Silent Hamza omitted when connecting from a previous word.",
+        "arDescription": "همزة تنطق في بداية الكلام وتسقط عند وصل الكلمات ببعضها.",
+        "dotColor": "var(--slnt-color)",
+        "examples": [
+            {
+                "arabic": "ٱلْحَمْدُ لِلَّهِ رَبِّ <tajweed class=ham_wasl>ٱ</tajweed>لْعَ<tajweed class=madda_normal>ـٰ</tajweed>لَم<tajweed class=madda_permissible>ِي</tajweed>نَ",
+                "verse": "1:2"
+            }
+        ]
+    },
+    {
+        "title": "Laam Al-Shamsiyyah",
+        "arTitle": "اللام الشمسية",
+        "description": "Laam Al-Shamsiyyah is a silent Laam in the definite article \"ال\" (Al-) when followed by any of the 14 Sun letters (ت, ث, د, ذ, ر, z, س, ش, ص, ض, ط, ظ, ل, ن). example: الشمس",
+        "arDescription": "لام التعريف التي تكتب ولا تنطق إذا تلاها أحد الحروف الشمسية ويكون الحرف بعدها مشدداً.",
+        "dotColor": "var(--slnt-color)",
+        "examples": [
+            {
+                "arabic": "<tajweed class=laam_shamsiyah>ٱل</tajweed>رَّحْمَ<tajweed class=madda_normal>ـٰ</tajweed>نِ <tajweed class=laam_shamsiyah>ٱل</tajweed>رَّحِيمِ",
+                "verse": "1:1"
+            }
+        ]
+    },
+    {
+        "title": "Alf Al-Jama'ah",
+        "arTitle": "ألف الجماعة",
+        "description": "Alf Al-Jama'ah is a silent Alif that is added to the end of a verb in the third person masculine plural form to indicate the plural subject.",
+        "arDescription": "ألف زائدة تكتب بعد واو الجماعة المتطرفة في الأفعال ولا تُنطق.",
+        "dotColor": "var(--slnt-color)",
+        "examples": [
+            {
+                "arabic": "فَلْيَعْبُدُ<tajweed class=silent>واْ</tajweed> رَبَّ هَ<tajweed class=madda_normal>ـٰ</tajweed>ذَا ٱلْبَيْتِ",
+                "verse": "106:3"
+            }
+        ]
+    },
+    {
+        "title": "Idgham without Ghunnah",
+        "arTitle": "الإدغام بغير غنة",
+        "description": "Any Noon (ن) or Tanween followed by the letters ل or ر is pronounced as a Laam or Raa without Ghunnah.",
+        "arDescription": "دمج النون الساكنة أو التنوين في حرفي (ل، ر) دمجاً كاملاً بدون غنة.",
+        "dotColor": "var(--slnt-color)",
+        "examples": [
+            {
+                "arabic": "وَلَمْ يَكُ<tajweed class=idgham_wo_ghunnah>ن ل</tajweed>َّهُۥ كُفُوًا أَحَدُۢ",
+                "verse": "112:4"
+            }
+        ]
+    },
+    {
+        "title": "Idgham Mutajanisayn",
+        "arTitle": "إدغام المتجانسين",
+        "description": "This is the merging of two “homogeneous” letters—letters that share the same articulation point (makhraj) but have different attributes (sifaat). The first letter (with a sukoon) is merged into the second (with a vowel).",
+        "arDescription": "دمج حرفين اتفقا في المخرج واختلفا في بعض الصفات.",
+        "dotColor": "var(--slnt-color)",
+        "examples": [
+            {
+                "arabic": "وَقَالَ<tajweed class=idgham_mutaqaribayn>ت</tajweed> طّ<tajweed class=madda_obligatory>َا</tajweed>ٓئِفَ<tajweed class=idgham_ghunnah>ةٌ</tajweed>",
+                "verse": "3:72"
+            }
+        ]
+    },
+    {
+        "title": "Idgham Mutaqaribayn",
+        "arTitle": "إدغام المتقاربين",
+        "description": "This is the merging of two “close” letters. These letters have articulation points (makhraj) and/or attributes (sifaat) that are very near to each other, but not identical.",
+        "arDescription": "دمج حرفين تقاربا في المخرج والصفة.",
+        "dotColor": "var(--slnt-color)",
+        "examples": [
+            {
+                "arabic": "قُ<tajweed class=idgham_mutaqaribayn>ل</tajweed> رَّبِّ",
+                "verse": "23:93"
+            }
+        ]
+    }
+]

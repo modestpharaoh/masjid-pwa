@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <polygon id="star-perimeter" points="
+      100,10 
+      126,36 
+      164,36 
+      164,74 
+      190,100 
+      164,126 
+      164,164 
+      126,164 
+      100,190 
+      74,164 
+      36,164 
+      36,126 
+      10,100 
+      36,74 
+      36,36 
+      74,36" />
+  </defs>
+  <!-- Core 8-pointed star without crossing internal lines -->
+  <g fill="none" stroke="#db8d0d" opacity="1">
+    <!-- Outer thick line following the perimeter -->
+    <use href="#star-perimeter" stroke-width="2.5" />
+    <!-- Inner thin line following the perimeter -->
+    <use href="#star-perimeter" stroke-width="1.2" transform="translate(100, 100) scale(0.85) translate(-100, -100)" />
+    <!-- Core 8-pointed star to replace circles (rotated 45deg) -->
+    <use href="#star-perimeter" stroke-width="2" transform="translate(100, 100) rotate(45) scale(0.3) translate(-100, -100)" />
+    <use href="#star-perimeter" fill="#db8d0d" stroke="none" transform="translate(100, 100) rotate(45) scale(0.12) translate(-100, -100)" />
+  </g>
+</svg>

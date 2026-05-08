@@ -1,0 +1,59 @@
+{
+    "fonts": [
+        {
+            "id": "uthmani",
+            "label": "Madinah (Digital Khatt)",
+            "apiScript": "uthmani",
+            "cssClass": "uthmani",
+            "fontFamily": "'Digital Khatt', 'Amiri Quran', serif",
+            "fontFaces": [
+                {
+                    "family": "Digital Khatt",
+                    "sources": [
+                        { "url": "../fonts/digital-khatt-v2.otf", "format": "opentype" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "uthmani_tajweed",
+            "label": "Tajweed (Colored)",
+            "apiScript": "uthmani_tajweed",
+            "cssClass": "uthmani_tajweed",
+            "fontFamily": "'Digital Khatt', 'Amiri Quran', serif",
+            "fontFaces": []
+        },
+        {
+            "id": "indopak",
+            "label": "IndoPak (PDMS Saleem)",
+            "apiScript": "indopak",
+            "cssClass": "indopak",
+            "fontFamily": "'IndoPak-Fam', 'Lateef', serif",
+            "fontFaces": [
+                {
+                    "family": "IndoPak-Fam",
+                    "sources": [
+                        { "url": "../fonts/pdms-saleem-indopak.otf", "format": "opentype" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "indopak_nastaleeq",
+            "label": "IndoPak (Nastaleeq)",
+            "apiScript": "indopak",
+            "cssClass": "indopak",
+            "fontFamily": "'IndoPak-Nastaleeq', 'Lateef', serif",
+            "fontFaces": [
+                {
+                    "family": "IndoPak-Nastaleeq",
+                    "sources": [
+                        { "url": "../fonts/indopak-nastaleeq.woff2", "format": "woff2" },
+                        { "url": "../fonts/indopak-nastaleeq.woff", "format": "woff" },
+                        { "url": "../fonts/indopak-nastaleeq.ttf", "format": "truetype" }
+                    ]
+                }
+            ]
+        }
+    ]
+}

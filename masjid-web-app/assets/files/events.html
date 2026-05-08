@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta charset="UTF-8">
+    <script src="../js/theme-init.js"></script>
+    <script src="../js/config.js"></script>
+    <title>Upcoming Events</title>
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style-static.css">
+    <style>
+        html,
+        body {
+            overflow: hidden !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: stretch !important;
+        }
+
+        .scroll-content {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container text-center">
+        <div class="page-header">
+            <h1 class="page-title"><i class="mdi mdi-calendar-text"></i> Events</h1>
+            <div class="header-actions">
+                <button class="btn-icon theme-toggle-btn" id="theme-toggle-btn" title="Toggle Theme">
+                    <i class="mdi mdi-weather-night"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Islamic Geometric Divider -->
+        <div class="geometric-divider">
+            <div class="line"></div>
+            <div class="center-icon"></div>
+            <div class="line"></div>
+        </div>
+
+        <div class="scroll-content">
+
+            <div id="events-status">
+                <div class="loader">
+                    <i class="mdi mdi-loading"></i>
+                    <span>Fetching latest events...</span>
+                </div>
+            </div>
+
+            <div id="upcoming-section" style="display: none;">
+                <h2 class="section-title"><i class="mdi mdi-calendar-star"></i> Upcoming Events</h2>
+                <div id="upcoming-list" class="events-container"></div>
+            </div>
+
+            <div id="past-section" style="display: none;">
+                <h2 class="section-title"><i class="mdi mdi-history"></i> Past Events</h2>
+                <div id="past-list" class="events-container"></div>
+            </div>
+
+        </div>
+
+        <div class="page-brand"></div>
+    </div>
+
+    <!-- No local script needed for branding, handled by theme-init.js -->
+
+    <!-- Modal Overlay -->
+    <div id="event-modal" class="modal-overlay" onclick="closeModal('event-modal', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('event-modal')"><i class="mdi mdi-close"></i></button>
+            <img id="modal-image" class="modal-image" src="" alt="Event Image" style="display: none;">
+            <div class="modal-body">
+                <div id="modal-meta" class="modal-meta">
+                    <!-- Meta info like date/time/venue will go here -->
+                </div>
+                <h1 id="modal-title" class="modal-title"></h1>
+                <div id="modal-description" class="modal-description"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/events.js"></script>
+</body>
+
+</html>

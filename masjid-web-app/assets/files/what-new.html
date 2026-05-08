@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta charset="UTF-8">
+    <title>What's New</title>
+    <script src="../js/theme-init.js"></script>
+    <link rel="stylesheet" href="../css/materialdesignicons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --wn-bg: #f8fafc;
+            --wn-text: #1e293b;
+            --wn-text-soft: #64748b;
+            --wn-card-bg: #ffffff;
+            --wn-card-border: rgba(16, 185, 129, 0.12);
+            --wn-card-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            --wn-card-shadow-hover: 0 6px 20px rgba(16, 185, 129, 0.12);
+            --wn-header-title: #064e3b;
+            --wn-tip: #94a3b8;
+        }
+
+        :root.dark-mode {
+            --wn-bg: #07110d;
+            --wn-text: #e2e8f0;
+            --wn-text-soft: #9ca3af;
+            --wn-card-bg: #0e1b16;
+            --wn-card-border: rgba(219, 141, 13, 0.25);
+            --wn-card-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+            --wn-card-shadow-hover: 0 8px 24px rgba(219, 141, 13, 0.2);
+            --wn-header-title: #db8d0d;
+            --wn-tip: #94a3b8;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--wn-bg);
+            color: var(--wn-text);
+            padding: 30px 20px calc(40px + env(safe-area-inset-bottom));
+            max-width: 480px;
+            margin: 0 auto;
+            overflow-y: auto;
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Hide scrollbars (WebKit) while preserving scroll behavior */
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            width: 0px;
+            height: 0px;
+            background: transparent;
+        }
+
+        .wn-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .wn-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .wn-header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--wn-header-title);
+            margin-bottom: 6px;
+        }
+
+        .wn-header p {
+            font-size: 0.85rem;
+            color: var(--wn-text-soft);
+            line-height: 1.5;
+        }
+
+        .wn-card {
+            background: var(--wn-card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid var(--wn-card-border);
+            box-shadow: var(--wn-card-shadow);
+            transition: transform 0.2s;
+        }
+
+        .wn-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--wn-card-shadow-hover);
+        }
+
+        .wn-card-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .wn-icon-box {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .wn-icon-quran {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .wn-icon-azkar {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        .wn-icon-tasbih {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .wn-icon-qiblah {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        .wn-icon-notifications {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+        }
+
+        .wn-icon-chatbot {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+        }
+
+        .wn-card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--wn-text);
+        }
+
+        .wn-card-subtitle {
+            font-size: 0.75rem;
+            color: #10b981;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .wn-card-body {
+            font-size: 0.85rem;
+            color: var(--wn-text-soft);
+            line-height: 1.65;
+            margin-bottom: 14px;
+        }
+
+        .wn-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .wn-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 8px;
+            background: rgba(16, 185, 129, 0.08);
+            color: #059669;
+        }
+
+        .wn-tag.blue {
+            background: rgba(59, 130, 246, 0.08);
+            color: #2563eb;
+        }
+
+        .wn-tag.amber {
+            background: rgba(245, 158, 11, 0.08);
+            color: #d97706;
+        }
+
+        .wn-tag.indigo {
+            background: rgba(99, 102, 241, 0.08);
+            color: #4f46e5;
+        }
+
+        .wn-tag.pink {
+            background: rgba(244, 63, 94, 0.08);
+            color: #e11d48;
+        }
+
+        .wn-tip {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.78rem;
+            color: var(--wn-tip);
+        }
+
+        .wn-tip i {
+            color: #DB8D0D;
+            margin-right: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wn-header">
+        <span class="wn-badge">Version 6.5</span>
+        <h1>What's New ✨</h1>
+        <p>Your Masjid App just got a major upgrade with powerful new Islamic tools!</p>
+    </div>
+
+    <!-- Masjid AI Assistant -->
+    <div class="wn-card">
+        <div class="wn-card-head">
+            <div class="wn-icon-box wn-icon-chatbot">
+                <i class="mdi mdi-robot-outline"></i>
+            </div>
+            <div>
+                <div class="wn-card-title">Masjid AI Assistant (Beta)</div>
+                <div class="wn-card-subtitle">Intelligent Chatbot Integration</div>
+            </div>
+        </div>
+        <div class="wn-card-body">
+            Meet our new AI-powered companion, specifically trained on Masjid services and Islamic knowledge. Ask about prayer times, upcoming mosque events, recent news, or even Tajweed rules for Quran recitation. The assistant can also guide you to other local masjids across Dublin and provide direct links to their schedules.
+        </div>
+        <div class="wn-tags">
+            <span class="wn-tag pink">Masjid Context Aware</span>
+            <span class="wn-tag pink">Prayer Time Intelligence</span>
+            <span class="wn-tag pink">Tajweed Guide</span>
+            <span class="wn-tag pink">Local Masjid Directory</span>
+        </div>
+    </div>
+
+    <!-- Quran Reader -->
+    <div class="wn-card">
+        <div class="wn-card-head">
+            <div class="wn-icon-box wn-icon-quran">
+                <i class="mdi mdi-book-open-page-variant"></i>
+            </div>
+            <div>
+                <div class="wn-card-title">Quran Reader</div>
+                <div class="wn-card-subtitle">Complete Mushaf Experience</div>
+            </div>
+        </div>
+        <div class="wn-card-body">
+            Read the Holy Quran with beautiful Madinah, color&#8209;coded Tajweed, or IndoPak scripts. Listen to
+            recitations from multiple reciters with gapless playback, adjustable speed, and verse&#8209;by&#8209;verse
+            repeat — perfect for memorization. Bookmark your progress, explore multiple translations, and look up Tafsir
+            — all in one place. Enjoy enhanced offline management with smart caching for recitations, translations, and
+            tafsirs, ensuring seamless access even without internet connection.
+        </div>
+        <div class="wn-tags">
+            <span class="wn-tag">Multiple Reciters</span>
+            <span class="wn-tag">Tajweed Colors</span>
+            <span class="wn-tag">Bookmarks</span>
+            <span class="wn-tag">Tafsir</span>
+            <span class="wn-tag">Translations</span>
+            <span class="wn-tag" style="background: rgba(16, 185, 129, 0.08); color: #059669;">Offline Access</span>
+            <span class="wn-tag" style="background: rgba(16, 185, 129, 0.08); color: #059669;">Smart Caching</span>
+        </div>
+    </div>
+
+    <!-- Prayer Notifications -->
+    <div class="wn-card">
+        <div class="wn-card-head">
+            <div class="wn-icon-box wn-icon-notifications">
+                <i class="mdi mdi-bell-ring-outline"></i>
+            </div>
+            <div>
+                <div class="wn-card-title">Prayer Notifications</div>
+                <div class="wn-card-subtitle">Browser &amp; Mobile Alerts</div>
+            </div>
+        </div>
+        <div class="wn-card-body">
+            Stay connected with timely alerts for all five daily prayers. Users
+            can enable custom browser alerts and choose between full Azan or a gentle beep for each prayer.
+        </div>
+        <div class="wn-tags">
+            <span class="wn-tag indigo">Azan Notifications</span>
+            <span class="wn-tag indigo">Beep Notifications</span>
+            <span class="wn-tag indigo">Customizable Sounds</span>
+        </div>
+    </div>
+
+    <!-- Azkar -->
+    <div class="wn-card">
+        <div class="wn-card-head">
+            <div class="wn-icon-box wn-icon-azkar">
+                <i class="mdi mdi-hands-pray"></i>
+            </div>
+            <div>
+                <div class="wn-card-title">Azkar</div>
+                <div class="wn-card-subtitle">Daily Remembrances</div>
+            </div>
+        </div>
+        <div class="wn-card-body">
+            Browse curated Morning, Evening, and other Azkar categories with Arabic text, English translations, and
+            transliterations. Built&#8209;in counters track your progress toward the recommended repetition counts with
+            satisfying vibration feedback.
+        </div>
+        <div class="wn-tags">
+            <span class="wn-tag blue">Morning &amp; Evening</span>
+            <span class="wn-tag blue">Counter Tracking</span>
+            <span class="wn-tag blue">Transliteration</span>
+        </div>
+    </div>
+
+    <!-- Tasbih -->
+    <div class="wn-card">
+        <div class="wn-card-head">
+            <div class="wn-icon-box wn-icon-tasbih">
+                <i class="mdi mdi-counter"></i>
+            </div>
+            <div>
+                <div class="wn-card-title">Digital Tasbih</div>
+                <div class="wn-card-subtitle">Dhikr Counter</div>
+            </div>
+        </div>
+        <div class="wn-card-body">
+            A beautiful, responsive tasbih counter with six preset adhkar — SubhanAllah, Alhamdulillah, Allahu Akbar,
+            and more. Tap to count with a visual progress ring, haptic feedback, and daily statistics to track your
+            remembrance journey.
+        </div>
+        <div class="wn-tags">
+            <span class="wn-tag amber">Progress Ring</span>
+            <span class="wn-tag amber">Daily Stats</span>
+            <span class="wn-tag amber">Haptic Feedback</span>
+        </div>
+    </div>
+
+    <!-- Qiblah -->
+    <div class="wn-card">
+        <div class="wn-card-head">
+            <div class="wn-icon-box wn-icon-qiblah">
+                <i class="mdi mdi-compass"></i>
+            </div>
+            <div>
+                <div class="wn-card-title">Live Qiblah Finder</div>
+                <div class="wn-card-subtitle">Dynamic Bearing Detection</div>
+            </div>
+        </div>
+        <div class="wn-card-body">
+            Find the Qiblah accurately from anywhere in the world. Use your device's GPS and sensors for a live compass
+            experience, or rely on our built&#8209;in IP&#8209;based estimation for a quick check. The app automatically
+            calculates the precise bearing to Makkah based on your current location.
+        </div>
+        <div class="wn-tags">
+            <span class="wn-tag" style="background: rgba(139, 92, 246, 0.08); color: #7c3aed;">Live Compass</span>
+            <span class="wn-tag" style="background: rgba(139, 92, 246, 0.08); color: #7c3aed;">GPS Support</span>
+            <span class="wn-tag" style="background: rgba(139, 92, 246, 0.08); color: #7c3aed;">IP Fallback</span>
+        </div>
+    </div>
+
+    <div class="wn-tip">
+        <i class="mdi mdi-menu"></i> Open the side menu to explore these features
+    </div>
+
+</body>
+
+</html>

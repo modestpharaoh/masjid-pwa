@@ -1,0 +1,3989 @@
+{
+    "juzs": [
+        {
+            "id": 61,
+            "juz_number": 1,
+            "verse_mapping": {
+                "1": "1-7",
+                "2": "1-141"
+            },
+            "first_verse_id": 1,
+            "last_verse_id": 148,
+            "verses_count": 148
+        },
+        {
+            "id": 1,
+            "juz_number": 1,
+            "verse_mapping": {
+                "1": "1-7",
+                "2": "1-141"
+            },
+            "first_verse_id": 1,
+            "last_verse_id": 148,
+            "verses_count": 148
+        },
+        {
+            "id": 62,
+            "juz_number": 2,
+            "verse_mapping": {
+                "2": "142-252"
+            },
+            "first_verse_id": 149,
+            "last_verse_id": 259,
+            "verses_count": 111
+        },
+        {
+            "id": 2,
+            "juz_number": 2,
+            "verse_mapping": {
+                "2": "142-252"
+            },
+            "first_verse_id": 149,
+            "last_verse_id": 259,
+            "verses_count": 111
+        },
+        {
+            "id": 3,
+            "juz_number": 3,
+            "verse_mapping": {
+                "2": "253-286",
+                "3": "1-92"
+            },
+            "first_verse_id": 260,
+            "last_verse_id": 385,
+            "verses_count": 126
+        },
+        {
+            "id": 63,
+            "juz_number": 3,
+            "verse_mapping": {
+                "2": "253-286",
+                "3": "1-92"
+            },
+            "first_verse_id": 260,
+            "last_verse_id": 385,
+            "verses_count": 126
+        },
+        {
+            "id": 64,
+            "juz_number": 4,
+            "verse_mapping": {
+                "3": "93-200",
+                "4": "1-23"
+            },
+            "first_verse_id": 386,
+            "last_verse_id": 516,
+            "verses_count": 131
+        },
+        {
+            "id": 4,
+            "juz_number": 4,
+            "verse_mapping": {
+                "3": "93-200",
+                "4": "1-23"
+            },
+            "first_verse_id": 386,
+            "last_verse_id": 516,
+            "verses_count": 131
+        },
+        {
+            "id": 65,
+            "juz_number": 5,
+            "verse_mapping": {
+                "4": "24-147"
+            },
+            "first_verse_id": 517,
+            "last_verse_id": 640,
+            "verses_count": 124
+        },
+        {
+            "id": 5,
+            "juz_number": 5,
+            "verse_mapping": {
+                "4": "24-147"
+            },
+            "first_verse_id": 517,
+            "last_verse_id": 640,
+            "verses_count": 124
+        },
+        {
+            "id": 6,
+            "juz_number": 6,
+            "verse_mapping": {
+                "4": "148-176",
+                "5": "1-81"
+            },
+            "first_verse_id": 641,
+            "last_verse_id": 750,
+            "verses_count": 110
+        },
+        {
+            "id": 66,
+            "juz_number": 6,
+            "verse_mapping": {
+                "4": "148-176",
+                "5": "1-81"
+            },
+            "first_verse_id": 641,
+            "last_verse_id": 750,
+            "verses_count": 110
+        },
+        {
+            "id": 67,
+            "juz_number": 7,
+            "verse_mapping": {
+                "5": "82-120",
+                "6": "1-110"
+            },
+            "first_verse_id": 751,
+            "last_verse_id": 899,
+            "verses_count": 149
+        },
+        {
+            "id": 7,
+            "juz_number": 7,
+            "verse_mapping": {
+                "5": "82-120",
+                "6": "1-110"
+            },
+            "first_verse_id": 751,
+            "last_verse_id": 899,
+            "verses_count": 149
+        },
+        {
+            "id": 8,
+            "juz_number": 8,
+            "verse_mapping": {
+                "6": "111-165",
+                "7": "1-87"
+            },
+            "first_verse_id": 900,
+            "last_verse_id": 1041,
+            "verses_count": 142
+        },
+        {
+            "id": 68,
+            "juz_number": 8,
+            "verse_mapping": {
+                "6": "111-165",
+                "7": "1-87"
+            },
+            "first_verse_id": 900,
+            "last_verse_id": 1041,
+            "verses_count": 142
+        },
+        {
+            "id": 69,
+            "juz_number": 9,
+            "verse_mapping": {
+                "7": "88-206",
+                "8": "1-40"
+            },
+            "first_verse_id": 1042,
+            "last_verse_id": 1200,
+            "verses_count": 159
+        },
+        {
+            "id": 9,
+            "juz_number": 9,
+            "verse_mapping": {
+                "7": "88-206",
+                "8": "1-40"
+            },
+            "first_verse_id": 1042,
+            "last_verse_id": 1200,
+            "verses_count": 159
+        },
+        {
+            "id": 10,
+            "juz_number": 10,
+            "verse_mapping": {
+                "8": "41-75",
+                "9": "1-92"
+            },
+            "first_verse_id": 1201,
+            "last_verse_id": 1327,
+            "verses_count": 127
+        },
+        {
+            "id": 70,
+            "juz_number": 10,
+            "verse_mapping": {
+                "8": "41-75",
+                "9": "1-92"
+            },
+            "first_verse_id": 1201,
+            "last_verse_id": 1327,
+            "verses_count": 127
+        },
+        {
+            "id": 71,
+            "juz_number": 11,
+            "verse_mapping": {
+                "9": "93-129",
+                "10": "1-109",
+                "11": "1-5"
+            },
+            "first_verse_id": 1328,
+            "last_verse_id": 1478,
+            "verses_count": 151
+        },
+        {
+            "id": 11,
+            "juz_number": 11,
+            "verse_mapping": {
+                "9": "93-129",
+                "10": "1-109",
+                "11": "1-5"
+            },
+            "first_verse_id": 1328,
+            "last_verse_id": 1478,
+            "verses_count": 151
+        },
+        {
+            "id": 12,
+            "juz_number": 12,
+            "verse_mapping": {
+                "11": "6-123",
+                "12": "1-52"
+            },
+            "first_verse_id": 1479,
+            "last_verse_id": 1648,
+            "verses_count": 170
+        },
+        {
+            "id": 72,
+            "juz_number": 12,
+            "verse_mapping": {
+                "11": "6-123",
+                "12": "1-52"
+            },
+            "first_verse_id": 1479,
+            "last_verse_id": 1648,
+            "verses_count": 170
+        },
+        {
+            "id": 73,
+            "juz_number": 13,
+            "verse_mapping": {
+                "12": "53-111",
+                "13": "1-43",
+                "14": "1-52"
+            },
+            "first_verse_id": 1649,
+            "last_verse_id": 1802,
+            "verses_count": 154
+        },
+        {
+            "id": 13,
+            "juz_number": 13,
+            "verse_mapping": {
+                "12": "53-111",
+                "13": "1-43",
+                "14": "1-52"
+            },
+            "first_verse_id": 1649,
+            "last_verse_id": 1802,
+            "verses_count": 154
+        },
+        {
+            "id": 14,
+            "juz_number": 14,
+            "verse_mapping": {
+                "15": "1-99",
+                "16": "1-128"
+            },
+            "first_verse_id": 1803,
+            "last_verse_id": 2029,
+            "verses_count": 227
+        },
+        {
+            "id": 74,
+            "juz_number": 14,
+            "verse_mapping": {
+                "15": "1-99",
+                "16": "1-128"
+            },
+            "first_verse_id": 1803,
+            "last_verse_id": 2029,
+            "verses_count": 227
+        },
+        {
+            "id": 75,
+            "juz_number": 15,
+            "verse_mapping": {
+                "17": "1-111",
+                "18": "1-74"
+            },
+            "first_verse_id": 2030,
+            "last_verse_id": 2214,
+            "verses_count": 185
+        },
+        {
+            "id": 15,
+            "juz_number": 15,
+            "verse_mapping": {
+                "17": "1-111",
+                "18": "1-74"
+            },
+            "first_verse_id": 2030,
+            "last_verse_id": 2214,
+            "verses_count": 185
+        },
+        {
+            "id": 76,
+            "juz_number": 16,
+            "verse_mapping": {
+                "18": "75-110",
+                "19": "1-98",
+                "20": "1-135"
+            },
+            "first_verse_id": 2215,
+            "last_verse_id": 2483,
+            "verses_count": 269
+        },
+        {
+            "id": 16,
+            "juz_number": 16,
+            "verse_mapping": {
+                "18": "75-110",
+                "19": "1-98",
+                "20": "1-135"
+            },
+            "first_verse_id": 2215,
+            "last_verse_id": 2483,
+            "verses_count": 269
+        },
+        {
+            "id": 17,
+            "juz_number": 17,
+            "verse_mapping": {
+                "21": "1-112",
+                "22": "1-78"
+            },
+            "first_verse_id": 2484,
+            "last_verse_id": 2673,
+            "verses_count": 190
+        },
+        {
+            "id": 77,
+            "juz_number": 17,
+            "verse_mapping": {
+                "21": "1-112",
+                "22": "1-78"
+            },
+            "first_verse_id": 2484,
+            "last_verse_id": 2673,
+            "verses_count": 190
+        },
+        {
+            "id": 78,
+            "juz_number": 18,
+            "verse_mapping": {
+                "23": "1-118",
+                "24": "1-64",
+                "25": "1-20"
+            },
+            "first_verse_id": 2674,
+            "last_verse_id": 2875,
+            "verses_count": 202
+        },
+        {
+            "id": 18,
+            "juz_number": 18,
+            "verse_mapping": {
+                "23": "1-118",
+                "24": "1-64",
+                "25": "1-20"
+            },
+            "first_verse_id": 2674,
+            "last_verse_id": 2875,
+            "verses_count": 202
+        },
+        {
+            "id": 19,
+            "juz_number": 19,
+            "verse_mapping": {
+                "25": "21-77",
+                "26": "1-227",
+                "27": "1-55"
+            },
+            "first_verse_id": 2876,
+            "last_verse_id": 3214,
+            "verses_count": 339
+        },
+        {
+            "id": 79,
+            "juz_number": 19,
+            "verse_mapping": {
+                "25": "21-77",
+                "26": "1-227",
+                "27": "1-55"
+            },
+            "first_verse_id": 2876,
+            "last_verse_id": 3214,
+            "verses_count": 339
+        },
+        {
+            "id": 80,
+            "juz_number": 20,
+            "verse_mapping": {
+                "27": "56-93",
+                "28": "1-88",
+                "29": "1-45"
+            },
+            "first_verse_id": 3215,
+            "last_verse_id": 3385,
+            "verses_count": 171
+        },
+        {
+            "id": 20,
+            "juz_number": 20,
+            "verse_mapping": {
+                "27": "56-93",
+                "28": "1-88",
+                "29": "1-45"
+            },
+            "first_verse_id": 3215,
+            "last_verse_id": 3385,
+            "verses_count": 171
+        },
+        {
+            "id": 21,
+            "juz_number": 21,
+            "verse_mapping": {
+                "29": "46-69",
+                "30": "1-60",
+                "31": "1-34",
+                "32": "1-30",
+                "33": "1-30"
+            },
+            "first_verse_id": 3386,
+            "last_verse_id": 3563,
+            "verses_count": 178
+        },
+        {
+            "id": 81,
+            "juz_number": 21,
+            "verse_mapping": {
+                "29": "46-69",
+                "30": "1-60",
+                "31": "1-34",
+                "32": "1-30",
+                "33": "1-30"
+            },
+            "first_verse_id": 3386,
+            "last_verse_id": 3563,
+            "verses_count": 178
+        },
+        {
+            "id": 22,
+            "juz_number": 22,
+            "verse_mapping": {
+                "33": "31-73",
+                "34": "1-54",
+                "35": "1-45",
+                "36": "1-27"
+            },
+            "first_verse_id": 3564,
+            "last_verse_id": 3732,
+            "verses_count": 169
+        },
+        {
+            "id": 82,
+            "juz_number": 22,
+            "verse_mapping": {
+                "33": "31-73",
+                "34": "1-54",
+                "35": "1-45",
+                "36": "1-27"
+            },
+            "first_verse_id": 3564,
+            "last_verse_id": 3732,
+            "verses_count": 169
+        },
+        {
+            "id": 83,
+            "juz_number": 23,
+            "verse_mapping": {
+                "36": "28-83",
+                "37": "1-182",
+                "38": "1-88",
+                "39": "1-31"
+            },
+            "first_verse_id": 3733,
+            "last_verse_id": 4089,
+            "verses_count": 357
+        },
+        {
+            "id": 23,
+            "juz_number": 23,
+            "verse_mapping": {
+                "36": "28-83",
+                "37": "1-182",
+                "38": "1-88",
+                "39": "1-31"
+            },
+            "first_verse_id": 3733,
+            "last_verse_id": 4089,
+            "verses_count": 357
+        },
+        {
+            "id": 24,
+            "juz_number": 24,
+            "verse_mapping": {
+                "39": "32-75",
+                "40": "1-85",
+                "41": "1-46"
+            },
+            "first_verse_id": 4090,
+            "last_verse_id": 4264,
+            "verses_count": 175
+        },
+        {
+            "id": 84,
+            "juz_number": 24,
+            "verse_mapping": {
+                "39": "32-75",
+                "40": "1-85",
+                "41": "1-46"
+            },
+            "first_verse_id": 4090,
+            "last_verse_id": 4264,
+            "verses_count": 175
+        },
+        {
+            "id": 25,
+            "juz_number": 25,
+            "verse_mapping": {
+                "41": "47-54",
+                "42": "1-53",
+                "43": "1-89",
+                "44": "1-59",
+                "45": "1-37"
+            },
+            "first_verse_id": 4265,
+            "last_verse_id": 4510,
+            "verses_count": 246
+        },
+        {
+            "id": 85,
+            "juz_number": 25,
+            "verse_mapping": {
+                "41": "47-54",
+                "42": "1-53",
+                "43": "1-89",
+                "44": "1-59",
+                "45": "1-37"
+            },
+            "first_verse_id": 4265,
+            "last_verse_id": 4510,
+            "verses_count": 246
+        },
+        {
+            "id": 86,
+            "juz_number": 26,
+            "verse_mapping": {
+                "46": "1-35",
+                "47": "1-38",
+                "48": "1-29",
+                "49": "1-18",
+                "50": "1-45",
+                "51": "1-30"
+            },
+            "first_verse_id": 4511,
+            "last_verse_id": 4705,
+            "verses_count": 195
+        },
+        {
+            "id": 26,
+            "juz_number": 26,
+            "verse_mapping": {
+                "46": "1-35",
+                "47": "1-38",
+                "48": "1-29",
+                "49": "1-18",
+                "50": "1-45",
+                "51": "1-30"
+            },
+            "first_verse_id": 4511,
+            "last_verse_id": 4705,
+            "verses_count": 195
+        },
+        {
+            "id": 27,
+            "juz_number": 27,
+            "verse_mapping": {
+                "51": "31-60",
+                "52": "1-49",
+                "53": "1-62",
+                "54": "1-55",
+                "55": "1-78",
+                "56": "1-96",
+                "57": "1-29"
+            },
+            "first_verse_id": 4706,
+            "last_verse_id": 5104,
+            "verses_count": 399
+        },
+        {
+            "id": 87,
+            "juz_number": 27,
+            "verse_mapping": {
+                "51": "31-60",
+                "52": "1-49",
+                "53": "1-62",
+                "54": "1-55",
+                "55": "1-78",
+                "56": "1-96",
+                "57": "1-29"
+            },
+            "first_verse_id": 4706,
+            "last_verse_id": 5104,
+            "verses_count": 399
+        },
+        {
+            "id": 88,
+            "juz_number": 28,
+            "verse_mapping": {
+                "58": "1-22",
+                "59": "1-24",
+                "60": "1-13",
+                "61": "1-14",
+                "62": "1-11",
+                "63": "1-11",
+                "64": "1-18",
+                "65": "1-12",
+                "66": "1-12"
+            },
+            "first_verse_id": 5105,
+            "last_verse_id": 5241,
+            "verses_count": 137
+        },
+        {
+            "id": 28,
+            "juz_number": 28,
+            "verse_mapping": {
+                "58": "1-22",
+                "59": "1-24",
+                "60": "1-13",
+                "61": "1-14",
+                "62": "1-11",
+                "63": "1-11",
+                "64": "1-18",
+                "65": "1-12",
+                "66": "1-12"
+            },
+            "first_verse_id": 5105,
+            "last_verse_id": 5241,
+            "verses_count": 137
+        },
+        {
+            "id": 29,
+            "juz_number": 29,
+            "verse_mapping": {
+                "67": "1-30",
+                "68": "1-52",
+                "69": "1-52",
+                "70": "1-44",
+                "71": "1-28",
+                "72": "1-28",
+                "73": "1-20",
+                "74": "1-56",
+                "75": "1-40",
+                "76": "1-31",
+                "77": "1-50"
+            },
+            "first_verse_id": 5242,
+            "last_verse_id": 5672,
+            "verses_count": 431
+        },
+        {
+            "id": 89,
+            "juz_number": 29,
+            "verse_mapping": {
+                "67": "1-30",
+                "68": "1-52",
+                "69": "1-52",
+                "70": "1-44",
+                "71": "1-28",
+                "72": "1-28",
+                "73": "1-20",
+                "74": "1-56",
+                "75": "1-40",
+                "76": "1-31",
+                "77": "1-50"
+            },
+            "first_verse_id": 5242,
+            "last_verse_id": 5672,
+            "verses_count": 431
+        },
+        {
+            "id": 30,
+            "juz_number": 30,
+            "verse_mapping": {
+                "78": "1-40",
+                "79": "1-46",
+                "80": "1-42",
+                "81": "1-29",
+                "82": "1-19",
+                "83": "1-36",
+                "84": "1-25",
+                "85": "1-22",
+                "86": "1-17",
+                "87": "1-19",
+                "88": "1-26",
+                "89": "1-30",
+                "90": "1-20",
+                "91": "1-15",
+                "92": "1-21",
+                "93": "1-11",
+                "94": "1-8",
+                "95": "1-8",
+                "96": "1-19",
+                "97": "1-5",
+                "98": "1-8",
+                "99": "1-8",
+                "100": "1-11",
+                "101": "1-11",
+                "102": "1-8",
+                "103": "1-3",
+                "104": "1-9",
+                "105": "1-5",
+                "106": "1-4",
+                "107": "1-7",
+                "108": "1-3",
+                "109": "1-6",
+                "110": "1-3",
+                "111": "1-5",
+                "112": "1-4",
+                "113": "1-5",
+                "114": "1-6"
+            },
+            "first_verse_id": 5673,
+            "last_verse_id": 6236,
+            "verses_count": 564
+        },
+        {
+            "id": 90,
+            "juz_number": 30,
+            "verse_mapping": {
+                "78": "1-40",
+                "79": "1-46",
+                "80": "1-42",
+                "81": "1-29",
+                "82": "1-19",
+                "83": "1-36",
+                "84": "1-25",
+                "85": "1-22",
+                "86": "1-17",
+                "87": "1-19",
+                "88": "1-26",
+                "89": "1-30",
+                "90": "1-20",
+                "91": "1-15",
+                "92": "1-21",
+                "93": "1-11",
+                "94": "1-8",
+                "95": "1-8",
+                "96": "1-19",
+                "97": "1-5",
+                "98": "1-8",
+                "99": "1-8",
+                "100": "1-11",
+                "101": "1-11",
+                "102": "1-8",
+                "103": "1-3",
+                "104": "1-9",
+                "105": "1-5",
+                "106": "1-4",
+                "107": "1-7",
+                "108": "1-3",
+                "109": "1-6",
+                "110": "1-3",
+                "111": "1-5",
+                "112": "1-4",
+                "113": "1-5",
+                "114": "1-6"
+            },
+            "first_verse_id": 5673,
+            "last_verse_id": 6236,
+            "verses_count": 564
+        }
+    ],
+    "hizbs": [
+        {
+            "id": 1,
+            "hizb_number": 1,
+            "verse_mapping": {
+                "1": "1-7",
+                "2": "1-74"
+            },
+            "first_verse_id": 1,
+            "last_verse_id": 81,
+            "verses_count": 81
+        },
+        {
+            "id": 2,
+            "hizb_number": 2,
+            "verse_mapping": {
+                "2": "75-141"
+            },
+            "first_verse_id": 82,
+            "last_verse_id": 148,
+            "verses_count": 67
+        },
+        {
+            "id": 3,
+            "hizb_number": 3,
+            "verse_mapping": {
+                "2": "142-202"
+            },
+            "first_verse_id": 149,
+            "last_verse_id": 209,
+            "verses_count": 61
+        },
+        {
+            "id": 4,
+            "hizb_number": 4,
+            "verse_mapping": {
+                "2": "203-252"
+            },
+            "first_verse_id": 210,
+            "last_verse_id": 259,
+            "verses_count": 50
+        },
+        {
+            "id": 5,
+            "hizb_number": 5,
+            "verse_mapping": {
+                "2": "253-286",
+                "3": "1-14"
+            },
+            "first_verse_id": 260,
+            "last_verse_id": 307,
+            "verses_count": 48
+        },
+        {
+            "id": 6,
+            "hizb_number": 6,
+            "verse_mapping": {
+                "3": "15-92"
+            },
+            "first_verse_id": 308,
+            "last_verse_id": 385,
+            "verses_count": 78
+        },
+        {
+            "id": 7,
+            "hizb_number": 7,
+            "verse_mapping": {
+                "3": "93-170"
+            },
+            "first_verse_id": 386,
+            "last_verse_id": 463,
+            "verses_count": 78
+        },
+        {
+            "id": 8,
+            "hizb_number": 8,
+            "verse_mapping": {
+                "3": "171-200",
+                "4": "1-23"
+            },
+            "first_verse_id": 464,
+            "last_verse_id": 516,
+            "verses_count": 53
+        },
+        {
+            "id": 9,
+            "hizb_number": 9,
+            "verse_mapping": {
+                "4": "24-87"
+            },
+            "first_verse_id": 517,
+            "last_verse_id": 580,
+            "verses_count": 64
+        },
+        {
+            "id": 10,
+            "hizb_number": 10,
+            "verse_mapping": {
+                "4": "88-147"
+            },
+            "first_verse_id": 581,
+            "last_verse_id": 640,
+            "verses_count": 60
+        },
+        {
+            "id": 11,
+            "hizb_number": 11,
+            "verse_mapping": {
+                "4": "148-176",
+                "5": "1-26"
+            },
+            "first_verse_id": 641,
+            "last_verse_id": 695,
+            "verses_count": 55
+        },
+        {
+            "id": 12,
+            "hizb_number": 12,
+            "verse_mapping": {
+                "5": "27-81"
+            },
+            "first_verse_id": 696,
+            "last_verse_id": 750,
+            "verses_count": 55
+        },
+        {
+            "id": 13,
+            "hizb_number": 13,
+            "verse_mapping": {
+                "5": "82-120",
+                "6": "1-35"
+            },
+            "first_verse_id": 751,
+            "last_verse_id": 824,
+            "verses_count": 74
+        },
+        {
+            "id": 14,
+            "hizb_number": 14,
+            "verse_mapping": {
+                "6": "36-110"
+            },
+            "first_verse_id": 825,
+            "last_verse_id": 899,
+            "verses_count": 75
+        },
+        {
+            "id": 15,
+            "hizb_number": 15,
+            "verse_mapping": {
+                "6": "111-165"
+            },
+            "first_verse_id": 900,
+            "last_verse_id": 954,
+            "verses_count": 55
+        },
+        {
+            "id": 16,
+            "hizb_number": 16,
+            "verse_mapping": {
+                "7": "1-87"
+            },
+            "first_verse_id": 955,
+            "last_verse_id": 1041,
+            "verses_count": 87
+        },
+        {
+            "id": 17,
+            "hizb_number": 17,
+            "verse_mapping": {
+                "7": "88-170"
+            },
+            "first_verse_id": 1042,
+            "last_verse_id": 1124,
+            "verses_count": 83
+        },
+        {
+            "id": 18,
+            "hizb_number": 18,
+            "verse_mapping": {
+                "7": "171-206",
+                "8": "1-40"
+            },
+            "first_verse_id": 1125,
+            "last_verse_id": 1200,
+            "verses_count": 76
+        },
+        {
+            "id": 19,
+            "hizb_number": 19,
+            "verse_mapping": {
+                "8": "41-75",
+                "9": "1-33"
+            },
+            "first_verse_id": 1201,
+            "last_verse_id": 1268,
+            "verses_count": 68
+        },
+        {
+            "id": 20,
+            "hizb_number": 20,
+            "verse_mapping": {
+                "9": "34-92"
+            },
+            "first_verse_id": 1269,
+            "last_verse_id": 1327,
+            "verses_count": 59
+        },
+        {
+            "id": 21,
+            "hizb_number": 21,
+            "verse_mapping": {
+                "9": "93-129",
+                "10": "1-25"
+            },
+            "first_verse_id": 1328,
+            "last_verse_id": 1389,
+            "verses_count": 62
+        },
+        {
+            "id": 22,
+            "hizb_number": 22,
+            "verse_mapping": {
+                "10": "26-109",
+                "11": "1-5"
+            },
+            "first_verse_id": 1390,
+            "last_verse_id": 1478,
+            "verses_count": 89
+        },
+        {
+            "id": 23,
+            "hizb_number": 23,
+            "verse_mapping": {
+                "11": "6-83"
+            },
+            "first_verse_id": 1479,
+            "last_verse_id": 1556,
+            "verses_count": 78
+        },
+        {
+            "id": 24,
+            "hizb_number": 24,
+            "verse_mapping": {
+                "11": "84-123",
+                "12": "1-52"
+            },
+            "first_verse_id": 1557,
+            "last_verse_id": 1648,
+            "verses_count": 92
+        },
+        {
+            "id": 25,
+            "hizb_number": 25,
+            "verse_mapping": {
+                "12": "53-111",
+                "13": "1-18"
+            },
+            "first_verse_id": 1649,
+            "last_verse_id": 1725,
+            "verses_count": 77
+        },
+        {
+            "id": 26,
+            "hizb_number": 26,
+            "verse_mapping": {
+                "13": "19-43",
+                "14": "1-52"
+            },
+            "first_verse_id": 1726,
+            "last_verse_id": 1802,
+            "verses_count": 77
+        },
+        {
+            "id": 27,
+            "hizb_number": 27,
+            "verse_mapping": {
+                "15": "1-99",
+                "16": "1-50"
+            },
+            "first_verse_id": 1803,
+            "last_verse_id": 1951,
+            "verses_count": 149
+        },
+        {
+            "id": 28,
+            "hizb_number": 28,
+            "verse_mapping": {
+                "16": "51-128"
+            },
+            "first_verse_id": 1952,
+            "last_verse_id": 2029,
+            "verses_count": 78
+        },
+        {
+            "id": 29,
+            "hizb_number": 29,
+            "verse_mapping": {
+                "17": "1-98"
+            },
+            "first_verse_id": 2030,
+            "last_verse_id": 2127,
+            "verses_count": 98
+        },
+        {
+            "id": 30,
+            "hizb_number": 30,
+            "verse_mapping": {
+                "17": "99-111",
+                "18": "1-74"
+            },
+            "first_verse_id": 2128,
+            "last_verse_id": 2214,
+            "verses_count": 87
+        },
+        {
+            "id": 31,
+            "hizb_number": 31,
+            "verse_mapping": {
+                "18": "75-110",
+                "19": "1-98"
+            },
+            "first_verse_id": 2215,
+            "last_verse_id": 2348,
+            "verses_count": 134
+        },
+        {
+            "id": 32,
+            "hizb_number": 32,
+            "verse_mapping": {
+                "20": "1-135"
+            },
+            "first_verse_id": 2349,
+            "last_verse_id": 2483,
+            "verses_count": 135
+        },
+        {
+            "id": 33,
+            "hizb_number": 33,
+            "verse_mapping": {
+                "21": "1-112"
+            },
+            "first_verse_id": 2484,
+            "last_verse_id": 2595,
+            "verses_count": 112
+        },
+        {
+            "id": 34,
+            "hizb_number": 34,
+            "verse_mapping": {
+                "22": "1-78"
+            },
+            "first_verse_id": 2596,
+            "last_verse_id": 2673,
+            "verses_count": 78
+        },
+        {
+            "id": 35,
+            "hizb_number": 35,
+            "verse_mapping": {
+                "23": "1-118",
+                "24": "1-20"
+            },
+            "first_verse_id": 2674,
+            "last_verse_id": 2811,
+            "verses_count": 138
+        },
+        {
+            "id": 36,
+            "hizb_number": 36,
+            "verse_mapping": {
+                "24": "21-64",
+                "25": "1-20"
+            },
+            "first_verse_id": 2812,
+            "last_verse_id": 2875,
+            "verses_count": 64
+        },
+        {
+            "id": 37,
+            "hizb_number": 37,
+            "verse_mapping": {
+                "25": "21-77",
+                "26": "1-110"
+            },
+            "first_verse_id": 2876,
+            "last_verse_id": 3042,
+            "verses_count": 167
+        },
+        {
+            "id": 38,
+            "hizb_number": 38,
+            "verse_mapping": {
+                "26": "111-227",
+                "27": "1-55"
+            },
+            "first_verse_id": 3043,
+            "last_verse_id": 3214,
+            "verses_count": 172
+        },
+        {
+            "id": 39,
+            "hizb_number": 39,
+            "verse_mapping": {
+                "27": "56-93",
+                "28": "1-50"
+            },
+            "first_verse_id": 3215,
+            "last_verse_id": 3302,
+            "verses_count": 88
+        },
+        {
+            "id": 40,
+            "hizb_number": 40,
+            "verse_mapping": {
+                "28": "51-88",
+                "29": "1-45"
+            },
+            "first_verse_id": 3303,
+            "last_verse_id": 3385,
+            "verses_count": 83
+        },
+        {
+            "id": 41,
+            "hizb_number": 41,
+            "verse_mapping": {
+                "29": "46-69",
+                "30": "1-60",
+                "31": "1-21"
+            },
+            "first_verse_id": 3386,
+            "last_verse_id": 3490,
+            "verses_count": 105
+        },
+        {
+            "id": 42,
+            "hizb_number": 42,
+            "verse_mapping": {
+                "31": "22-34",
+                "32": "1-30",
+                "33": "1-30"
+            },
+            "first_verse_id": 3491,
+            "last_verse_id": 3563,
+            "verses_count": 73
+        },
+        {
+            "id": 43,
+            "hizb_number": 43,
+            "verse_mapping": {
+                "33": "31-73",
+                "34": "1-23"
+            },
+            "first_verse_id": 3564,
+            "last_verse_id": 3629,
+            "verses_count": 66
+        },
+        {
+            "id": 44,
+            "hizb_number": 44,
+            "verse_mapping": {
+                "34": "24-54",
+                "35": "1-45",
+                "36": "1-27"
+            },
+            "first_verse_id": 3630,
+            "last_verse_id": 3732,
+            "verses_count": 103
+        },
+        {
+            "id": 45,
+            "hizb_number": 45,
+            "verse_mapping": {
+                "36": "28-83",
+                "37": "1-144"
+            },
+            "first_verse_id": 3733,
+            "last_verse_id": 3932,
+            "verses_count": 200
+        },
+        {
+            "id": 46,
+            "hizb_number": 46,
+            "verse_mapping": {
+                "37": "145-182",
+                "38": "1-88",
+                "39": "1-31"
+            },
+            "first_verse_id": 3933,
+            "last_verse_id": 4089,
+            "verses_count": 157
+        },
+        {
+            "id": 47,
+            "hizb_number": 47,
+            "verse_mapping": {
+                "39": "32-75",
+                "40": "1-40"
+            },
+            "first_verse_id": 4090,
+            "last_verse_id": 4173,
+            "verses_count": 84
+        },
+        {
+            "id": 48,
+            "hizb_number": 48,
+            "verse_mapping": {
+                "40": "41-85",
+                "41": "1-46"
+            },
+            "first_verse_id": 4174,
+            "last_verse_id": 4264,
+            "verses_count": 91
+        },
+        {
+            "id": 49,
+            "hizb_number": 49,
+            "verse_mapping": {
+                "41": "47-54",
+                "42": "1-53",
+                "43": "1-23"
+            },
+            "first_verse_id": 4265,
+            "last_verse_id": 4348,
+            "verses_count": 84
+        },
+        {
+            "id": 50,
+            "hizb_number": 50,
+            "verse_mapping": {
+                "43": "24-89",
+                "44": "1-59",
+                "45": "1-37"
+            },
+            "first_verse_id": 4349,
+            "last_verse_id": 4510,
+            "verses_count": 162
+        },
+        {
+            "id": 51,
+            "hizb_number": 51,
+            "verse_mapping": {
+                "46": "1-35",
+                "47": "1-38",
+                "48": "1-17"
+            },
+            "first_verse_id": 4511,
+            "last_verse_id": 4600,
+            "verses_count": 90
+        },
+        {
+            "id": 52,
+            "hizb_number": 52,
+            "verse_mapping": {
+                "48": "18-29",
+                "49": "1-18",
+                "50": "1-45",
+                "51": "1-30"
+            },
+            "first_verse_id": 4601,
+            "last_verse_id": 4705,
+            "verses_count": 105
+        },
+        {
+            "id": 53,
+            "hizb_number": 53,
+            "verse_mapping": {
+                "51": "31-60",
+                "52": "1-49",
+                "53": "1-62",
+                "54": "1-55"
+            },
+            "first_verse_id": 4706,
+            "last_verse_id": 4901,
+            "verses_count": 196
+        },
+        {
+            "id": 54,
+            "hizb_number": 54,
+            "verse_mapping": {
+                "55": "1-78",
+                "56": "1-96",
+                "57": "1-29"
+            },
+            "first_verse_id": 4902,
+            "last_verse_id": 5104,
+            "verses_count": 203
+        },
+        {
+            "id": 55,
+            "hizb_number": 55,
+            "verse_mapping": {
+                "58": "1-22",
+                "59": "1-24",
+                "60": "1-13",
+                "61": "1-14"
+            },
+            "first_verse_id": 5105,
+            "last_verse_id": 5177,
+            "verses_count": 73
+        },
+        {
+            "id": 56,
+            "hizb_number": 56,
+            "verse_mapping": {
+                "62": "1-11",
+                "63": "1-11",
+                "64": "1-18",
+                "65": "1-12",
+                "66": "1-12"
+            },
+            "first_verse_id": 5178,
+            "last_verse_id": 5241,
+            "verses_count": 64
+        },
+        {
+            "id": 57,
+            "hizb_number": 57,
+            "verse_mapping": {
+                "67": "1-30",
+                "68": "1-52",
+                "69": "1-52",
+                "70": "1-44",
+                "71": "1-28"
+            },
+            "first_verse_id": 5242,
+            "last_verse_id": 5447,
+            "verses_count": 206
+        },
+        {
+            "id": 58,
+            "hizb_number": 58,
+            "verse_mapping": {
+                "72": "1-28",
+                "73": "1-20",
+                "74": "1-56",
+                "75": "1-40",
+                "76": "1-31",
+                "77": "1-50"
+            },
+            "first_verse_id": 5448,
+            "last_verse_id": 5672,
+            "verses_count": 225
+        },
+        {
+            "id": 59,
+            "hizb_number": 59,
+            "verse_mapping": {
+                "78": "1-40",
+                "79": "1-46",
+                "80": "1-42",
+                "81": "1-29",
+                "82": "1-19",
+                "83": "1-36",
+                "84": "1-25",
+                "85": "1-22",
+                "86": "1-17"
+            },
+            "first_verse_id": 5673,
+            "last_verse_id": 5948,
+            "verses_count": 276
+        },
+        {
+            "id": 60,
+            "hizb_number": 60,
+            "verse_mapping": {
+                "87": "1-19",
+                "88": "1-26",
+                "89": "1-30",
+                "90": "1-20",
+                "91": "1-15",
+                "92": "1-21",
+                "93": "1-11",
+                "94": "1-8",
+                "95": "1-8",
+                "96": "1-19",
+                "97": "1-5",
+                "98": "1-8",
+                "99": "1-8",
+                "100": "1-11",
+                "101": "1-11",
+                "102": "1-8",
+                "103": "1-3",
+                "104": "1-9",
+                "105": "1-5",
+                "106": "1-4",
+                "107": "1-7",
+                "108": "1-3",
+                "109": "1-6",
+                "110": "1-3",
+                "111": "1-5",
+                "112": "1-4",
+                "113": "1-5",
+                "114": "1-6"
+            },
+            "first_verse_id": 5949,
+            "last_verse_id": 6236,
+            "verses_count": 288
+        }
+    ],
+    "rub_el_hizbs": [
+        {
+            "id": 1,
+            "rub_el_hizb_number": 1,
+            "verse_mapping": {
+                "1": "1-7",
+                "2": "1-25"
+            },
+            "first_verse_id": 1,
+            "last_verse_id": 32,
+            "verses_count": 32
+        },
+        {
+            "id": 2,
+            "rub_el_hizb_number": 2,
+            "verse_mapping": {
+                "2": "26-43"
+            },
+            "first_verse_id": 33,
+            "last_verse_id": 50,
+            "verses_count": 18
+        },
+        {
+            "id": 3,
+            "rub_el_hizb_number": 3,
+            "verse_mapping": {
+                "2": "44-59"
+            },
+            "first_verse_id": 51,
+            "last_verse_id": 66,
+            "verses_count": 16
+        },
+        {
+            "id": 4,
+            "rub_el_hizb_number": 4,
+            "verse_mapping": {
+                "2": "60-74"
+            },
+            "first_verse_id": 67,
+            "last_verse_id": 81,
+            "verses_count": 15
+        },
+        {
+            "id": 5,
+            "rub_el_hizb_number": 5,
+            "verse_mapping": {
+                "2": "75-91"
+            },
+            "first_verse_id": 82,
+            "last_verse_id": 98,
+            "verses_count": 17
+        },
+        {
+            "id": 6,
+            "rub_el_hizb_number": 6,
+            "verse_mapping": {
+                "2": "92-105"
+            },
+            "first_verse_id": 99,
+            "last_verse_id": 112,
+            "verses_count": 14
+        },
+        {
+            "id": 7,
+            "rub_el_hizb_number": 7,
+            "verse_mapping": {
+                "2": "106-123"
+            },
+            "first_verse_id": 113,
+            "last_verse_id": 130,
+            "verses_count": 18
+        },
+        {
+            "id": 8,
+            "rub_el_hizb_number": 8,
+            "verse_mapping": {
+                "2": "124-141"
+            },
+            "first_verse_id": 131,
+            "last_verse_id": 148,
+            "verses_count": 18
+        },
+        {
+            "id": 9,
+            "rub_el_hizb_number": 9,
+            "verse_mapping": {
+                "2": "142-157"
+            },
+            "first_verse_id": 149,
+            "last_verse_id": 164,
+            "verses_count": 16
+        },
+        {
+            "id": 10,
+            "rub_el_hizb_number": 10,
+            "verse_mapping": {
+                "2": "158-176"
+            },
+            "first_verse_id": 165,
+            "last_verse_id": 183,
+            "verses_count": 19
+        },
+        {
+            "id": 11,
+            "rub_el_hizb_number": 11,
+            "verse_mapping": {
+                "2": "177-188"
+            },
+            "first_verse_id": 184,
+            "last_verse_id": 195,
+            "verses_count": 12
+        },
+        {
+            "id": 12,
+            "rub_el_hizb_number": 12,
+            "verse_mapping": {
+                "2": "189-202"
+            },
+            "first_verse_id": 196,
+            "last_verse_id": 209,
+            "verses_count": 14
+        },
+        {
+            "id": 13,
+            "rub_el_hizb_number": 13,
+            "verse_mapping": {
+                "2": "203-218"
+            },
+            "first_verse_id": 210,
+            "last_verse_id": 225,
+            "verses_count": 16
+        },
+        {
+            "id": 14,
+            "rub_el_hizb_number": 14,
+            "verse_mapping": {
+                "2": "219-232"
+            },
+            "first_verse_id": 226,
+            "last_verse_id": 239,
+            "verses_count": 14
+        },
+        {
+            "id": 15,
+            "rub_el_hizb_number": 15,
+            "verse_mapping": {
+                "2": "233-242"
+            },
+            "first_verse_id": 240,
+            "last_verse_id": 249,
+            "verses_count": 10
+        },
+        {
+            "id": 16,
+            "rub_el_hizb_number": 16,
+            "verse_mapping": {
+                "2": "243-252"
+            },
+            "first_verse_id": 250,
+            "last_verse_id": 259,
+            "verses_count": 10
+        },
+        {
+            "id": 17,
+            "rub_el_hizb_number": 17,
+            "verse_mapping": {
+                "2": "253-262"
+            },
+            "first_verse_id": 260,
+            "last_verse_id": 269,
+            "verses_count": 10
+        },
+        {
+            "id": 18,
+            "rub_el_hizb_number": 18,
+            "verse_mapping": {
+                "2": "263-271"
+            },
+            "first_verse_id": 270,
+            "last_verse_id": 278,
+            "verses_count": 9
+        },
+        {
+            "id": 19,
+            "rub_el_hizb_number": 19,
+            "verse_mapping": {
+                "2": "272-282"
+            },
+            "first_verse_id": 279,
+            "last_verse_id": 289,
+            "verses_count": 11
+        },
+        {
+            "id": 20,
+            "rub_el_hizb_number": 20,
+            "verse_mapping": {
+                "2": "283-286",
+                "3": "1-14"
+            },
+            "first_verse_id": 290,
+            "last_verse_id": 307,
+            "verses_count": 18
+        },
+        {
+            "id": 21,
+            "rub_el_hizb_number": 21,
+            "verse_mapping": {
+                "3": "15-32"
+            },
+            "first_verse_id": 308,
+            "last_verse_id": 325,
+            "verses_count": 18
+        },
+        {
+            "id": 22,
+            "rub_el_hizb_number": 22,
+            "verse_mapping": {
+                "3": "33-51"
+            },
+            "first_verse_id": 326,
+            "last_verse_id": 344,
+            "verses_count": 19
+        },
+        {
+            "id": 23,
+            "rub_el_hizb_number": 23,
+            "verse_mapping": {
+                "3": "52-74"
+            },
+            "first_verse_id": 345,
+            "last_verse_id": 367,
+            "verses_count": 23
+        },
+        {
+            "id": 24,
+            "rub_el_hizb_number": 24,
+            "verse_mapping": {
+                "3": "75-92"
+            },
+            "first_verse_id": 368,
+            "last_verse_id": 385,
+            "verses_count": 18
+        },
+        {
+            "id": 25,
+            "rub_el_hizb_number": 25,
+            "verse_mapping": {
+                "3": "93-112"
+            },
+            "first_verse_id": 386,
+            "last_verse_id": 405,
+            "verses_count": 20
+        },
+        {
+            "id": 26,
+            "rub_el_hizb_number": 26,
+            "verse_mapping": {
+                "3": "113-132"
+            },
+            "first_verse_id": 406,
+            "last_verse_id": 425,
+            "verses_count": 20
+        },
+        {
+            "id": 27,
+            "rub_el_hizb_number": 27,
+            "verse_mapping": {
+                "3": "133-152"
+            },
+            "first_verse_id": 426,
+            "last_verse_id": 445,
+            "verses_count": 20
+        },
+        {
+            "id": 28,
+            "rub_el_hizb_number": 28,
+            "verse_mapping": {
+                "3": "153-170"
+            },
+            "first_verse_id": 446,
+            "last_verse_id": 463,
+            "verses_count": 18
+        },
+        {
+            "id": 29,
+            "rub_el_hizb_number": 29,
+            "verse_mapping": {
+                "3": "171-185"
+            },
+            "first_verse_id": 464,
+            "last_verse_id": 478,
+            "verses_count": 15
+        },
+        {
+            "id": 30,
+            "rub_el_hizb_number": 30,
+            "verse_mapping": {
+                "3": "186-200"
+            },
+            "first_verse_id": 479,
+            "last_verse_id": 493,
+            "verses_count": 15
+        },
+        {
+            "id": 31,
+            "rub_el_hizb_number": 31,
+            "verse_mapping": {
+                "4": "1-11"
+            },
+            "first_verse_id": 494,
+            "last_verse_id": 504,
+            "verses_count": 11
+        },
+        {
+            "id": 32,
+            "rub_el_hizb_number": 32,
+            "verse_mapping": {
+                "4": "12-23"
+            },
+            "first_verse_id": 505,
+            "last_verse_id": 516,
+            "verses_count": 12
+        },
+        {
+            "id": 33,
+            "rub_el_hizb_number": 33,
+            "verse_mapping": {
+                "4": "24-35"
+            },
+            "first_verse_id": 517,
+            "last_verse_id": 528,
+            "verses_count": 12
+        },
+        {
+            "id": 34,
+            "rub_el_hizb_number": 34,
+            "verse_mapping": {
+                "4": "36-57"
+            },
+            "first_verse_id": 529,
+            "last_verse_id": 550,
+            "verses_count": 22
+        },
+        {
+            "id": 35,
+            "rub_el_hizb_number": 35,
+            "verse_mapping": {
+                "4": "58-73"
+            },
+            "first_verse_id": 551,
+            "last_verse_id": 566,
+            "verses_count": 16
+        },
+        {
+            "id": 36,
+            "rub_el_hizb_number": 36,
+            "verse_mapping": {
+                "4": "74-87"
+            },
+            "first_verse_id": 567,
+            "last_verse_id": 580,
+            "verses_count": 14
+        },
+        {
+            "id": 37,
+            "rub_el_hizb_number": 37,
+            "verse_mapping": {
+                "4": "88-99"
+            },
+            "first_verse_id": 581,
+            "last_verse_id": 592,
+            "verses_count": 12
+        },
+        {
+            "id": 38,
+            "rub_el_hizb_number": 38,
+            "verse_mapping": {
+                "4": "100-113"
+            },
+            "first_verse_id": 593,
+            "last_verse_id": 606,
+            "verses_count": 14
+        },
+        {
+            "id": 39,
+            "rub_el_hizb_number": 39,
+            "verse_mapping": {
+                "4": "114-134"
+            },
+            "first_verse_id": 607,
+            "last_verse_id": 627,
+            "verses_count": 21
+        },
+        {
+            "id": 40,
+            "rub_el_hizb_number": 40,
+            "verse_mapping": {
+                "4": "135-147"
+            },
+            "first_verse_id": 628,
+            "last_verse_id": 640,
+            "verses_count": 13
+        },
+        {
+            "id": 41,
+            "rub_el_hizb_number": 41,
+            "verse_mapping": {
+                "4": "148-162"
+            },
+            "first_verse_id": 641,
+            "last_verse_id": 655,
+            "verses_count": 15
+        },
+        {
+            "id": 42,
+            "rub_el_hizb_number": 42,
+            "verse_mapping": {
+                "4": "163-176"
+            },
+            "first_verse_id": 656,
+            "last_verse_id": 669,
+            "verses_count": 14
+        },
+        {
+            "id": 43,
+            "rub_el_hizb_number": 43,
+            "verse_mapping": {
+                "5": "1-11"
+            },
+            "first_verse_id": 670,
+            "last_verse_id": 680,
+            "verses_count": 11
+        },
+        {
+            "id": 44,
+            "rub_el_hizb_number": 44,
+            "verse_mapping": {
+                "5": "12-26"
+            },
+            "first_verse_id": 681,
+            "last_verse_id": 695,
+            "verses_count": 15
+        },
+        {
+            "id": 45,
+            "rub_el_hizb_number": 45,
+            "verse_mapping": {
+                "5": "27-40"
+            },
+            "first_verse_id": 696,
+            "last_verse_id": 709,
+            "verses_count": 14
+        },
+        {
+            "id": 46,
+            "rub_el_hizb_number": 46,
+            "verse_mapping": {
+                "5": "41-50"
+            },
+            "first_verse_id": 710,
+            "last_verse_id": 719,
+            "verses_count": 10
+        },
+        {
+            "id": 47,
+            "rub_el_hizb_number": 47,
+            "verse_mapping": {
+                "5": "51-66"
+            },
+            "first_verse_id": 720,
+            "last_verse_id": 735,
+            "verses_count": 16
+        },
+        {
+            "id": 48,
+            "rub_el_hizb_number": 48,
+            "verse_mapping": {
+                "5": "67-81"
+            },
+            "first_verse_id": 736,
+            "last_verse_id": 750,
+            "verses_count": 15
+        },
+        {
+            "id": 49,
+            "rub_el_hizb_number": 49,
+            "verse_mapping": {
+                "5": "82-96"
+            },
+            "first_verse_id": 751,
+            "last_verse_id": 765,
+            "verses_count": 15
+        },
+        {
+            "id": 50,
+            "rub_el_hizb_number": 50,
+            "verse_mapping": {
+                "5": "97-108"
+            },
+            "first_verse_id": 766,
+            "last_verse_id": 777,
+            "verses_count": 12
+        },
+        {
+            "id": 51,
+            "rub_el_hizb_number": 51,
+            "verse_mapping": {
+                "5": "109-120",
+                "6": "1-12"
+            },
+            "first_verse_id": 778,
+            "last_verse_id": 801,
+            "verses_count": 24
+        },
+        {
+            "id": 52,
+            "rub_el_hizb_number": 52,
+            "verse_mapping": {
+                "6": "13-35"
+            },
+            "first_verse_id": 802,
+            "last_verse_id": 824,
+            "verses_count": 23
+        },
+        {
+            "id": 53,
+            "rub_el_hizb_number": 53,
+            "verse_mapping": {
+                "6": "36-58"
+            },
+            "first_verse_id": 825,
+            "last_verse_id": 847,
+            "verses_count": 23
+        },
+        {
+            "id": 54,
+            "rub_el_hizb_number": 54,
+            "verse_mapping": {
+                "6": "59-73"
+            },
+            "first_verse_id": 848,
+            "last_verse_id": 862,
+            "verses_count": 15
+        },
+        {
+            "id": 55,
+            "rub_el_hizb_number": 55,
+            "verse_mapping": {
+                "6": "74-94"
+            },
+            "first_verse_id": 863,
+            "last_verse_id": 883,
+            "verses_count": 21
+        },
+        {
+            "id": 56,
+            "rub_el_hizb_number": 56,
+            "verse_mapping": {
+                "6": "95-110"
+            },
+            "first_verse_id": 884,
+            "last_verse_id": 899,
+            "verses_count": 16
+        },
+        {
+            "id": 57,
+            "rub_el_hizb_number": 57,
+            "verse_mapping": {
+                "6": "111-126"
+            },
+            "first_verse_id": 900,
+            "last_verse_id": 915,
+            "verses_count": 16
+        },
+        {
+            "id": 58,
+            "rub_el_hizb_number": 58,
+            "verse_mapping": {
+                "6": "127-140"
+            },
+            "first_verse_id": 916,
+            "last_verse_id": 929,
+            "verses_count": 14
+        },
+        {
+            "id": 59,
+            "rub_el_hizb_number": 59,
+            "verse_mapping": {
+                "6": "141-150"
+            },
+            "first_verse_id": 930,
+            "last_verse_id": 939,
+            "verses_count": 10
+        },
+        {
+            "id": 60,
+            "rub_el_hizb_number": 60,
+            "verse_mapping": {
+                "6": "151-165"
+            },
+            "first_verse_id": 940,
+            "last_verse_id": 954,
+            "verses_count": 15
+        },
+        {
+            "id": 61,
+            "rub_el_hizb_number": 61,
+            "verse_mapping": {
+                "7": "1-30"
+            },
+            "first_verse_id": 955,
+            "last_verse_id": 984,
+            "verses_count": 30
+        },
+        {
+            "id": 62,
+            "rub_el_hizb_number": 62,
+            "verse_mapping": {
+                "7": "31-46"
+            },
+            "first_verse_id": 985,
+            "last_verse_id": 1000,
+            "verses_count": 16
+        },
+        {
+            "id": 63,
+            "rub_el_hizb_number": 63,
+            "verse_mapping": {
+                "7": "47-64"
+            },
+            "first_verse_id": 1001,
+            "last_verse_id": 1018,
+            "verses_count": 18
+        },
+        {
+            "id": 64,
+            "rub_el_hizb_number": 64,
+            "verse_mapping": {
+                "7": "65-87"
+            },
+            "first_verse_id": 1019,
+            "last_verse_id": 1041,
+            "verses_count": 23
+        },
+        {
+            "id": 65,
+            "rub_el_hizb_number": 65,
+            "verse_mapping": {
+                "7": "88-116"
+            },
+            "first_verse_id": 1042,
+            "last_verse_id": 1070,
+            "verses_count": 29
+        },
+        {
+            "id": 66,
+            "rub_el_hizb_number": 66,
+            "verse_mapping": {
+                "7": "117-141"
+            },
+            "first_verse_id": 1071,
+            "last_verse_id": 1095,
+            "verses_count": 25
+        },
+        {
+            "id": 67,
+            "rub_el_hizb_number": 67,
+            "verse_mapping": {
+                "7": "142-155"
+            },
+            "first_verse_id": 1096,
+            "last_verse_id": 1109,
+            "verses_count": 14
+        },
+        {
+            "id": 68,
+            "rub_el_hizb_number": 68,
+            "verse_mapping": {
+                "7": "156-170"
+            },
+            "first_verse_id": 1110,
+            "last_verse_id": 1124,
+            "verses_count": 15
+        },
+        {
+            "id": 69,
+            "rub_el_hizb_number": 69,
+            "verse_mapping": {
+                "7": "171-188"
+            },
+            "first_verse_id": 1125,
+            "last_verse_id": 1142,
+            "verses_count": 18
+        },
+        {
+            "id": 70,
+            "rub_el_hizb_number": 70,
+            "verse_mapping": {
+                "7": "189-206"
+            },
+            "first_verse_id": 1143,
+            "last_verse_id": 1160,
+            "verses_count": 18
+        },
+        {
+            "id": 71,
+            "rub_el_hizb_number": 71,
+            "verse_mapping": {
+                "8": "1-21"
+            },
+            "first_verse_id": 1161,
+            "last_verse_id": 1181,
+            "verses_count": 21
+        },
+        {
+            "id": 72,
+            "rub_el_hizb_number": 72,
+            "verse_mapping": {
+                "8": "22-40"
+            },
+            "first_verse_id": 1182,
+            "last_verse_id": 1200,
+            "verses_count": 19
+        },
+        {
+            "id": 73,
+            "rub_el_hizb_number": 73,
+            "verse_mapping": {
+                "8": "41-60"
+            },
+            "first_verse_id": 1201,
+            "last_verse_id": 1220,
+            "verses_count": 20
+        },
+        {
+            "id": 74,
+            "rub_el_hizb_number": 74,
+            "verse_mapping": {
+                "8": "61-75"
+            },
+            "first_verse_id": 1221,
+            "last_verse_id": 1235,
+            "verses_count": 15
+        },
+        {
+            "id": 75,
+            "rub_el_hizb_number": 75,
+            "verse_mapping": {
+                "9": "1-18"
+            },
+            "first_verse_id": 1236,
+            "last_verse_id": 1253,
+            "verses_count": 18
+        },
+        {
+            "id": 76,
+            "rub_el_hizb_number": 76,
+            "verse_mapping": {
+                "9": "19-33"
+            },
+            "first_verse_id": 1254,
+            "last_verse_id": 1268,
+            "verses_count": 15
+        },
+        {
+            "id": 77,
+            "rub_el_hizb_number": 77,
+            "verse_mapping": {
+                "9": "34-45"
+            },
+            "first_verse_id": 1269,
+            "last_verse_id": 1280,
+            "verses_count": 12
+        },
+        {
+            "id": 78,
+            "rub_el_hizb_number": 78,
+            "verse_mapping": {
+                "9": "46-59"
+            },
+            "first_verse_id": 1281,
+            "last_verse_id": 1294,
+            "verses_count": 14
+        },
+        {
+            "id": 79,
+            "rub_el_hizb_number": 79,
+            "verse_mapping": {
+                "9": "60-74"
+            },
+            "first_verse_id": 1295,
+            "last_verse_id": 1309,
+            "verses_count": 15
+        },
+        {
+            "id": 80,
+            "rub_el_hizb_number": 80,
+            "verse_mapping": {
+                "9": "75-92"
+            },
+            "first_verse_id": 1310,
+            "last_verse_id": 1327,
+            "verses_count": 18
+        },
+        {
+            "id": 81,
+            "rub_el_hizb_number": 81,
+            "verse_mapping": {
+                "9": "93-110"
+            },
+            "first_verse_id": 1328,
+            "last_verse_id": 1345,
+            "verses_count": 18
+        },
+        {
+            "id": 82,
+            "rub_el_hizb_number": 82,
+            "verse_mapping": {
+                "9": "111-121"
+            },
+            "first_verse_id": 1346,
+            "last_verse_id": 1356,
+            "verses_count": 11
+        },
+        {
+            "id": 83,
+            "rub_el_hizb_number": 83,
+            "verse_mapping": {
+                "9": "122-129",
+                "10": "1-10"
+            },
+            "first_verse_id": 1357,
+            "last_verse_id": 1374,
+            "verses_count": 18
+        },
+        {
+            "id": 84,
+            "rub_el_hizb_number": 84,
+            "verse_mapping": {
+                "10": "11-25"
+            },
+            "first_verse_id": 1375,
+            "last_verse_id": 1389,
+            "verses_count": 15
+        },
+        {
+            "id": 85,
+            "rub_el_hizb_number": 85,
+            "verse_mapping": {
+                "10": "26-52"
+            },
+            "first_verse_id": 1390,
+            "last_verse_id": 1416,
+            "verses_count": 27
+        },
+        {
+            "id": 86,
+            "rub_el_hizb_number": 86,
+            "verse_mapping": {
+                "10": "53-70"
+            },
+            "first_verse_id": 1417,
+            "last_verse_id": 1434,
+            "verses_count": 18
+        },
+        {
+            "id": 87,
+            "rub_el_hizb_number": 87,
+            "verse_mapping": {
+                "10": "71-89"
+            },
+            "first_verse_id": 1435,
+            "last_verse_id": 1453,
+            "verses_count": 19
+        },
+        {
+            "id": 88,
+            "rub_el_hizb_number": 88,
+            "verse_mapping": {
+                "10": "90-109",
+                "11": "1-5"
+            },
+            "first_verse_id": 1454,
+            "last_verse_id": 1478,
+            "verses_count": 25
+        },
+        {
+            "id": 89,
+            "rub_el_hizb_number": 89,
+            "verse_mapping": {
+                "11": "6-23"
+            },
+            "first_verse_id": 1479,
+            "last_verse_id": 1496,
+            "verses_count": 18
+        },
+        {
+            "id": 90,
+            "rub_el_hizb_number": 90,
+            "verse_mapping": {
+                "11": "24-40"
+            },
+            "first_verse_id": 1497,
+            "last_verse_id": 1513,
+            "verses_count": 17
+        },
+        {
+            "id": 91,
+            "rub_el_hizb_number": 91,
+            "verse_mapping": {
+                "11": "41-60"
+            },
+            "first_verse_id": 1514,
+            "last_verse_id": 1533,
+            "verses_count": 20
+        },
+        {
+            "id": 92,
+            "rub_el_hizb_number": 92,
+            "verse_mapping": {
+                "11": "61-83"
+            },
+            "first_verse_id": 1534,
+            "last_verse_id": 1556,
+            "verses_count": 23
+        },
+        {
+            "id": 93,
+            "rub_el_hizb_number": 93,
+            "verse_mapping": {
+                "11": "84-107"
+            },
+            "first_verse_id": 1557,
+            "last_verse_id": 1580,
+            "verses_count": 24
+        },
+        {
+            "id": 94,
+            "rub_el_hizb_number": 94,
+            "verse_mapping": {
+                "11": "108-123",
+                "12": "1-6"
+            },
+            "first_verse_id": 1581,
+            "last_verse_id": 1602,
+            "verses_count": 22
+        },
+        {
+            "id": 95,
+            "rub_el_hizb_number": 95,
+            "verse_mapping": {
+                "12": "7-29"
+            },
+            "first_verse_id": 1603,
+            "last_verse_id": 1625,
+            "verses_count": 23
+        },
+        {
+            "id": 96,
+            "rub_el_hizb_number": 96,
+            "verse_mapping": {
+                "12": "30-52"
+            },
+            "first_verse_id": 1626,
+            "last_verse_id": 1648,
+            "verses_count": 23
+        },
+        {
+            "id": 97,
+            "rub_el_hizb_number": 97,
+            "verse_mapping": {
+                "12": "53-76"
+            },
+            "first_verse_id": 1649,
+            "last_verse_id": 1672,
+            "verses_count": 24
+        },
+        {
+            "id": 98,
+            "rub_el_hizb_number": 98,
+            "verse_mapping": {
+                "12": "77-100"
+            },
+            "first_verse_id": 1673,
+            "last_verse_id": 1696,
+            "verses_count": 24
+        },
+        {
+            "id": 99,
+            "rub_el_hizb_number": 99,
+            "verse_mapping": {
+                "12": "101-111",
+                "13": "1-4"
+            },
+            "first_verse_id": 1697,
+            "last_verse_id": 1711,
+            "verses_count": 15
+        },
+        {
+            "id": 100,
+            "rub_el_hizb_number": 100,
+            "verse_mapping": {
+                "13": "5-18"
+            },
+            "first_verse_id": 1712,
+            "last_verse_id": 1725,
+            "verses_count": 14
+        },
+        {
+            "id": 101,
+            "rub_el_hizb_number": 101,
+            "verse_mapping": {
+                "13": "19-34"
+            },
+            "first_verse_id": 1726,
+            "last_verse_id": 1741,
+            "verses_count": 16
+        },
+        {
+            "id": 102,
+            "rub_el_hizb_number": 102,
+            "verse_mapping": {
+                "13": "35-43",
+                "14": "1-9"
+            },
+            "first_verse_id": 1742,
+            "last_verse_id": 1759,
+            "verses_count": 18
+        },
+        {
+            "id": 103,
+            "rub_el_hizb_number": 103,
+            "verse_mapping": {
+                "14": "10-27"
+            },
+            "first_verse_id": 1760,
+            "last_verse_id": 1777,
+            "verses_count": 18
+        },
+        {
+            "id": 104,
+            "rub_el_hizb_number": 104,
+            "verse_mapping": {
+                "14": "28-52"
+            },
+            "first_verse_id": 1778,
+            "last_verse_id": 1802,
+            "verses_count": 25
+        },
+        {
+            "id": 105,
+            "rub_el_hizb_number": 105,
+            "verse_mapping": {
+                "15": "1-48"
+            },
+            "first_verse_id": 1803,
+            "last_verse_id": 1850,
+            "verses_count": 48
+        },
+        {
+            "id": 106,
+            "rub_el_hizb_number": 106,
+            "verse_mapping": {
+                "15": "49-99"
+            },
+            "first_verse_id": 1851,
+            "last_verse_id": 1901,
+            "verses_count": 51
+        },
+        {
+            "id": 107,
+            "rub_el_hizb_number": 107,
+            "verse_mapping": {
+                "16": "1-29"
+            },
+            "first_verse_id": 1902,
+            "last_verse_id": 1930,
+            "verses_count": 29
+        },
+        {
+            "id": 108,
+            "rub_el_hizb_number": 108,
+            "verse_mapping": {
+                "16": "30-50"
+            },
+            "first_verse_id": 1931,
+            "last_verse_id": 1951,
+            "verses_count": 21
+        },
+        {
+            "id": 109,
+            "rub_el_hizb_number": 109,
+            "verse_mapping": {
+                "16": "51-74"
+            },
+            "first_verse_id": 1952,
+            "last_verse_id": 1975,
+            "verses_count": 24
+        },
+        {
+            "id": 110,
+            "rub_el_hizb_number": 110,
+            "verse_mapping": {
+                "16": "75-89"
+            },
+            "first_verse_id": 1976,
+            "last_verse_id": 1990,
+            "verses_count": 15
+        },
+        {
+            "id": 111,
+            "rub_el_hizb_number": 111,
+            "verse_mapping": {
+                "16": "90-110"
+            },
+            "first_verse_id": 1991,
+            "last_verse_id": 2011,
+            "verses_count": 21
+        },
+        {
+            "id": 112,
+            "rub_el_hizb_number": 112,
+            "verse_mapping": {
+                "16": "111-128"
+            },
+            "first_verse_id": 2012,
+            "last_verse_id": 2029,
+            "verses_count": 18
+        },
+        {
+            "id": 113,
+            "rub_el_hizb_number": 113,
+            "verse_mapping": {
+                "17": "1-22"
+            },
+            "first_verse_id": 2030,
+            "last_verse_id": 2051,
+            "verses_count": 22
+        },
+        {
+            "id": 114,
+            "rub_el_hizb_number": 114,
+            "verse_mapping": {
+                "17": "23-49"
+            },
+            "first_verse_id": 2052,
+            "last_verse_id": 2078,
+            "verses_count": 27
+        },
+        {
+            "id": 115,
+            "rub_el_hizb_number": 115,
+            "verse_mapping": {
+                "17": "50-69"
+            },
+            "first_verse_id": 2079,
+            "last_verse_id": 2098,
+            "verses_count": 20
+        },
+        {
+            "id": 116,
+            "rub_el_hizb_number": 116,
+            "verse_mapping": {
+                "17": "70-98"
+            },
+            "first_verse_id": 2099,
+            "last_verse_id": 2127,
+            "verses_count": 29
+        },
+        {
+            "id": 117,
+            "rub_el_hizb_number": 117,
+            "verse_mapping": {
+                "17": "99-111",
+                "18": "1-16"
+            },
+            "first_verse_id": 2128,
+            "last_verse_id": 2156,
+            "verses_count": 29
+        },
+        {
+            "id": 118,
+            "rub_el_hizb_number": 118,
+            "verse_mapping": {
+                "18": "17-31"
+            },
+            "first_verse_id": 2157,
+            "last_verse_id": 2171,
+            "verses_count": 15
+        },
+        {
+            "id": 119,
+            "rub_el_hizb_number": 119,
+            "verse_mapping": {
+                "18": "32-50"
+            },
+            "first_verse_id": 2172,
+            "last_verse_id": 2190,
+            "verses_count": 19
+        },
+        {
+            "id": 120,
+            "rub_el_hizb_number": 120,
+            "verse_mapping": {
+                "18": "51-74"
+            },
+            "first_verse_id": 2191,
+            "last_verse_id": 2214,
+            "verses_count": 24
+        },
+        {
+            "id": 121,
+            "rub_el_hizb_number": 121,
+            "verse_mapping": {
+                "18": "75-98"
+            },
+            "first_verse_id": 2215,
+            "last_verse_id": 2238,
+            "verses_count": 24
+        },
+        {
+            "id": 122,
+            "rub_el_hizb_number": 122,
+            "verse_mapping": {
+                "18": "99-110",
+                "19": "1-21"
+            },
+            "first_verse_id": 2239,
+            "last_verse_id": 2271,
+            "verses_count": 33
+        },
+        {
+            "id": 123,
+            "rub_el_hizb_number": 123,
+            "verse_mapping": {
+                "19": "22-58"
+            },
+            "first_verse_id": 2272,
+            "last_verse_id": 2308,
+            "verses_count": 37
+        },
+        {
+            "id": 124,
+            "rub_el_hizb_number": 124,
+            "verse_mapping": {
+                "19": "59-98"
+            },
+            "first_verse_id": 2309,
+            "last_verse_id": 2348,
+            "verses_count": 40
+        },
+        {
+            "id": 125,
+            "rub_el_hizb_number": 125,
+            "verse_mapping": {
+                "20": "1-54"
+            },
+            "first_verse_id": 2349,
+            "last_verse_id": 2402,
+            "verses_count": 54
+        },
+        {
+            "id": 126,
+            "rub_el_hizb_number": 126,
+            "verse_mapping": {
+                "20": "55-82"
+            },
+            "first_verse_id": 2403,
+            "last_verse_id": 2430,
+            "verses_count": 28
+        },
+        {
+            "id": 127,
+            "rub_el_hizb_number": 127,
+            "verse_mapping": {
+                "20": "83-110"
+            },
+            "first_verse_id": 2431,
+            "last_verse_id": 2458,
+            "verses_count": 28
+        },
+        {
+            "id": 128,
+            "rub_el_hizb_number": 128,
+            "verse_mapping": {
+                "20": "111-135"
+            },
+            "first_verse_id": 2459,
+            "last_verse_id": 2483,
+            "verses_count": 25
+        },
+        {
+            "id": 129,
+            "rub_el_hizb_number": 129,
+            "verse_mapping": {
+                "21": "1-28"
+            },
+            "first_verse_id": 2484,
+            "last_verse_id": 2511,
+            "verses_count": 28
+        },
+        {
+            "id": 130,
+            "rub_el_hizb_number": 130,
+            "verse_mapping": {
+                "21": "29-50"
+            },
+            "first_verse_id": 2512,
+            "last_verse_id": 2533,
+            "verses_count": 22
+        },
+        {
+            "id": 131,
+            "rub_el_hizb_number": 131,
+            "verse_mapping": {
+                "21": "51-82"
+            },
+            "first_verse_id": 2534,
+            "last_verse_id": 2565,
+            "verses_count": 32
+        },
+        {
+            "id": 132,
+            "rub_el_hizb_number": 132,
+            "verse_mapping": {
+                "21": "83-112"
+            },
+            "first_verse_id": 2566,
+            "last_verse_id": 2595,
+            "verses_count": 30
+        },
+        {
+            "id": 133,
+            "rub_el_hizb_number": 133,
+            "verse_mapping": {
+                "22": "1-18"
+            },
+            "first_verse_id": 2596,
+            "last_verse_id": 2613,
+            "verses_count": 18
+        },
+        {
+            "id": 134,
+            "rub_el_hizb_number": 134,
+            "verse_mapping": {
+                "22": "19-37"
+            },
+            "first_verse_id": 2614,
+            "last_verse_id": 2632,
+            "verses_count": 19
+        },
+        {
+            "id": 135,
+            "rub_el_hizb_number": 135,
+            "verse_mapping": {
+                "22": "38-59"
+            },
+            "first_verse_id": 2633,
+            "last_verse_id": 2654,
+            "verses_count": 22
+        },
+        {
+            "id": 136,
+            "rub_el_hizb_number": 136,
+            "verse_mapping": {
+                "22": "60-78"
+            },
+            "first_verse_id": 2655,
+            "last_verse_id": 2673,
+            "verses_count": 19
+        },
+        {
+            "id": 137,
+            "rub_el_hizb_number": 137,
+            "verse_mapping": {
+                "23": "1-35"
+            },
+            "first_verse_id": 2674,
+            "last_verse_id": 2708,
+            "verses_count": 35
+        },
+        {
+            "id": 138,
+            "rub_el_hizb_number": 138,
+            "verse_mapping": {
+                "23": "36-74"
+            },
+            "first_verse_id": 2709,
+            "last_verse_id": 2747,
+            "verses_count": 39
+        },
+        {
+            "id": 139,
+            "rub_el_hizb_number": 139,
+            "verse_mapping": {
+                "23": "75-118"
+            },
+            "first_verse_id": 2748,
+            "last_verse_id": 2791,
+            "verses_count": 44
+        },
+        {
+            "id": 140,
+            "rub_el_hizb_number": 140,
+            "verse_mapping": {
+                "24": "1-20"
+            },
+            "first_verse_id": 2792,
+            "last_verse_id": 2811,
+            "verses_count": 20
+        },
+        {
+            "id": 141,
+            "rub_el_hizb_number": 141,
+            "verse_mapping": {
+                "24": "21-34"
+            },
+            "first_verse_id": 2812,
+            "last_verse_id": 2825,
+            "verses_count": 14
+        },
+        {
+            "id": 142,
+            "rub_el_hizb_number": 142,
+            "verse_mapping": {
+                "24": "35-52"
+            },
+            "first_verse_id": 2826,
+            "last_verse_id": 2843,
+            "verses_count": 18
+        },
+        {
+            "id": 143,
+            "rub_el_hizb_number": 143,
+            "verse_mapping": {
+                "24": "53-64"
+            },
+            "first_verse_id": 2844,
+            "last_verse_id": 2855,
+            "verses_count": 12
+        },
+        {
+            "id": 144,
+            "rub_el_hizb_number": 144,
+            "verse_mapping": {
+                "25": "1-20"
+            },
+            "first_verse_id": 2856,
+            "last_verse_id": 2875,
+            "verses_count": 20
+        },
+        {
+            "id": 145,
+            "rub_el_hizb_number": 145,
+            "verse_mapping": {
+                "25": "21-52"
+            },
+            "first_verse_id": 2876,
+            "last_verse_id": 2907,
+            "verses_count": 32
+        },
+        {
+            "id": 146,
+            "rub_el_hizb_number": 146,
+            "verse_mapping": {
+                "25": "53-77"
+            },
+            "first_verse_id": 2908,
+            "last_verse_id": 2932,
+            "verses_count": 25
+        },
+        {
+            "id": 147,
+            "rub_el_hizb_number": 147,
+            "verse_mapping": {
+                "26": "1-51"
+            },
+            "first_verse_id": 2933,
+            "last_verse_id": 2983,
+            "verses_count": 51
+        },
+        {
+            "id": 148,
+            "rub_el_hizb_number": 148,
+            "verse_mapping": {
+                "26": "52-110"
+            },
+            "first_verse_id": 2984,
+            "last_verse_id": 3042,
+            "verses_count": 59
+        },
+        {
+            "id": 149,
+            "rub_el_hizb_number": 149,
+            "verse_mapping": {
+                "26": "111-180"
+            },
+            "first_verse_id": 3043,
+            "last_verse_id": 3112,
+            "verses_count": 70
+        },
+        {
+            "id": 150,
+            "rub_el_hizb_number": 150,
+            "verse_mapping": {
+                "26": "181-227"
+            },
+            "first_verse_id": 3113,
+            "last_verse_id": 3159,
+            "verses_count": 47
+        },
+        {
+            "id": 151,
+            "rub_el_hizb_number": 151,
+            "verse_mapping": {
+                "27": "1-26"
+            },
+            "first_verse_id": 3160,
+            "last_verse_id": 3185,
+            "verses_count": 26
+        },
+        {
+            "id": 152,
+            "rub_el_hizb_number": 152,
+            "verse_mapping": {
+                "27": "27-55"
+            },
+            "first_verse_id": 3186,
+            "last_verse_id": 3214,
+            "verses_count": 29
+        },
+        {
+            "id": 153,
+            "rub_el_hizb_number": 153,
+            "verse_mapping": {
+                "27": "56-81"
+            },
+            "first_verse_id": 3215,
+            "last_verse_id": 3240,
+            "verses_count": 26
+        },
+        {
+            "id": 154,
+            "rub_el_hizb_number": 154,
+            "verse_mapping": {
+                "27": "82-93",
+                "28": "1-11"
+            },
+            "first_verse_id": 3241,
+            "last_verse_id": 3263,
+            "verses_count": 23
+        },
+        {
+            "id": 155,
+            "rub_el_hizb_number": 155,
+            "verse_mapping": {
+                "28": "12-28"
+            },
+            "first_verse_id": 3264,
+            "last_verse_id": 3280,
+            "verses_count": 17
+        },
+        {
+            "id": 156,
+            "rub_el_hizb_number": 156,
+            "verse_mapping": {
+                "28": "29-50"
+            },
+            "first_verse_id": 3281,
+            "last_verse_id": 3302,
+            "verses_count": 22
+        },
+        {
+            "id": 157,
+            "rub_el_hizb_number": 157,
+            "verse_mapping": {
+                "28": "51-75"
+            },
+            "first_verse_id": 3303,
+            "last_verse_id": 3327,
+            "verses_count": 25
+        },
+        {
+            "id": 158,
+            "rub_el_hizb_number": 158,
+            "verse_mapping": {
+                "28": "76-88"
+            },
+            "first_verse_id": 3328,
+            "last_verse_id": 3340,
+            "verses_count": 13
+        },
+        {
+            "id": 159,
+            "rub_el_hizb_number": 159,
+            "verse_mapping": {
+                "29": "1-25"
+            },
+            "first_verse_id": 3341,
+            "last_verse_id": 3365,
+            "verses_count": 25
+        },
+        {
+            "id": 160,
+            "rub_el_hizb_number": 160,
+            "verse_mapping": {
+                "29": "26-45"
+            },
+            "first_verse_id": 3366,
+            "last_verse_id": 3385,
+            "verses_count": 20
+        },
+        {
+            "id": 161,
+            "rub_el_hizb_number": 161,
+            "verse_mapping": {
+                "29": "46-69"
+            },
+            "first_verse_id": 3386,
+            "last_verse_id": 3409,
+            "verses_count": 24
+        },
+        {
+            "id": 162,
+            "rub_el_hizb_number": 162,
+            "verse_mapping": {
+                "30": "1-30"
+            },
+            "first_verse_id": 3410,
+            "last_verse_id": 3439,
+            "verses_count": 30
+        },
+        {
+            "id": 163,
+            "rub_el_hizb_number": 163,
+            "verse_mapping": {
+                "30": "31-53"
+            },
+            "first_verse_id": 3440,
+            "last_verse_id": 3462,
+            "verses_count": 23
+        },
+        {
+            "id": 164,
+            "rub_el_hizb_number": 164,
+            "verse_mapping": {
+                "30": "54-60",
+                "31": "1-21"
+            },
+            "first_verse_id": 3463,
+            "last_verse_id": 3490,
+            "verses_count": 28
+        },
+        {
+            "id": 165,
+            "rub_el_hizb_number": 165,
+            "verse_mapping": {
+                "31": "22-34",
+                "32": "1-10"
+            },
+            "first_verse_id": 3491,
+            "last_verse_id": 3513,
+            "verses_count": 23
+        },
+        {
+            "id": 166,
+            "rub_el_hizb_number": 166,
+            "verse_mapping": {
+                "32": "11-30"
+            },
+            "first_verse_id": 3514,
+            "last_verse_id": 3533,
+            "verses_count": 20
+        },
+        {
+            "id": 167,
+            "rub_el_hizb_number": 167,
+            "verse_mapping": {
+                "33": "1-17"
+            },
+            "first_verse_id": 3534,
+            "last_verse_id": 3550,
+            "verses_count": 17
+        },
+        {
+            "id": 168,
+            "rub_el_hizb_number": 168,
+            "verse_mapping": {
+                "33": "18-30"
+            },
+            "first_verse_id": 3551,
+            "last_verse_id": 3563,
+            "verses_count": 13
+        },
+        {
+            "id": 169,
+            "rub_el_hizb_number": 169,
+            "verse_mapping": {
+                "33": "31-50"
+            },
+            "first_verse_id": 3564,
+            "last_verse_id": 3583,
+            "verses_count": 20
+        },
+        {
+            "id": 170,
+            "rub_el_hizb_number": 170,
+            "verse_mapping": {
+                "33": "51-59"
+            },
+            "first_verse_id": 3584,
+            "last_verse_id": 3592,
+            "verses_count": 9
+        },
+        {
+            "id": 171,
+            "rub_el_hizb_number": 171,
+            "verse_mapping": {
+                "33": "60-73",
+                "34": "1-9"
+            },
+            "first_verse_id": 3593,
+            "last_verse_id": 3615,
+            "verses_count": 23
+        },
+        {
+            "id": 172,
+            "rub_el_hizb_number": 172,
+            "verse_mapping": {
+                "34": "10-23"
+            },
+            "first_verse_id": 3616,
+            "last_verse_id": 3629,
+            "verses_count": 14
+        },
+        {
+            "id": 173,
+            "rub_el_hizb_number": 173,
+            "verse_mapping": {
+                "34": "24-45"
+            },
+            "first_verse_id": 3630,
+            "last_verse_id": 3651,
+            "verses_count": 22
+        },
+        {
+            "id": 174,
+            "rub_el_hizb_number": 174,
+            "verse_mapping": {
+                "34": "46-54",
+                "35": "1-14"
+            },
+            "first_verse_id": 3652,
+            "last_verse_id": 3674,
+            "verses_count": 23
+        },
+        {
+            "id": 175,
+            "rub_el_hizb_number": 175,
+            "verse_mapping": {
+                "35": "15-40"
+            },
+            "first_verse_id": 3675,
+            "last_verse_id": 3700,
+            "verses_count": 26
+        },
+        {
+            "id": 176,
+            "rub_el_hizb_number": 176,
+            "verse_mapping": {
+                "35": "41-45",
+                "36": "1-27"
+            },
+            "first_verse_id": 3701,
+            "last_verse_id": 3732,
+            "verses_count": 32
+        },
+        {
+            "id": 177,
+            "rub_el_hizb_number": 177,
+            "verse_mapping": {
+                "36": "28-59"
+            },
+            "first_verse_id": 3733,
+            "last_verse_id": 3764,
+            "verses_count": 32
+        },
+        {
+            "id": 178,
+            "rub_el_hizb_number": 178,
+            "verse_mapping": {
+                "36": "60-83",
+                "37": "1-21"
+            },
+            "first_verse_id": 3765,
+            "last_verse_id": 3809,
+            "verses_count": 45
+        },
+        {
+            "id": 179,
+            "rub_el_hizb_number": 179,
+            "verse_mapping": {
+                "37": "22-82"
+            },
+            "first_verse_id": 3810,
+            "last_verse_id": 3870,
+            "verses_count": 61
+        },
+        {
+            "id": 180,
+            "rub_el_hizb_number": 180,
+            "verse_mapping": {
+                "37": "83-144"
+            },
+            "first_verse_id": 3871,
+            "last_verse_id": 3932,
+            "verses_count": 62
+        },
+        {
+            "id": 181,
+            "rub_el_hizb_number": 181,
+            "verse_mapping": {
+                "37": "145-182",
+                "38": "1-20"
+            },
+            "first_verse_id": 3933,
+            "last_verse_id": 3990,
+            "verses_count": 58
+        },
+        {
+            "id": 182,
+            "rub_el_hizb_number": 182,
+            "verse_mapping": {
+                "38": "21-51"
+            },
+            "first_verse_id": 3991,
+            "last_verse_id": 4021,
+            "verses_count": 31
+        },
+        {
+            "id": 183,
+            "rub_el_hizb_number": 183,
+            "verse_mapping": {
+                "38": "52-88",
+                "39": "1-7"
+            },
+            "first_verse_id": 4022,
+            "last_verse_id": 4065,
+            "verses_count": 44
+        },
+        {
+            "id": 184,
+            "rub_el_hizb_number": 184,
+            "verse_mapping": {
+                "39": "8-31"
+            },
+            "first_verse_id": 4066,
+            "last_verse_id": 4089,
+            "verses_count": 24
+        },
+        {
+            "id": 185,
+            "rub_el_hizb_number": 185,
+            "verse_mapping": {
+                "39": "32-52"
+            },
+            "first_verse_id": 4090,
+            "last_verse_id": 4110,
+            "verses_count": 21
+        },
+        {
+            "id": 186,
+            "rub_el_hizb_number": 186,
+            "verse_mapping": {
+                "39": "53-75"
+            },
+            "first_verse_id": 4111,
+            "last_verse_id": 4133,
+            "verses_count": 23
+        },
+        {
+            "id": 187,
+            "rub_el_hizb_number": 187,
+            "verse_mapping": {
+                "40": "1-20"
+            },
+            "first_verse_id": 4134,
+            "last_verse_id": 4153,
+            "verses_count": 20
+        },
+        {
+            "id": 188,
+            "rub_el_hizb_number": 188,
+            "verse_mapping": {
+                "40": "21-40"
+            },
+            "first_verse_id": 4154,
+            "last_verse_id": 4173,
+            "verses_count": 20
+        },
+        {
+            "id": 189,
+            "rub_el_hizb_number": 189,
+            "verse_mapping": {
+                "40": "41-65"
+            },
+            "first_verse_id": 4174,
+            "last_verse_id": 4198,
+            "verses_count": 25
+        },
+        {
+            "id": 190,
+            "rub_el_hizb_number": 190,
+            "verse_mapping": {
+                "40": "66-85",
+                "41": "1-8"
+            },
+            "first_verse_id": 4199,
+            "last_verse_id": 4226,
+            "verses_count": 28
+        },
+        {
+            "id": 191,
+            "rub_el_hizb_number": 191,
+            "verse_mapping": {
+                "41": "9-24"
+            },
+            "first_verse_id": 4227,
+            "last_verse_id": 4242,
+            "verses_count": 16
+        },
+        {
+            "id": 192,
+            "rub_el_hizb_number": 192,
+            "verse_mapping": {
+                "41": "25-46"
+            },
+            "first_verse_id": 4243,
+            "last_verse_id": 4264,
+            "verses_count": 22
+        },
+        {
+            "id": 193,
+            "rub_el_hizb_number": 193,
+            "verse_mapping": {
+                "41": "47-54",
+                "42": "1-12"
+            },
+            "first_verse_id": 4265,
+            "last_verse_id": 4284,
+            "verses_count": 20
+        },
+        {
+            "id": 194,
+            "rub_el_hizb_number": 194,
+            "verse_mapping": {
+                "42": "13-26"
+            },
+            "first_verse_id": 4285,
+            "last_verse_id": 4298,
+            "verses_count": 14
+        },
+        {
+            "id": 195,
+            "rub_el_hizb_number": 195,
+            "verse_mapping": {
+                "42": "27-50"
+            },
+            "first_verse_id": 4299,
+            "last_verse_id": 4322,
+            "verses_count": 24
+        },
+        {
+            "id": 196,
+            "rub_el_hizb_number": 196,
+            "verse_mapping": {
+                "42": "51-53",
+                "43": "1-23"
+            },
+            "first_verse_id": 4323,
+            "last_verse_id": 4348,
+            "verses_count": 26
+        },
+        {
+            "id": 197,
+            "rub_el_hizb_number": 197,
+            "verse_mapping": {
+                "43": "24-56"
+            },
+            "first_verse_id": 4349,
+            "last_verse_id": 4381,
+            "verses_count": 33
+        },
+        {
+            "id": 198,
+            "rub_el_hizb_number": 198,
+            "verse_mapping": {
+                "43": "57-89",
+                "44": "1-16"
+            },
+            "first_verse_id": 4382,
+            "last_verse_id": 4430,
+            "verses_count": 49
+        },
+        {
+            "id": 199,
+            "rub_el_hizb_number": 199,
+            "verse_mapping": {
+                "44": "17-59",
+                "45": "1-11"
+            },
+            "first_verse_id": 4431,
+            "last_verse_id": 4484,
+            "verses_count": 54
+        },
+        {
+            "id": 200,
+            "rub_el_hizb_number": 200,
+            "verse_mapping": {
+                "45": "12-37"
+            },
+            "first_verse_id": 4485,
+            "last_verse_id": 4510,
+            "verses_count": 26
+        },
+        {
+            "id": 201,
+            "rub_el_hizb_number": 201,
+            "verse_mapping": {
+                "46": "1-20"
+            },
+            "first_verse_id": 4511,
+            "last_verse_id": 4530,
+            "verses_count": 20
+        },
+        {
+            "id": 202,
+            "rub_el_hizb_number": 202,
+            "verse_mapping": {
+                "46": "21-35",
+                "47": "1-9"
+            },
+            "first_verse_id": 4531,
+            "last_verse_id": 4554,
+            "verses_count": 24
+        },
+        {
+            "id": 203,
+            "rub_el_hizb_number": 203,
+            "verse_mapping": {
+                "47": "10-32"
+            },
+            "first_verse_id": 4555,
+            "last_verse_id": 4577,
+            "verses_count": 23
+        },
+        {
+            "id": 204,
+            "rub_el_hizb_number": 204,
+            "verse_mapping": {
+                "47": "33-38",
+                "48": "1-17"
+            },
+            "first_verse_id": 4578,
+            "last_verse_id": 4600,
+            "verses_count": 23
+        },
+        {
+            "id": 205,
+            "rub_el_hizb_number": 205,
+            "verse_mapping": {
+                "48": "18-29"
+            },
+            "first_verse_id": 4601,
+            "last_verse_id": 4612,
+            "verses_count": 12
+        },
+        {
+            "id": 206,
+            "rub_el_hizb_number": 206,
+            "verse_mapping": {
+                "49": "1-13"
+            },
+            "first_verse_id": 4613,
+            "last_verse_id": 4625,
+            "verses_count": 13
+        },
+        {
+            "id": 207,
+            "rub_el_hizb_number": 207,
+            "verse_mapping": {
+                "49": "14-18",
+                "50": "1-26"
+            },
+            "first_verse_id": 4626,
+            "last_verse_id": 4656,
+            "verses_count": 31
+        },
+        {
+            "id": 208,
+            "rub_el_hizb_number": 208,
+            "verse_mapping": {
+                "50": "27-45",
+                "51": "1-30"
+            },
+            "first_verse_id": 4657,
+            "last_verse_id": 4705,
+            "verses_count": 49
+        },
+        {
+            "id": 209,
+            "rub_el_hizb_number": 209,
+            "verse_mapping": {
+                "51": "31-60",
+                "52": "1-23"
+            },
+            "first_verse_id": 4706,
+            "last_verse_id": 4758,
+            "verses_count": 53
+        },
+        {
+            "id": 210,
+            "rub_el_hizb_number": 210,
+            "verse_mapping": {
+                "52": "24-49",
+                "53": "1-25"
+            },
+            "first_verse_id": 4759,
+            "last_verse_id": 4809,
+            "verses_count": 51
+        },
+        {
+            "id": 211,
+            "rub_el_hizb_number": 211,
+            "verse_mapping": {
+                "53": "26-62",
+                "54": "1-8"
+            },
+            "first_verse_id": 4810,
+            "last_verse_id": 4854,
+            "verses_count": 45
+        },
+        {
+            "id": 212,
+            "rub_el_hizb_number": 212,
+            "verse_mapping": {
+                "54": "9-55"
+            },
+            "first_verse_id": 4855,
+            "last_verse_id": 4901,
+            "verses_count": 47
+        },
+        {
+            "id": 213,
+            "rub_el_hizb_number": 213,
+            "verse_mapping": {
+                "55": "1-78"
+            },
+            "first_verse_id": 4902,
+            "last_verse_id": 4979,
+            "verses_count": 78
+        },
+        {
+            "id": 214,
+            "rub_el_hizb_number": 214,
+            "verse_mapping": {
+                "56": "1-74"
+            },
+            "first_verse_id": 4980,
+            "last_verse_id": 5053,
+            "verses_count": 74
+        },
+        {
+            "id": 215,
+            "rub_el_hizb_number": 215,
+            "verse_mapping": {
+                "56": "75-96",
+                "57": "1-15"
+            },
+            "first_verse_id": 5054,
+            "last_verse_id": 5090,
+            "verses_count": 37
+        },
+        {
+            "id": 216,
+            "rub_el_hizb_number": 216,
+            "verse_mapping": {
+                "57": "16-29"
+            },
+            "first_verse_id": 5091,
+            "last_verse_id": 5104,
+            "verses_count": 14
+        },
+        {
+            "id": 217,
+            "rub_el_hizb_number": 217,
+            "verse_mapping": {
+                "58": "1-13"
+            },
+            "first_verse_id": 5105,
+            "last_verse_id": 5117,
+            "verses_count": 13
+        },
+        {
+            "id": 218,
+            "rub_el_hizb_number": 218,
+            "verse_mapping": {
+                "58": "14-22",
+                "59": "1-10"
+            },
+            "first_verse_id": 5118,
+            "last_verse_id": 5136,
+            "verses_count": 19
+        },
+        {
+            "id": 219,
+            "rub_el_hizb_number": 219,
+            "verse_mapping": {
+                "59": "11-24",
+                "60": "1-6"
+            },
+            "first_verse_id": 5137,
+            "last_verse_id": 5156,
+            "verses_count": 20
+        },
+        {
+            "id": 220,
+            "rub_el_hizb_number": 220,
+            "verse_mapping": {
+                "60": "7-13",
+                "61": "1-14"
+            },
+            "first_verse_id": 5157,
+            "last_verse_id": 5177,
+            "verses_count": 21
+        },
+        {
+            "id": 221,
+            "rub_el_hizb_number": 221,
+            "verse_mapping": {
+                "62": "1-11",
+                "63": "1-3"
+            },
+            "first_verse_id": 5178,
+            "last_verse_id": 5191,
+            "verses_count": 14
+        },
+        {
+            "id": 222,
+            "rub_el_hizb_number": 222,
+            "verse_mapping": {
+                "63": "4-11",
+                "64": "1-18"
+            },
+            "first_verse_id": 5192,
+            "last_verse_id": 5217,
+            "verses_count": 26
+        },
+        {
+            "id": 223,
+            "rub_el_hizb_number": 223,
+            "verse_mapping": {
+                "65": "1-12"
+            },
+            "first_verse_id": 5218,
+            "last_verse_id": 5229,
+            "verses_count": 12
+        },
+        {
+            "id": 224,
+            "rub_el_hizb_number": 224,
+            "verse_mapping": {
+                "66": "1-12"
+            },
+            "first_verse_id": 5230,
+            "last_verse_id": 5241,
+            "verses_count": 12
+        },
+        {
+            "id": 225,
+            "rub_el_hizb_number": 225,
+            "verse_mapping": {
+                "67": "1-30"
+            },
+            "first_verse_id": 5242,
+            "last_verse_id": 5271,
+            "verses_count": 30
+        },
+        {
+            "id": 226,
+            "rub_el_hizb_number": 226,
+            "verse_mapping": {
+                "68": "1-52"
+            },
+            "first_verse_id": 5272,
+            "last_verse_id": 5323,
+            "verses_count": 52
+        },
+        {
+            "id": 227,
+            "rub_el_hizb_number": 227,
+            "verse_mapping": {
+                "69": "1-52",
+                "70": "1-18"
+            },
+            "first_verse_id": 5324,
+            "last_verse_id": 5393,
+            "verses_count": 70
+        },
+        {
+            "id": 228,
+            "rub_el_hizb_number": 228,
+            "verse_mapping": {
+                "70": "19-44",
+                "71": "1-28"
+            },
+            "first_verse_id": 5394,
+            "last_verse_id": 5447,
+            "verses_count": 54
+        },
+        {
+            "id": 229,
+            "rub_el_hizb_number": 229,
+            "verse_mapping": {
+                "72": "1-28",
+                "73": "1-19"
+            },
+            "first_verse_id": 5448,
+            "last_verse_id": 5494,
+            "verses_count": 47
+        },
+        {
+            "id": 230,
+            "rub_el_hizb_number": 230,
+            "verse_mapping": {
+                "73": "20-20",
+                "74": "1-56"
+            },
+            "first_verse_id": 5495,
+            "last_verse_id": 5551,
+            "verses_count": 57
+        },
+        {
+            "id": 231,
+            "rub_el_hizb_number": 231,
+            "verse_mapping": {
+                "75": "1-40",
+                "76": "1-18"
+            },
+            "first_verse_id": 5552,
+            "last_verse_id": 5609,
+            "verses_count": 58
+        },
+        {
+            "id": 232,
+            "rub_el_hizb_number": 232,
+            "verse_mapping": {
+                "76": "19-31",
+                "77": "1-50"
+            },
+            "first_verse_id": 5610,
+            "last_verse_id": 5672,
+            "verses_count": 63
+        },
+        {
+            "id": 233,
+            "rub_el_hizb_number": 233,
+            "verse_mapping": {
+                "78": "1-40",
+                "79": "1-46"
+            },
+            "first_verse_id": 5673,
+            "last_verse_id": 5758,
+            "verses_count": 86
+        },
+        {
+            "id": 234,
+            "rub_el_hizb_number": 234,
+            "verse_mapping": {
+                "80": "1-42",
+                "81": "1-29"
+            },
+            "first_verse_id": 5759,
+            "last_verse_id": 5829,
+            "verses_count": 71
+        },
+        {
+            "id": 235,
+            "rub_el_hizb_number": 235,
+            "verse_mapping": {
+                "82": "1-19",
+                "83": "1-36"
+            },
+            "first_verse_id": 5830,
+            "last_verse_id": 5884,
+            "verses_count": 55
+        },
+        {
+            "id": 236,
+            "rub_el_hizb_number": 236,
+            "verse_mapping": {
+                "84": "1-25",
+                "85": "1-22",
+                "86": "1-17"
+            },
+            "first_verse_id": 5885,
+            "last_verse_id": 5948,
+            "verses_count": 64
+        },
+        {
+            "id": 237,
+            "rub_el_hizb_number": 237,
+            "verse_mapping": {
+                "87": "1-19",
+                "88": "1-26",
+                "89": "1-30"
+            },
+            "first_verse_id": 5949,
+            "last_verse_id": 6023,
+            "verses_count": 75
+        },
+        {
+            "id": 238,
+            "rub_el_hizb_number": 238,
+            "verse_mapping": {
+                "90": "1-20",
+                "91": "1-15",
+                "92": "1-21",
+                "93": "1-11"
+            },
+            "first_verse_id": 6024,
+            "last_verse_id": 6090,
+            "verses_count": 67
+        },
+        {
+            "id": 239,
+            "rub_el_hizb_number": 239,
+            "verse_mapping": {
+                "94": "1-8",
+                "95": "1-8",
+                "96": "1-19",
+                "97": "1-5",
+                "98": "1-8",
+                "99": "1-8",
+                "100": "1-8"
+            },
+            "first_verse_id": 6091,
+            "last_verse_id": 6154,
+            "verses_count": 64
+        },
+        {
+            "id": 240,
+            "rub_el_hizb_number": 240,
+            "verse_mapping": {
+                "100": "9-11",
+                "101": "1-11",
+                "102": "1-8",
+                "103": "1-3",
+                "104": "1-9",
+                "105": "1-5",
+                "106": "1-4",
+                "107": "1-7",
+                "108": "1-3",
+                "109": "1-6",
+                "110": "1-3",
+                "111": "1-5",
+                "112": "1-4",
+                "113": "1-5",
+                "114": "1-6"
+            },
+            "first_verse_id": 6155,
+            "last_verse_id": 6236,
+            "verses_count": 82
+        }
+    ]
+}

@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Cairo Quran Radio",
+        "location": "Cairo, Egypt",
+        "url": "https://n0f.radiojar.com/8s5u5tpdtwzuv?listening-from-radio-garden=1620219571863&rj-ttl=5&rj-tok=AAABnNH-UsoA8s64wgM23OecGg",
+        "logo": "../icons/quran-cairo.webp"
+    },
+    {
+        "name": "Saudi Quran Radio",
+        "location": "Riyadh, Saudi Arabia",
+        "url": "https://n0a.radiojar.com/0tpy1h0kxtzuv?rj-ttl=5&rj-tok=AAABhdgGORQA-2acfyF3_4WY2g",
+        "logo": "../icons/saudi-quran.webp"
+    },
+    {
+        "name": "Kuwait Quran Radio",
+        "location": "Kuwait City, Kuwait",
+        "url": "https://radio.mp3islam.com/listen/quran_radio/radio.mp3",
+        "logo": "../icons/quran-radio.webp"
+    },
+    {
+        "name": "Mishary Alafasy Radio",
+        "location": "Saudi Arabia",
+        "url": "https://radio.mp3islam.com/listen/mishary/radio.mp3",
+        "logo": "../icons/mashari.webp"
+    },
+    {
+        "name": "Muhammad Al-Minshawi Radio",
+        "location": "Egypt",
+        "url": "https://radio.mp3islam.com/listen/minshawi/radio.mp3",
+        "logo": "../icons/minshawi.webp"
+    },
+    {
+        "name": "Maher Al Mueaqly Radio",
+        "location": "Saudi Arabia",
+        "url": "https://radio.mp3islam.com/listen/maher/radio.mp3",
+        "logo": "../icons/mueaqly.webp"
+    },
+    {
+        "name": "Mahmoud Al-Husari Radio",
+        "location": "Egypt",
+        "url": "https://qurango.net/radio/mahmoud_khalil_alhussary_warsh/",
+        "logo": "../icons/husari.webp"
+    },
+    {
+        "name": "Mustafa Ismail Radio",
+        "location": "Egypt",
+        "url": "https://qurango.net/radio/mustafa_ismail/",
+        "logo": "../icons/mustafa-ismail.webp"
+    },
+    {
+        "name": "Abdulbasit AbdulSamad Radio",
+        "location": "Egypt",
+        "url": "https://qurango.net/radio/abdulbasit_abdulsamad/",
+        "logo": "../icons/abdulbasit-abdulsamad.webp"
+    },
+    {
+        "name": "Ali Alhuthaifi Radio",
+        "location": "Saudi Arabia",
+        "url": "https://qurango.net/radio/ali_alhuthaifi/",
+        "logo": "../icons/ali-alhuthaifi.webp"
+    }
+]

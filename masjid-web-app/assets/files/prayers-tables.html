@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <script src="../js/theme-init.js"></script>
+  <script src="../js/config.js"></script>
+  <title>Masjid Prayers</title>
+  <link rel="icon" type="image/png" href="../icons/favicon.png">
+  </link>
+  <!-- MDI Icons CDN originally from https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css -->
+  <!-- Download the font files from https://github.com/Templarian/MaterialDesign-Webfont/tree/master/fonts
+       and place them in /fonts/ as referenced in materialdesignicons.min.css -->
+  <link rel="stylesheet" href="../css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body style="margin: 0; padding: 0;">
+  <div class="prayer-page">
+    <!-- Corner Decorations -->
+    <div class="corner-decor top-left"></div>
+    <div class="corner-decor top-right"></div>
+    <div class="corner-decor bottom-left"></div>
+    <div class="corner-decor bottom-right"></div>
+
+    <!-- Header: Clock + Next Prayer + Countdown + Dates -->
+    <div id="prayer-header" class="prayer-header"></div>
+
+    <!-- Islamic Geometric Divider -->
+    <div class="geometric-divider">
+      <div class="line"></div>
+      <div class="center-icon"></div>
+      <div class="line"></div>
+    </div>
+
+    <!-- Prayer Cards -->
+    <div id="prayer-cards" class="prayer-cards"></div>
+
+    <!-- Full Screen Iqamah Overlay -->
+    <div id="iqamah-fullscreen" class="iqamah-fullscreen">
+      <div class="fs-corner-decor top-left"></div>
+      <div class="fs-corner-decor top-right"></div>
+      <div class="fs-corner-decor bottom-left"></div>
+      <div class="fs-corner-decor bottom-right"></div>
+      <div class="iqamah-fs-header">
+        <div class="iqamah-fs-main-row">
+          <div class="iqamah-fs-logo"></div>
+          <div id="iqamah-fs-clock" class="iqamah-fs-clock"></div>
+        </div>
+        <div class="iqamah-fs-dates">
+          <span id="iqamah-fs-hijri" class="iqamah-fs-date-hijri"></span>
+          <span id="iqamah-fs-date" class="iqamah-fs-date-gregorian"></span>
+        </div>
+      </div>
+      <div class="iqamah-fs-bg"></div>
+      <div class="iqamah-fs-content">
+        <div class="iqamah-fs-title">
+          <span class="iqamah-fs-arabic" id="iqamah-fs-prayer-arabic"></span>
+          <span class="iqamah-fs-english" id="iqamah-fs-prayer-name"></span>
+        </div>
+        <div class="iqamah-fs-icon"><i class="mdi mdi-volume-off"></i></div>
+        <p class="iqamah-fs-note">Please keep quiet and silent your phone</p>
+      </div>
+    </div>
+  </div>
+  <script src="../js/celestial.js"></script>
+  <script src="../js/hijri-converter.js"></script>
+  <script src="../js/qrcode.min.js"></script>
+  <script src="../js/notification-helper.js"></script>
+  <script src="../js/prayers-tables.js"></script>
+</body>
+
+</html>
