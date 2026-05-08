@@ -1,0 +1,24 @@
+[
+  {
+    "message": "🤲 Support your Masjid!\nDonate online 💚!",
+    "startDate": "2026-03-19",
+    "endDate": "2100-01-01",
+    "duration": 15,
+    "important": false,
+    "fontSize": 3,
+    "qrLink": "",
+    "hide-in-portrait": false,
+    "tv-only": false
+  },
+  {
+    "message": "📵 Please silence your mobile.",
+    "startDate": "2026-03-19",
+    "endDate": "2100-01-01",
+    "duration": 10,
+    "important": false,
+    "fontSize": 3,
+    "qrLink": "",
+    "hide-in-portrait": false,
+    "tv-only": false
+  }
+]

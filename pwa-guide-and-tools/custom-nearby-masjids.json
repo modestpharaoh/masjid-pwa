@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Central Masjid Example",
+    "address": "123 Faith Street, Cityville, CV1 2BT",
+    "category": "Nearby",
+    "websites": [
+      "https://example-masjid.com"
+    ],
+    "prayer_times_url": "https://example-masjid.com/prayers"
+  },
+  {
+    "name": "Community Islamic Centre",
+    "address": "456 Peace Road, Townsville, TV2 4GH",
+    "category": "Vicinity",
+    "websites": [
+      "https://community-ic.org"
+    ],
+    "prayer_times_url": "https://community-ic.org/times"
+  }
+]

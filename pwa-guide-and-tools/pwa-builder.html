@@ -1,0 +1,2278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masjid PWA Builder</title>
+    <link rel="icon" type="image/png" href="pwa-build-workspace/masjid-pwa/assets/icons/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8fa33f;
+            --primary-dark: #66772b;
+            --primary-light: #edf4ce;
+            --accent: #c4d56b;
+            --bg: #f8faee;
+            --card: rgba(255, 255, 255, 0.94);
+            --text: #1e293b;
+            --text-light: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --radius: 14px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            padding: 132px 0 150px;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(196, 213, 107, 0.35) 0px, transparent 52%),
+                radial-gradient(at 100% 35%, rgba(143, 163, 63, 0.18) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(196, 213, 107, 0.22) 0px, transparent 50%);
+        }
+
+        .topbar,
+        .bottombar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.94);
+            border-color: rgba(143, 163, 63, 0.18);
+            backdrop-filter: blur(12px);
+            box-shadow: var(--shadow);
+        }
+
+        .topbar {
+            top: 0;
+            border-bottom: 1px solid rgba(143, 163, 63, 0.18);
+        }
+
+        .topbar-inner,
+        .bottombar-inner,
+        .wrapper {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .topbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .section {
+            background: var(--card);
+            border-radius: var(--radius);
+            margin-bottom: 18px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(143, 163, 63, 0.12);
+            overflow: hidden;
+        }
+
+        .section-header {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 22px 24px;
+            cursor: pointer;
+            font-family: inherit;
+            text-align: left;
+        }
+
+        .section-header .icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .section-header .header-text {
+            flex: 1;
+        }
+
+        .section-header h2 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .section-header p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .section-header::after {
+            content: '▼';
+            color: var(--primary-dark);
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+
+        .section.collapsed .section-header::after {
+            transform: rotate(-90deg);
+        }
+
+        .section-body {
+            padding: 0 24px 24px;
+        }
+
+        .section.collapsed .section-body {
+            display: none;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .hint,
+        .note {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.76rem;
+        }
+
+        .note {
+            margin-bottom: 12px;
+        }
+
+        input,
+        textarea,
+        select {
+            padding: 11px 14px;
+            border-radius: 10px;
+            border: 1.5px solid var(--border);
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text);
+            background: white;
+            transition: all 0.25s;
+            width: 100%;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(143, 163, 63, 0.16);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .toggles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 10px;
+        }
+
+        .toggle-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1.5px solid var(--border);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .toggle-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            margin-top: 2px;
+        }
+
+        .toggle-title {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .toggle-help {
+            display: block;
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .list-editor {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .editor-card {
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            background: #fbfdf5;
+            overflow: hidden;
+        }
+
+        .editor-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 14px;
+            background: rgba(196, 213, 107, 0.16);
+        }
+
+        .editor-card-header strong {
+            color: var(--primary-dark);
+        }
+
+        .item-toggle {
+            border: 0;
+            background: transparent;
+            color: var(--primary-dark);
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 800;
+            text-align: left;
+            flex: 1;
+        }
+
+        .item-summary {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.76rem;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .editor-card-body {
+            padding: 14px;
+        }
+
+        .editor-card.collapsed .editor-card-body {
+            display: none;
+        }
+
+        .editor-card.collapsed .item-toggle::before {
+            content: '▶ ';
+        }
+
+        .editor-card:not(.collapsed) .item-toggle::before {
+            content: '▼ ';
+        }
+
+        .editor-tools {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 10px 0 12px;
+        }
+
+        .json-edit-mode .list-editor,
+        .json-edit-mode .row-actions {
+            display: none;
+        }
+
+        .json-edit-mode .json-source {
+            display: block;
+        }
+
+        .json-source {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .row-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-family: inherit;
+            font-weight: 800;
+            cursor: pointer;
+            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            box-shadow: 0 6px 18px rgba(143, 163, 63, 0.24);
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn.secondary {
+            background: #e2e8f0;
+            color: var(--text);
+            box-shadow: none;
+        }
+
+        .btn.danger {
+            background: var(--danger);
+            box-shadow: none;
+        }
+
+        .btn.small {
+            padding: 8px 10px;
+            font-size: 0.8rem;
+        }
+
+        .file-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .json-area {
+            min-height: 180px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 0.82rem;
+        }
+
+        .upload-note {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+
+        .schedule-editor {
+            display: block;
+        }
+
+        .schedule-json-mode .schedule-editor {
+            display: none;
+        }
+
+        .schedule-json-mode .json-area {
+            display: block;
+        }
+
+        .schedule-section:not(.schedule-json-mode) .json-area {
+            display: none;
+        }
+
+        .month-panel {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .month-title {
+            width: 100%;
+            border: 0;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 800;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .month-panel.collapsed .month-body {
+            display: none;
+        }
+
+        .month-body {
+            overflow-x: auto;
+            padding: 10px;
+        }
+
+        .schedule-row {
+            display: grid;
+            grid-template-columns: 52px repeat(6, 92px);
+            gap: 6px;
+            align-items: center;
+            margin-bottom: 6px;
+            min-width: 650px;
+        }
+
+        .ramadan-row {
+            grid-template-columns: 70px 70px 70px 70px repeat(6, 92px);
+            min-width: 980px;
+        }
+
+        .schedule-row input {
+            padding: 7px 8px;
+            font-size: 0.8rem;
+        }
+
+        .schedule-head {
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .bottombar {
+            bottom: 0;
+            border-top: 1px solid rgba(143, 163, 63, 0.18);
+        }
+
+        .bottombar-inner {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            padding-top: 14px;
+            padding-bottom: 14px;
+        }
+
+        .footer-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .footer-checks {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            color: var(--text-light);
+            font-size: 0.82rem;
+        }
+
+        .footer-checks input {
+            width: auto;
+            accent-color: var(--primary);
+            margin-right: 5px;
+        }
+
+        .footer-copy {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(248, 250, 238, 0.94);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+
+        .overlay.visible {
+            display: flex;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--primary-light);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .overlay p {
+            margin-top: 16px;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 148px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--danger);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 2000;
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+            transition: transform 0.4s;
+            max-width: 90vw;
+            text-align: center;
+            display: none;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toast.visible {
+            display: flex;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.success {
+            background: var(--primary-dark);
+            box-shadow: 0 8px 24px rgba(143, 163, 63, 0.3);
+        }
+
+        .toast-close {
+            border: 0;
+            background: rgba(255, 255, 255, 0.22);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 800;
+        }
+
+        @media (max-width: 760px) {
+            body {
+                padding-top: 154px;
+                padding-bottom: 220px;
+            }
+
+            .topbar-inner {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: 1;
+            }
+
+            .header h1 {
+                font-size: 1.45rem;
+            }
+        }
+
+        input.input-readonly {
+            background: #eef0e2;
+            color: var(--text-muted);
+            border-color: #d5d9c0;
+            cursor: not-allowed;
+        }
+
+        .full-line {
+            grid-column: 1 / -1;
+        }
+
+        .jumuah-entries {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .jumuah-entry {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 8px;
+            align-items: end;
+        }
+
+        .jumuah-entry input {
+            min-width: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay" id="loading">
+        <div class="spinner"></div>
+        <p id="loadingText">Working...</p>
+    </div>
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+        <button class="toast-close" type="button" id="toastClose" aria-label="Close message">×</button>
+    </div>
+
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="header">
+                <h1><img src="pwa-build-workspace/masjid-pwa/assets/icons/favicon.png" alt="Masjid"
+                        style="width:32px;height:32px;vertical-align:middle;"> Masjid PWA Builder</h1>
+                <p>Customize and package your Masjid Progressive Web App</p>
+            </div>
+            <span class="badge">ZERO DEPENDENCIES • PYTHON 3.6+</span>
+        </div>
+    </header>
+
+    <main class="wrapper">
+        <form id="builderForm">
+            <section class="section" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">✨</span>
+                    <span class="header-text">
+                        <h2>Branding & Identity</h2>
+                        <p>How your Masjid appears in the app</p>
+                    </span>
+                </button>
+                <div class="section-body">
+                    <div class="grid">
+                        <div class="form-group">
+                            <label>Masjid Short Name <span class="hint">(required)</span></label>
+                            <input type="text" name="masjidName" placeholder="My Masjid" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Full Title <span class="hint">(required)</span></label>
+                            <input type="text" name="masjidFullTitle" placeholder="My Masjid Cultural Centre" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Website Display</label>
+                            <input type="text" name="masjidSite" placeholder="masjid.example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Base URL <span class="hint">(required)</span></label>
+                            <input type="url" name="masjidBaseUrl" placeholder="https://masjid.example.com" required>
+                        </div>
+                        <div class="form-group full">
+                            <label>Description / Story</label>
+                            <textarea name="masjidDescription" rows="3"
+                                placeholder="Your masjid description goes here. This permanent worship space acts as a vital hub for daily prayers, educational services, and positive integration within the community."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group full" style="margin-top:18px;">
+                        <label>About Page Features</label>
+                        <p class="note">Add or remove feature cards shown in the About page “What We Do” section.</p>
+                        <div class="editor-tools">
+                            <button class="btn secondary small" type="button" data-json-toggle="featuresSection">Edit
+                                JSON</button>
+                        </div>
+                        <div id="featuresSection">
+                            <div id="featuresEditor" class="list-editor"></div>
+                            <textarea class="json-area json-source" name="masjidFeatures"></textarea>
+                        </div>
+                        <div class="row-actions">
+                            <button class="btn secondary small" type="button" id="addFeatureBtn">Add feature</button>
+                        </div>
+                    </div>
+
+                    <div class="grid" style="margin-top:18px;">
+                        <div class="form-group">
+                            <label class="toggle-item">
+                                <input type="checkbox" name="useCustomLogo" data-custom-image-toggle="logoUploadPanel">
+                                <span>
+                                    <span class="toggle-title">Use custom logo</span>
+                                    <span class="toggle-help">Requires custom-masjid-logo.svg/png/webp saved beside the
+                                        builder script or uploaded below.</span>
+                                </span>
+                            </label>
+                            <div id="logoUploadPanel" class="custom-image-panel" hidden>
+                                <label class="btn secondary small" style="width:max-content;">Upload logo
+                                    <input type="file" accept=".svg,.png,.webp,image/svg+xml,image/png,image/webp"
+                                        data-image-upload="masjidLogoUpload" hidden>
+                                </label>
+                                <div class="hint" data-custom-image-status="logo">No custom logo saved yet.</div>
+                            </div>
+                            <input type="hidden" name="masjidLogo" value="masjid-logo.png">
+                            <input type="hidden" name="masjidLogoUploadName">
+                            <input type="hidden" name="masjidLogoUploadData">
+                            <div class="upload-note">Recommended: square SVG/WebP/PNG, 512x512 or larger. The build
+                                writes custom-masjid-logo.svg/png/webp and updates config.js.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="toggle-item">
+                                <input type="checkbox" name="useCustomBuildingImage"
+                                    data-custom-image-toggle="buildingUploadPanel">
+                                <span>
+                                    <span class="toggle-title">Use custom building image</span>
+                                    <span class="toggle-help">Requires custom-masjid-building.svg/png/webp saved beside
+                                        the builder script or uploaded below.</span>
+                                </span>
+                            </label>
+                            <div id="buildingUploadPanel" class="custom-image-panel" hidden>
+                                <label class="btn secondary small" style="width:max-content;">Upload building image
+                                    <input type="file" accept=".svg,.png,.webp,image/svg+xml,image/png,image/webp"
+                                        data-image-upload="masjidBuildingUpload" hidden>
+                                </label>
+                                <div class="hint" data-custom-image-status="building">No custom building image saved
+                                    yet.</div>
+                            </div>
+                            <input type="hidden" name="masjidBuildingImage" value="masjid-building-optimized.svg">
+                            <input type="hidden" name="masjidBuildingUploadName">
+                            <input type="hidden" name="masjidBuildingUploadData">
+                            <div class="upload-note">Recommended: wide SVG/WebP/PNG, around 1600x900. The build writes
+                                custom-masjid-building.svg/png/webp and updates config.js.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">📍</span>
+                    <span class="header-text">
+                        <h2>Location & Contact</h2>
+                        <p>Coordinates, address, and contact info</p>
+                    </span>
+                </button>
+                <div class="section-body">
+                    <div class="grid">
+                        <div class="form-group">
+                            <label>Latitude <span class="hint">(required for celestial)</span></label>
+                            <input type="number" step="any" name="masjidLat" placeholder="53.3498" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Longitude</label>
+                            <input type="number" step="any" name="masjidLng" placeholder="-6.2603" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Timezone</label>
+                            <select name="masjidTimeZone" data-timezone-select>
+                                <option value="Europe/Dublin">Europe/Dublin</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" name="masjidPhone" placeholder="+00 123 456 789">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="masjidEmail" placeholder="info@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Capacitor Hostname <span class="hint">(for Android app)</span></label>
+                            <input type="text" name="masjidCapacitorHostname" placeholder="masjid-app">
+                        </div>
+                        <div class="form-group full">
+                            <label>Full Address</label>
+                            <input type="text" name="masjidAddress" placeholder="123 Faith Street, Cityville, CV1 2BT">
+                        </div>
+                        <label class="toggle-item full">
+                            <input type="checkbox" name="showGoogleMap" checked>
+                            <span>
+                                <span class="toggle-title">Show Google Map</span>
+                                <span class="toggle-help">Builds the embedded Google Maps URL from the address
+                                    above.</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">⚙️</span>
+                    <span class="header-text">
+                        <h2>Feature Toggles</h2>
+                        <p>Disable a module to hide it from the side menu.</p>
+                    </span>
+                </button>
+                <div class="section-body">
+                    <p class="note">These switches control whether the related app page or Ramadan UI appears in
+                        navigation.</p>
+                    <div class="toggles-grid" id="featureToggles"></div>
+                </div>
+            </section>
+
+            <section class="section" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">🤲</span>
+                    <span class="header-text">
+                        <h2>Donation & Bank Details</h2>
+                        <p>Donation copy, bank transfer details, and online donation links</p>
+                    </span>
+                </button>
+                <div class="section-body">
+                    <div class="grid">
+                        <div class="form-group full">
+                            <label>Donation Appeal Message <span class="hint">(HTML allowed)</span></label>
+                            <textarea name="masjidDonationMessage" rows="2"
+                                placeholder="<strong>Your support matters.</strong><br>By contributing, you help create a welcoming space for prayer, learning, and kindness that serves the local community."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Bank Name</label>
+                            <input type="text" name="masjidBankName" placeholder="Example Bank">
+                        </div>
+                        <div class="form-group">
+                            <label>Account Name</label>
+                            <input type="text" name="masjidBankAccountName" placeholder="My Masjid Name">
+                        </div>
+                        <div class="form-group">
+                            <label>IBAN</label>
+                            <input type="text" name="masjidBankIban" placeholder="IE00 EXAM 0000 0000 0000 00">
+                        </div>
+                        <div class="form-group">
+                            <label>BIC</label>
+                            <input type="text" name="masjidBankBic" placeholder="EXAMIE2D">
+                        </div>
+                        <div class="form-group">
+                            <label>Account Number <span class="hint">(optional)</span></label>
+                            <input type="text" name="masjidBankAccountNumber" placeholder="00000000">
+                        </div>
+                        <div class="form-group full-line">
+                            <label>SumUp URL <span class="hint">(leave blank to hide)</span></label>
+                            <input type="url" name="masjidDonationSumUpUrl" placeholder="">
+                        </div>
+                        <div class="form-group full-line">
+                            <label>PayPal URL <span class="hint">(leave blank to hide)</span></label>
+                            <input type="url" name="masjidDonationPayPalUrl" placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">🌐</span>
+                    <span class="header-text">
+                        <h2>Social Media</h2>
+                        <p>Leave blank to hide individual social icons</p>
+                    </span>
+                </button>
+                <div class="section-body">
+                    <div class="grid">
+                        <div class="form-group"><label>Facebook</label><input type="url" name="social_facebook"
+                                placeholder=""></div>
+                        <div class="form-group"><label>Instagram</label><input type="url" name="social_instagram"
+                                placeholder=""></div>
+                        <div class="form-group"><label>X (Twitter)</label><input type="url" name="social_x"
+                                placeholder=""></div>
+                        <div class="form-group"><label>YouTube</label><input type="url" name="social_youtube"
+                                placeholder=""></div>
+                        <div class="form-group"><label>WhatsApp</label><input type="url" name="social_whatsapp"
+                                placeholder=""></div>
+                        <div class="form-group"><label>Telegram</label><input type="url" name="social_telegram"
+                                placeholder=""></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">🎨</span>
+                    <span class="header-text">
+                        <h2>PWA Manifest & Advanced</h2>
+                        <p>Manifest colors and version.js override</p>
+                    </span>
+                </button>
+                <div class="section-body">
+                    <div class="grid">
+                        <div class="form-group">
+                            <label>Theme Color</label>
+                            <input type="color" name="themeColor" value="#C4D56B" style="height:42px;padding:4px;">
+                        </div>
+                        <div class="form-group">
+                            <label>Background Color</label>
+                            <input type="color" name="backgroundColor" value="#C4D56B" style="height:42px;padding:4px;">
+                        </div>
+                        <div class="form-group full">
+                            <label>App Version <span class="hint">(patch only - increase for new build, so users get new
+                                    build installed instead of keep old cached version)</span></label>
+                            <div class="grid">
+                                <div class="form-group">
+                                    <label>Major.Minor</label>
+                                    <input type="text" name="appVersionBase" readonly placeholder="8.7"
+                                        class="input-readonly" title="Derived from the source PWA — read only">
+                                </div>
+                                <div class="form-group">
+                                    <label>Patch</label>
+                                    <input type="number" name="appVersionPatch" min="0" step="1" placeholder="2">
+                                </div>
+                            </div>
+                            <input type="hidden" name="appVersion">
+                            <span class="hint">Uses the original PWA major.minor and only lets this build change the
+                                patch number.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section collapsed" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">📅</span>
+                    <span class="header-text">
+                        <h2>Full Year Schedule</h2>
+                        <p>Export current prayer schedule or import a custom standard/leap JSON file</p>
+                    </span>
+                </button>
+                <div class="section-body schedule-section" id="prayersScheduleSection">
+                    <div class="file-tools">
+                        <button class="btn secondary small" type="button" data-export="prayers">Download
+                            current</button>
+                        <label class="btn secondary small">Import JSON<input type="file" accept="application/json,.json"
+                                data-import-target="prayersSchedule" hidden></label>
+                        <button class="btn secondary small" type="button" data-use-original="prayers">Use
+                            original</button>
+                        <button class="btn secondary small" type="button"
+                            data-schedule-json-toggle="prayersScheduleSection">Edit JSON</button>
+                    </div>
+                    <label class="toggle-item" style="margin-bottom:10px;">
+                        <input type="checkbox" name="useCustomPrayersSchedule">
+                        <span>
+                            <span class="toggle-title">Use custom full year schedule</span>
+                            <span class="toggle-help">Saved as custom-prayers-schedule.json beside
+                                pwa-builder.py.</span>
+                        </span>
+                    </label>
+                    <div class="schedule-editor" id="prayersScheduleEditor"></div>
+                    <textarea class="json-area" name="prayersSchedule"
+                        placeholder='{"standard": {...}, "leap": {...}}'></textarea>
+                </div>
+            </section>
+
+            <section class="section collapsed" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">🌙</span>
+                    <span class="header-text">
+                        <h2>Ramadan Features</h2>
+                        <p>Configure Ramadan module toggles and footer feature cards</p>
+                    </span>
+                </button>
+                <div class="section-body">
+                    <div class="toggles-grid" style="margin-bottom:20px;">
+                        <label class="toggle-item">
+                            <input type="checkbox" name="enableRamadan">
+                            <span>
+                                <span class="toggle-title">Enable Ramadan</span>
+                                <span class="toggle-help">Shows the Ramadan timetable module. Only during the Ramadan
+                                    month.</span>
+                            </span>
+                        </label>
+                        <label class="toggle-item">
+                            <input type="checkbox" name="showRamadanAnimation">
+                            <span>
+                                <span class="toggle-title">Ramadan Animation</span>
+                                <span class="toggle-help">Shows Ramadan prayer-card animation. Only during the actual
+                                    Ramadan month.</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Days Before Ramadan</label>
+                        <p class="note">Number of days before Ramadan starts to show the Ramadan module/menu item
+                            (0-30).</p>
+                        <input type="number" name="ramadanDaysBefore" min="0" max="30" step="1">
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Ramadan Footer Cards</label>
+                        <p class="note">Add or remove feature cards shown under the Ramadan timetable.</p>
+                        <div class="editor-tools">
+                            <button class="btn secondary small" type="button"
+                                data-json-toggle="ramadanFeaturesSection">Edit JSON</button>
+                        </div>
+                        <div id="ramadanFeaturesSection">
+                            <div id="ramadanFeaturesEditor" class="list-editor"></div>
+                            <textarea class="json-area json-source" name="ramadanFeaturesCards"></textarea>
+                        </div>
+                        <div class="row-actions">
+                            <button class="btn secondary small" type="button" id="addRamadanFeatureBtn">Add
+                                card</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section collapsed" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">🕌</span>
+                    <span class="header-text">
+                        <h2>Iqamah Settings</h2>
+                        <p>Add or remove dated iqamah schedule blocks</p>
+                    </span>
+                </button>
+                <div class="section-body">
+                    <div class="grid" style="margin-bottom:18px;">
+                        <div class="form-group">
+                            <label>Isha After-Maghrib Offset <span class="hint">(minutes, 0–90)</span></label>
+                            <input type="number" name="ishaIqamahOffsetFromMaghrib" min="0" max="90" step="1" value="10"
+                                placeholder="10">
+                            <span class="hint">When Isha iqamah type is set to 'After-Maghrib' (combined prayers), Isha
+                                Iqamah = Maghrib Iqamah + this offset.</span>
+                        </div>
+                    </div>
+                    <div class="editor-tools">
+                        <button class="btn secondary small" type="button" data-json-toggle="iqamahSection">Edit
+                            JSON</button>
+                    </div>
+                    <div id="iqamahSection">
+                        <div id="iqamahEditor" class="list-editor"></div>
+                        <textarea class="json-area json-source" name="iqamahSettings"></textarea>
+                    </div>
+                    <div class="row-actions">
+                        <button class="btn secondary small" type="button" id="addIqamahBtn">Add iqamah item</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section collapsed" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">🔔</span>
+                    <span class="header-text">
+                        <h2>Notifications</h2>
+                        <p>Message rotations used by the notification helper</p>
+                    </span>
+                </button>
+                <div class="section-body">
+                    <p class="note">Fields follow notifications.json: message, startDate, endDate, duration, important,
+                        and fontSize.</p>
+                    <div class="editor-tools">
+                        <button class="btn secondary small" type="button" data-json-toggle="notificationsSection">Edit
+                            JSON</button>
+                    </div>
+                    <div id="notificationsSection">
+                        <div id="notificationsEditor" class="list-editor"></div>
+                        <textarea class="json-area json-source" name="notificationsData"></textarea>
+                    </div>
+                    <div class="row-actions">
+                        <button class="btn secondary small" type="button" id="addNotificationBtn">Add
+                            notification</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section collapsed" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">📌</span>
+                    <span class="header-text">
+                        <h2>Nearby Masjids</h2>
+                        <p>Masjid context data used by the chatbot</p>
+                    </span>
+                </button>
+                <div class="section-body">
+                    <p class="note">These items override assets/data/nearby-masjids.json in the custom build.</p>
+                    <div class="editor-tools">
+                        <button class="btn secondary small" type="button" data-json-toggle="nearbySection">Edit
+                            JSON</button>
+                    </div>
+                    <div id="nearbySection">
+                        <div id="nearbyEditor" class="list-editor"></div>
+                        <textarea class="json-area json-source" name="nearbyMasjids"></textarea>
+                    </div>
+                    <div class="row-actions">
+                        <button class="btn secondary small" type="button" id="addNearbyBtn">Add nearby masjid</button>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </main>
+
+    <footer class="bottombar">
+        <div class="bottombar-inner">
+            <div class="footer-actions">
+                <button class="btn secondary" type="button" id="saveBtn">Save Info</button>
+                <button class="btn" type="button" id="buildDownloadBtn">Build & Download .tar.gz</button>
+                <button class="btn" type="button" id="buildOnlyBtn">Build only .tar.gz</button>
+                <button class="btn secondary" type="button" id="testBtn">Test PWA</button>
+                <button class="btn secondary" type="button" id="cleanBuildBtn">Delete temp build directory</button>
+                <button class="btn secondary" type="button" id="cleanArchivesBtn">Clean up old tar.gz builds</button>
+                <button class="btn danger" type="button" id="resetAllBtn">Reset everything</button>
+            </div>
+            <div class="footer-checks">
+                <label><input type="checkbox" name="keepTempDir" form="builderForm" checked> Keep customized temp
+                    directory</label>
+                <label><input type="checkbox" name="keepArchive" form="builderForm" checked> Keep .tar.gz after
+                    download</label>
+            </div>
+            <div class="footer-copy">Built with ❤️ for the Ummah &nbsp;•&nbsp; Masjid PWA Project</div>
+        </div>
+    </footer>
+
+    <script>
+        const FORM_DEFAULTS = {
+            masjidName: 'My Masjid',
+            masjidFullTitle: 'My Masjid Cultural Centre',
+            masjidSite: 'masjid.example.com',
+            masjidBaseUrl: 'https://masjid.example.com',
+            masjidDescription: 'Your masjid description goes here. This permanent worship space acts as a vital hub for daily prayers, educational services, and positive integration within the community.',
+            masjidLogo: 'masjid-logo.png',
+            masjidBuildingImage: 'masjid-building-optimized.svg',
+            masjidLat: '53.3498',
+            masjidLng: '-6.2603',
+            masjidTimeZone: 'Europe/Dublin',
+            masjidAddress: '123 Faith Street, Cityville, CV1 2BT',
+            showGoogleMap: true,
+            masjidPhone: '+00 123 456 789',
+            masjidEmail: 'info@example.com',
+            masjidCapacitorHostname: 'masjid-app',
+            masjidDonationMessage: '<strong>Your support matters.</strong><br>By contributing, you help create a welcoming space for prayer, learning, and kindness that serves the local community.',
+            masjidBankName: 'Example Bank',
+            masjidBankAccountName: 'My Masjid Name',
+            masjidBankIban: 'IE00 EXAM 0000 0000 0000 00',
+            masjidBankBic: 'EXAMIE2D',
+            masjidBankAccountNumber: '00000000',
+            masjidDonationSumUpUrl: '',
+            masjidDonationPayPalUrl: '',
+            social_facebook: '',
+            social_instagram: '',
+            social_x: '',
+            social_youtube: '',
+            social_whatsapp: '',
+            social_telegram: '',
+            themeColor: '#C4D56B',
+            backgroundColor: '#C4D56B',
+            appVersion: '',
+            enableRamadan: true,
+            enablePrayerTimesYear: true,
+            enableRadio: true,
+            enableQuran: true,
+            enableAzkar: true,
+            enableTasbih: true,
+            enableQiblah: true,
+            enableSettings: true,
+            enablePosts: true,
+            enableEvents: true,
+            enableDonation: true,
+            enableAbout: true,
+            enableContact: true,
+            showRamadanAnimation: true,
+            useCustomLogo: false,
+            useCustomBuildingImage: false,
+            useCustomPrayersSchedule: false,
+            ishaIqamahOffsetFromMaghrib: 10,
+            keepTempDir: true,
+            keepArchive: true
+        };
+
+        const DEFAULT_FEATURES = [
+            {
+                title: 'Daily Prayers',
+                description: 'Our Masjid hosts the five daily prayers, providing a spiritual home for worship and reflection, with a dedicated space for women.',
+                icon: 'mdi-mosque'
+            },
+            {
+                title: 'Community Engagement',
+                description: 'We organize cultural events and outreach programs to build bridges and foster positive integration within the community.',
+                icon: 'mdi-account-group'
+            }
+        ];
+
+        const FEATURE_TOGGLES = [
+            ['enablePrayerTimesYear', 'Yearly Timetable', 'Shows full-year prayer times.'],
+            ['enableRadio', 'Quran Radio', 'Shows the streaming Quran radio page.'],
+            ['enableQuran', 'Quran Reader', 'Shows the Quran reading module.'],
+            ['enableAzkar', 'Azkar', 'Shows morning/evening remembrance.'],
+            ['enableTasbih', 'Digital Tasbih', 'Shows the counter tool.'],
+            ['enableQiblah', 'Qiblah Compass', 'Shows the direction compass.'],
+            ['enableSettings', 'Settings', 'Shows azan and app settings.'],
+            ['enablePosts', 'Posts / Blog', 'Shows latest WordPress posts.'],
+            ['enableEvents', 'Events', 'Shows upcoming events.'],
+            ['enableDonation', 'Donations', 'Shows donation page and links.'],
+            ['enableAbout', 'About Page', 'Shows story and features page.'],
+            ['enableContact', 'Contact Page', 'Shows address and contact page.']
+        ];
+
+        const DEFAULT_IQAMAH = [{
+            startDate: '2026-01-01',
+            description: 'Standard Winter Schedule',
+            fajr: { type: 'offset', value: 20 },
+            zuhr: { type: 'offset', value: 20 },
+            asr: { type: 'offset', value: 15 },
+            maghrib: { type: 'offset', value: 10 },
+            isha: { type: 'fixed', value: '20:30' },
+            jumuah: [{ time: '12:30', label: 'Men & Women' }, { time: '13:30', label: 'Men Only' }],
+            hijriOffset: 0
+        }];
+
+        const DEFAULT_NOTIFICATIONS = [{
+            message: '🤲 Support your Masjid!\nDonate online 💚!',
+            startDate: '2026-03-19',
+            endDate: '2100-01-01',
+            duration: 15,
+            important: false,
+            fontSize: 3
+        }];
+
+        const DEFAULT_NEARBY_MASJIDS = [
+            {
+                name: 'Central Masjid Example',
+                address: '123 Faith Street, Cityville, CV1 2BT',
+                category: 'Nearby',
+                prayer_times_url: 'https://example-masjid.com/prayers',
+                websites: ['https://example-masjid.com']
+            }
+        ];
+
+        const FALLBACK_TIMEZONES = [
+            'Africa/Cairo', 'Africa/Johannesburg', 'America/Chicago', 'America/New_York',
+            'America/Toronto', 'Asia/Dubai', 'Asia/Jakarta', 'Asia/Karachi', 'Asia/Kuala_Lumpur',
+            'Asia/Riyadh', 'Asia/Singapore', 'Europe/Dublin', 'Europe/London', 'Europe/Paris',
+            'Europe/Istanbul', 'Australia/Sydney'
+        ];
+
+        const PRAYER_KEYS = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
+        // --- End Default Data ---
+        const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        const form = document.getElementById('builderForm');
+        const loading = document.getElementById('loading');
+        const loadingText = document.getElementById('loadingText');
+        let builderDefaults = {};
+
+        let _toastTimer = null;
+
+        function showToast(msg, type = 'error') {
+            const t = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = msg;
+            t.className = 'toast visible ' + (type === 'success' ? 'success' : '');
+            clearTimeout(_toastTimer);
+            _toastTimer = setTimeout(() => t.classList.remove('visible'), 4500);
+        }
+
+        function hideToast() {
+            clearTimeout(_toastTimer);
+            document.getElementById('toast').classList.remove('visible');
+        }
+
+        function truncateText(value, length = 72) {
+            const text = String(value || '').replace(/\s+/g, ' ').trim();
+            return text.length > length ? text.slice(0, length - 1) + '…' : text;
+        }
+
+        function isJsonMode(sectionId) {
+            return document.getElementById(sectionId).classList.contains('json-edit-mode');
+        }
+
+        function setJsonMode(sectionId, enabled, button) {
+            const section = document.getElementById(sectionId);
+            const textarea = section.querySelector('.json-source');
+            if (enabled) {
+                if (sectionId === 'featuresSection') syncFeatures();
+                if (sectionId === 'ramadanFeaturesSection') syncRamadanFeatures();
+                if (sectionId === 'iqamahSection') syncIqamah();
+                if (sectionId === 'notificationsSection') syncNotifications();
+                if (sectionId === 'nearbySection') syncNearbyMasjids();
+            } else {
+                const parsed = JSON.parse(textarea.value || '[]');
+                if (sectionId === 'featuresSection') renderFeatures(parsed);
+                if (sectionId === 'ramadanFeaturesSection') renderRamadanFeatures(parsed);
+                if (sectionId === 'iqamahSection') renderIqamah(parsed);
+                if (sectionId === 'notificationsSection') renderNotifications(parsed);
+                if (sectionId === 'nearbySection') renderNearbyMasjids(parsed);
+            }
+            section.classList.toggle('json-edit-mode', enabled);
+            if (button) button.textContent = enabled ? 'Use form editor' : 'Edit JSON';
+        }
+
+        function setLoading(message, visible) {
+            loadingText.textContent = message;
+            loading.classList.toggle('visible', visible);
+            document.querySelectorAll('button').forEach((btn) => btn.disabled = visible);
+        }
+
+        function prettyJson(value) {
+            return JSON.stringify(value, null, 2);
+        }
+
+        function timePairToString(value) {
+            if (!Array.isArray(value)) return '';
+            return `${String(value[0]).padStart(2, '0')}:${String(value[1]).padStart(2, '0')}`;
+        }
+
+        function timeStringToPair(value) {
+            const [hour, minute] = String(value || '00:00').split(':').map((part) => Number(part || 0));
+            return [hour, minute];
+        }
+
+        function setupTimezoneSelect(selected) {
+            const select = form.elements.masjidTimeZone;
+            const zones = (Intl.supportedValuesOf ? Intl.supportedValuesOf('timeZone') : FALLBACK_TIMEZONES)
+                .filter((zone) => zone.includes('/'))
+                .sort();
+            // Escape each timezone string to prevent XSS via a crafted/rogue TZ value
+            select.innerHTML = zones.map((zone) => `<option value="${escapeHtml(zone)}">${escapeHtml(zone)}</option>`).join('');
+            select.value = selected && zones.includes(selected) ? selected : 'Europe/Dublin';
+        }
+
+        function syncAppVersion() {
+            const base = form.elements.appVersionBase.value;
+            const patch = form.elements.appVersionPatch.value;
+            form.elements.appVersion.value = base && patch !== '' ? `${base}.${Number(patch)}` : '';
+        }
+
+        function applyVersionDefaults(state, defaults) {
+            const savedVersion = parseSemver(state.appVersion);
+            const base = defaults.appVersionBase || (savedVersion && savedVersion.base) || '1.0';
+            const patch = savedVersion ? savedVersion.patch : (defaults.appVersionPatch ?? 0);
+            form.elements.appVersionBase.value = base;
+            form.elements.appVersionPatch.value = patch;
+            syncAppVersion();
+        }
+
+        function parseSemver(version) {
+            const match = String(version || '').match(/^(\d+)\.(\d+)\.(\d+)/);
+            if (!match) return null;
+            return { base: `${match[1]}.${match[2]}`, patch: Number(match[3]) };
+        }
+
+        function parseJsonTextarea(name, label) {
+            const value = form.elements[name].value.trim();
+            if (!value) return '';
+            try {
+                JSON.parse(value);
+                return value;
+            } catch (err) {
+                throw new Error(label + ' JSON is invalid: ' + err.message);
+            }
+        }
+
+        function downloadText(filename, text) {
+            const blob = new Blob([text], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function readFileAsDataUrl(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(reader.error);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function setCustomImagePanels(defaults = {}) {
+            document.querySelectorAll('[data-custom-image-toggle]').forEach((toggle) => {
+                const panel = document.getElementById(toggle.dataset.customImageToggle);
+                panel.hidden = !toggle.checked;
+            });
+            const logoStatus = document.querySelector('[data-custom-image-status="logo"]');
+            const buildingStatus = document.querySelector('[data-custom-image-status="building"]');
+            logoStatus.textContent = defaults.customLogoFilename ? `Saved: ${defaults.customLogoFilename}` : 'No custom logo saved yet.';
+            buildingStatus.textContent = defaults.customBuildingFilename ? `Saved: ${defaults.customBuildingFilename}` : 'No custom building image saved yet.';
+            form.elements.masjidLogo.value = form.elements.useCustomLogo.checked && defaults.customLogoFilename ? defaults.customLogoFilename : 'masjid-logo.png';
+            form.elements.masjidBuildingImage.value = form.elements.useCustomBuildingImage.checked && defaults.customBuildingFilename ? defaults.customBuildingFilename : 'masjid-building-optimized.svg';
+        }
+
+        function renderFeatureToggles(state) {
+            const grid = document.getElementById('featureToggles');
+            grid.innerHTML = FEATURE_TOGGLES.map(([key, title, help]) => `
+                <label class="toggle-item">
+                    <input type="checkbox" name="${key}">
+                    <span>
+                        <span class="toggle-title">${title}</span>
+                        <span class="toggle-help">${help}</span>
+                    </span>
+                </label>
+            `).join('');
+            FEATURE_TOGGLES.forEach(([key]) => {
+                form.elements[key].checked = state[key] !== false && state[key] !== 'false';
+            });
+        }
+
+        function makeInput(label, name, value, type = 'text', attrs = '') {
+            return `
+                <div class="form-group">
+                    <label>${label}</label>
+                    <input type="${type}" name="${name}" value="${escapeHtml(value ?? '')}" ${attrs}>
+                </div>
+            `;
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function renderFeatures(features) {
+            const list = Array.isArray(features) ? features : DEFAULT_FEATURES;
+            const container = document.getElementById('featuresEditor');
+            container.innerHTML = list.map((item, index) => `
+                <div class="editor-card collapsed" data-feature-row>
+                    <div class="editor-card-header">
+                        <button class="item-toggle" type="button" data-item-toggle>
+                            <strong>${escapeHtml(item.title || `Feature ${index + 1}`)}</strong>
+                            <span class="item-summary">${escapeHtml(truncateText(item.description || item.icon || 'No description yet'))}</span>
+                        </button>
+                        <button class="btn danger small" type="button" data-remove-row>Remove</button>
+                    </div>
+                    <div class="editor-card-body grid">
+                        ${makeInput('Title', 'featureTitle', item.title || '')}
+                        ${makeInput('Icon', 'featureIcon', item.icon || 'mdi-star')}
+                        <div class="form-group full">
+                            <label>Description</label>
+                            <textarea name="featureDescription" rows="2">${escapeHtml(item.description || '')}</textarea>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            syncFeatures();
+        }
+
+        function syncFeatures() {
+            const rows = [...document.querySelectorAll('[data-feature-row]')];
+            const data = rows.map((row) => ({
+                title: row.querySelector('[name="featureTitle"]').value,
+                description: row.querySelector('[name="featureDescription"]').value,
+                icon: row.querySelector('[name="featureIcon"]').value || 'mdi-star'
+            })).filter((item) => item.title || item.description || item.icon);
+            form.elements.masjidFeatures.value = prettyJson(data);
+        }
+
+        const DEFAULT_RAMADAN_FEATURES = [
+            {
+                title: "Prayer Times",
+                description: "<ul><li><strong>Isha & Taraweeh:</strong> Isha prayer is fixed at 20:30, followed immediately by Taraweeh.</li><li><strong>Last 10 Nights (Qiyam/Tahajjud):</strong> Special late-night prayers from 23:30 – 00:30 nightly.</li><li><strong>Attendance:</strong> Taraweeh and Tahajjud are available for both men and women.</li></ul>",
+                icon: "mdi-clock-outline"
+            },
+            {
+                title: "Community & Support",
+                description: "<ul><li><strong>Limited Capacity:</strong> Masjid space is limited. Attendance is on a first-come, first-served basis.</li><li><strong>Parking & Transport:</strong> Local attendees are strongly encouraged to walk. For those coming from a distance, please carpool with neighbors to accommodate limited parking.</li></ul>",
+                icon: "mdi-car-multiple"
+            }
+        ];
+
+        function renderRamadanFeatures(items) {
+            const list = Array.isArray(items) && items.length ? items : DEFAULT_RAMADAN_FEATURES;
+            const container = document.getElementById('ramadanFeaturesEditor');
+            container.innerHTML = list.map((item, index) => `
+                <div class="editor-card collapsed" data-ramadan-feature-row>
+                    <div class="editor-card-header">
+                        <button class="item-toggle" type="button" data-item-toggle>
+                            <strong>${escapeHtml(item.title || ('Card ' + (index + 1)))}</strong>
+                            <span class="item-summary">${escapeHtml(truncateText(item.description || item.icon || 'No description yet'))}</span>
+                        </button>
+                        <button class="btn danger small" type="button" data-remove-row>Remove</button>
+                    </div>
+                    <div class="editor-card-body grid">
+                        ${makeInput('Title', 'rfTitle', item.title || '')}
+                        ${makeInput('Icon', 'rfIcon', item.icon || 'mdi-star')}
+                        <div class="form-group full">
+                            <label>Description (HTML allowed)</label>
+                            <textarea name="rfDescription" rows="2">${escapeHtml(item.description || '')}</textarea>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            syncRamadanFeatures();
+        }
+
+        function syncRamadanFeatures() {
+            const rows = [...document.querySelectorAll('[data-ramadan-feature-row]')];
+            const data = rows.map((row) => ({
+                title: row.querySelector('[name="rfTitle"]').value,
+                description: row.querySelector('[name="rfDescription"]').value,
+                icon: row.querySelector('[name="rfIcon"]').value || 'mdi-star'
+            })).filter((item) => item.title || item.description || item.icon);
+            form.elements.ramadanFeaturesCards.value = prettyJson(data);
+        }
+
+        function renderIqamah(items) {
+            const list = Array.isArray(items) && items.length ? items : DEFAULT_IQAMAH;
+            const container = document.getElementById('iqamahEditor');
+            container.innerHTML = list.map((item, index) => {
+                const jumuahList = Array.isArray(item.jumuah) ? item.jumuah : [];
+                const jumuahHtml = jumuahList.map((j, ji) => {
+                    const t = (typeof j === 'object' && j !== null) ? (j.time || '') : j;
+                    const l = (typeof j === 'object' && j !== null) ? (j.label || '') : '';
+                    return `<div class="jumuah-entry" data-jumuah-entry>
+                        <div class="form-group"><label>Time</label><input type="time" name="jumuahTime" value="${escapeHtml(t)}"></div>
+                        <div class="form-group"><label>Label</label><input type="text" name="jumuahLabel" value="${escapeHtml(l)}" placeholder="e.g. Men Only"></div>
+                        <button class="btn danger small" type="button" data-remove-jumuah>✕</button>
+                    </div>`;
+                }).join('');
+                return `
+                <div class="editor-card collapsed" data-iqamah-row>
+                    <div class="editor-card-header">
+                        <button class="item-toggle" type="button" data-item-toggle>
+                            <strong>${escapeHtml(item.description || `Iqamah item ${index + 1}`)}</strong>
+                            <span class="item-summary">${escapeHtml(item.startDate || 'No start date')}</span>
+                        </button>
+                        <button class="btn danger small" type="button" data-remove-row>Remove</button>
+                    </div>
+                    <div class="editor-card-body grid">
+                        ${makeInput('Start Date', 'iqamahStartDate', item.startDate || '', 'date')}
+                        ${makeInput('Description', 'iqamahDescription', item.description || '')}
+                        ${prayerFields('fajr', item.fajr)}
+                        ${prayerFields('zuhr', item.zuhr)}
+                        ${prayerFields('asr', item.asr)}
+                        ${prayerFields('maghrib', item.maghrib)}
+                        ${prayerFields('isha', item.isha, true)}
+                        <div class="form-group full">
+                            <label>Jumuah Times (Max 3)</label>
+                            <div class="jumuah-entries" data-jumuah-list>
+                                ${jumuahHtml}
+                            </div>
+                            <button class="btn secondary small" type="button" data-add-jumuah style="margin-top:6px; ${jumuahList.length >= 3 ? 'display: none;' : ''}">+ Add Jumuah</button>
+                        </div>
+                        ${makeInput('Hijri Offset', 'iqamahHijriOffset', item.hijriOffset ?? 0, 'number', 'step="1"')}
+                    </div>
+                </div>
+            `;
+            }).join('');
+            syncIqamah();
+        }
+
+        function prayerFields(key, value, allowMaghrib = false) {
+            const type = value && value.type ? value.type : 'offset';
+            const prayerValue = value && value.value !== undefined ? value.value : '';
+            const label = key.charAt(0).toUpperCase() + key.slice(1);
+            const maghribOption = allowMaghrib ? `<option value="maghrib" ${type === 'maghrib' ? 'selected' : ''}>After-Maghrib</option>` : '';
+            const showValue = type !== 'maghrib';
+            const valueAttrs = type === 'offset'
+                ? 'type="number" min="0" max="60" step="1" placeholder="0–60 min"'
+                : 'type="time" placeholder="HH:MM"';
+            return `
+                <div class="form-group">
+                    <label>${label} Type</label>
+                    <select name="iqamah_${key}_type" data-prayer-type-select>
+                        <option value="offset" ${type === 'offset' ? 'selected' : ''}>Offset (minutes)</option>
+                        <option value="fixed" ${type === 'fixed' ? 'selected' : ''}>Fixed time</option>
+                        ${maghribOption}
+                    </select>
+                </div>
+                <div class="form-group" data-prayer-value-group ${!showValue ? 'style="display:none"' : ''}>
+                    <label>${label} Value</label>
+                    <input ${valueAttrs} name="iqamah_${key}_value" value="${escapeHtml(showValue ? prayerValue : '')}">
+                </div>
+            `;
+        }
+
+        function typedPrayer(row, key) {
+            const type = row.querySelector(`[name="iqamah_${key}_type"]`).value;
+            const raw = row.querySelector(`[name="iqamah_${key}_value"]`).value;
+            if (type === 'maghrib') return { type };
+            return { type, value: type === 'offset' ? Number(raw || 0) : raw };
+        }
+
+        function getJumuahField(jumuah, index, field) {
+            if (!jumuah || !jumuah[index]) return '';
+            const entry = jumuah[index];
+            if (typeof entry === 'object' && entry !== null) return entry[field] || '';
+            // Legacy plain string: only return as time, label is empty
+            return field === 'time' ? entry : '';
+        }
+
+        function syncIqamah() {
+            const rows = [...document.querySelectorAll('[data-iqamah-row]')];
+            const data = rows.map((row) => {
+                const jumuahEntries = [...row.querySelectorAll('[data-jumuah-entry]')].map(el => ({
+                    time: el.querySelector('[name="jumuahTime"]').value,
+                    label: el.querySelector('[name="jumuahLabel"]').value
+                })).filter(j => j.time);
+                return {
+                    startDate: row.querySelector('[name="iqamahStartDate"]').value,
+                    description: row.querySelector('[name="iqamahDescription"]').value,
+                    fajr: typedPrayer(row, 'fajr'),
+                    zuhr: typedPrayer(row, 'zuhr'),
+                    asr: typedPrayer(row, 'asr'),
+                    maghrib: typedPrayer(row, 'maghrib'),
+                    isha: typedPrayer(row, 'isha'),
+                    jumuah: jumuahEntries,
+                    hijriOffset: Number(row.querySelector('[name="iqamahHijriOffset"]').value || 0)
+                };
+            });
+            form.elements.iqamahSettings.value = prettyJson(data);
+        }
+
+        function renderNotifications(items) {
+            const list = Array.isArray(items) && items.length ? items : DEFAULT_NOTIFICATIONS;
+            const container = document.getElementById('notificationsEditor');
+            container.innerHTML = list.map((item, index) => `
+                <div class="editor-card collapsed" data-notification-row>
+                    <div class="editor-card-header">
+                        <button class="item-toggle" type="button" data-item-toggle>
+                            <strong>Notification ${index + 1}</strong>
+                            <span class="item-summary">${escapeHtml(truncateText(item.message || 'No message yet'))}</span>
+                        </button>
+                        <button class="btn danger small" type="button" data-remove-row>Remove</button>
+                    </div>
+                    <div class="editor-card-body grid">
+                        <div class="form-group full">
+                            <label>Message</label>
+                            <textarea name="notificationMessage" rows="2">${escapeHtml(item.message || '')}</textarea>
+                        </div>
+                        ${makeInput('Start Date', 'notificationStartDate', item.startDate || '', 'date')}
+                        ${makeInput('End Date', 'notificationEndDate', item.endDate || '', 'date')}
+                        ${makeInput('Duration Seconds', 'notificationDuration', item.duration ?? 15, 'number', 'min="1"')}
+                        ${makeInput('Font Size', 'notificationFontSize', item.fontSize ?? 3, 'number', 'min="1" max="3" step="1"')}
+                        <div class="form-group full">
+                            <label>QR Link <span class="hint">(optional)</span></label>
+                            <input type="url" name="notificationQrLink" value="${escapeHtml(item.qrLink || '')}">
+                        </div>
+                        <label class="toggle-item">
+                            <input type="checkbox" name="notificationImportant" ${item.important ? 'checked' : ''}>
+                            <span><span class="toggle-title">Important</span><span class="toggle-help">Use priority styling.</span></span>
+                        </label>
+                        <label class="toggle-item">
+                            <input type="checkbox" name="notificationHidePortrait" ${item['hide-in-portrait'] ? 'checked' : ''}>
+                            <span><span class="toggle-title">Hide in portrait</span><span class="toggle-help">Use for TV-only landscape notices.</span></span>
+                        </label>
+                        <label class="toggle-item">
+                            <input type="checkbox" name="notificationTvOnly" ${item['tv-only'] ? 'checked' : ''}>
+                            <span><span class="toggle-title">TV only</span><span class="toggle-help">Only show on TV display mode.</span></span>
+                        </label>
+                    </div>
+                </div>
+            `).join('');
+            syncNotifications();
+        }
+
+        function syncNotifications() {
+            const rows = [...document.querySelectorAll('[data-notification-row]')];
+            const data = rows.map((row) => ({
+                message: row.querySelector('[name="notificationMessage"]').value,
+                startDate: row.querySelector('[name="notificationStartDate"]').value,
+                endDate: row.querySelector('[name="notificationEndDate"]').value,
+                duration: Number(row.querySelector('[name="notificationDuration"]').value || 15),
+                important: row.querySelector('[name="notificationImportant"]').checked,
+                fontSize: Number(row.querySelector('[name="notificationFontSize"]').value || 3),
+                qrLink: row.querySelector('[name="notificationQrLink"]').value,
+                'hide-in-portrait': row.querySelector('[name="notificationHidePortrait"]').checked,
+                'tv-only': row.querySelector('[name="notificationTvOnly"]').checked
+            })).filter((item) => item.message);
+            form.elements.notificationsData.value = prettyJson(data);
+        }
+
+        function renderNearbyMasjids(items) {
+            const list = Array.isArray(items) && items.length ? items : DEFAULT_NEARBY_MASJIDS;
+            const container = document.getElementById('nearbyEditor');
+            container.innerHTML = list.map((item, index) => `
+                <div class="editor-card collapsed" data-nearby-row>
+                    <div class="editor-card-header">
+                        <button class="item-toggle" type="button" data-item-toggle>
+                            <strong>${escapeHtml(item.name || `Nearby masjid ${index + 1}`)}</strong>
+                            <span class="item-summary">${escapeHtml(truncateText(item.address || item.category || 'No address yet'))}</span>
+                        </button>
+                        <button class="btn danger small" type="button" data-remove-row>Remove</button>
+                    </div>
+                    <div class="editor-card-body grid">
+                        ${makeInput('Name', 'nearbyName', item.name || '')}
+                        ${makeInput('Category', 'nearbyCategory', item.category || '')}
+                        <div class="form-group full">
+                            <label>Address</label>
+                            <input type="text" name="nearbyAddress" value="${escapeHtml(item.address || '')}">
+                        </div>
+                        <div class="form-group full">
+                            <label>Prayer Times URL</label>
+                            <input type="url" name="nearbyPrayerTimesUrl" value="${escapeHtml(item.prayer_times_url || item.prayer_times_page || '')}">
+                        </div>
+                        <div class="form-group full">
+                            <label>Websites <span class="hint">(one per line)</span></label>
+                            <textarea name="nearbyWebsites" rows="2">${escapeHtml((item.websites || []).join('\n'))}</textarea>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            syncNearbyMasjids();
+        }
+
+        function syncNearbyMasjids() {
+            const rows = [...document.querySelectorAll('[data-nearby-row]')];
+            const data = rows.map((row) => {
+                const prayerUrl = row.querySelector('[name="nearbyPrayerTimesUrl"]').value;
+                const item = {
+                    name: row.querySelector('[name="nearbyName"]').value,
+                    address: row.querySelector('[name="nearbyAddress"]').value,
+                    category: row.querySelector('[name="nearbyCategory"]').value,
+                    websites: row.querySelector('[name="nearbyWebsites"]').value.split('\n').map((url) => url.trim()).filter(Boolean)
+                };
+                if (prayerUrl) item.prayer_times_url = prayerUrl;
+                return item;
+            }).filter((item) => item.name || item.address);
+            form.elements.nearbyMasjids.value = prettyJson(data);
+        }
+
+        function renderPrayersScheduleEditor(schedule) {
+            const data = schedule && schedule.standard && schedule.leap ? schedule : { standard: {}, leap: {} };
+            const container = document.getElementById('prayersScheduleEditor');
+            container.innerHTML = ['standard', 'leap'].map((yearType) => `
+                <div class="month-panel ${yearType === 'leap' ? 'collapsed' : ''}" data-year-type="${yearType}">
+                    <button class="month-title" type="button" data-month-toggle>${yearType === 'standard' ? 'Standard Year' : 'Leap Year'}</button>
+                    <div class="month-body">
+                        ${Array.from({ length: 12 }, (_, monthIndex) => renderPrayerMonth(yearType, monthIndex + 1, data[yearType] || {})).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPrayerMonth(yearType, month, source) {
+            const days = source[String(month)] || {};
+            return `
+                <div class="month-panel collapsed" data-prayer-month="${month}">
+                    <button class="month-title" type="button" data-month-toggle>${MONTH_NAMES[month - 1]}</button>
+                    <div class="month-body">
+                        <div class="schedule-row schedule-head"><span>Day</span>${PRAYER_KEYS.map((key) => `<span>${key}</span>`).join('')}</div>
+                        ${Array.from({ length: daysInMonth(month, yearType === 'leap') }, (_, dayIndex) => {
+                const day = dayIndex + 1;
+                const values = days[String(day)] || [];
+                return `<div class="schedule-row" data-prayer-row data-year-type="${yearType}" data-month="${month}" data-day="${day}">
+                                <strong>${day}</strong>
+                                ${PRAYER_KEYS.map((_, idx) => `<input type="time" value="${timePairToString(values[idx])}">`).join('')}
+                            </div>`;
+            }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function daysInMonth(month, leap) {
+            return [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
+        }
+
+        function syncPrayersSchedule() {
+            const data = { standard: {}, leap: {} };
+            document.querySelectorAll('[data-prayer-row]').forEach((row) => {
+                const yearType = row.dataset.yearType;
+                const month = row.dataset.month;
+                const day = row.dataset.day;
+                data[yearType][month] = data[yearType][month] || {};
+                data[yearType][month][day] = [...row.querySelectorAll('input')].map((input) => timeStringToPair(input.value));
+            });
+            form.elements.prayersSchedule.value = prettyJson(data);
+        }
+
+
+        function applyState(state, defaults) {
+            builderDefaults = defaults || {};
+            const data = { ...FORM_DEFAULTS, ...state };
+            setupTimezoneSelect(data.masjidTimeZone || 'Europe/Dublin');
+            applyVersionDefaults(state, defaults);
+
+            Object.entries(data).forEach(([key, value]) => {
+                const field = form.elements[key];
+                if (!field || ['masjidFeatures', 'ramadanFeaturesCards', 'iqamahSettings', 'notificationsData', 'nearbyMasjids', 'appVersion', 'appVersionBase', 'appVersionPatch'].includes(key)) return;
+                if (field.type === 'checkbox') {
+                    field.checked = value === true || value === 'true' || value === 'on';
+                } else {
+                    field.value = value ?? '';
+                }
+            });
+
+            renderFeatureToggles(data);
+            setCustomImagePanels(defaults);
+            renderFeatures(jsonOrDefault(state.masjidFeatures, defaults.masjidFeatures || DEFAULT_FEATURES));
+            renderRamadanFeatures(jsonOrDefault(state.ramadanFeaturesCards, defaults.ramadanFeaturesCards || DEFAULT_RAMADAN_FEATURES));
+            renderIqamah(jsonOrDefault(null, defaults.customIqamahData || defaults.iqamahData || DEFAULT_IQAMAH));
+            renderNotifications(jsonOrDefault(null, defaults.customNotificationsData || defaults.notificationsData || DEFAULT_NOTIFICATIONS));
+            renderNearbyMasjids(jsonOrDefault(null, defaults.customNearbyData || defaults.nearbyData || DEFAULT_NEARBY_MASJIDS));
+
+            form.elements.prayersSchedule.value = state.useCustomPrayersSchedule && defaults.customPrayersData ? prettyJson(defaults.customPrayersData) : prettyJson(defaults.prayersData || {});
+            renderPrayersScheduleEditor(jsonOrDefault(form.elements.prayersSchedule.value, defaults.prayersData || {}));
+        }
+
+        function jsonOrDefault(value, fallback) {
+            if (!value) return fallback;
+            if (typeof value !== 'string') return value;
+            try {
+                return JSON.parse(value);
+            } catch (_) {
+                return fallback;
+            }
+        }
+
+        function collectPayload(buildMode) {
+            if (!isJsonMode('featuresSection')) syncFeatures();
+            if (!isJsonMode('ramadanFeaturesSection')) syncRamadanFeatures();
+            if (!isJsonMode('iqamahSection')) syncIqamah();
+            if (!isJsonMode('notificationsSection')) syncNotifications();
+            if (!isJsonMode('nearbySection')) syncNearbyMasjids();
+            if (!document.getElementById('prayersScheduleSection').classList.contains('schedule-json-mode')) syncPrayersSchedule();
+            syncAppVersion();
+
+            const payload = {};
+            new FormData(form).forEach((value, key) => {
+                payload[key] = value;
+            });
+
+            FEATURE_TOGGLES.forEach(([key]) => {
+                payload[key] = form.elements[key].checked;
+            });
+            payload.keepTempDir = form.elements.keepTempDir.checked;
+            payload.keepArchive = form.elements.keepArchive.checked;
+            payload.showGoogleMap = form.elements.showGoogleMap.checked;
+            payload.useCustomLogo = form.elements.useCustomLogo.checked;
+            payload.useCustomBuildingImage = form.elements.useCustomBuildingImage.checked;
+            payload.masjidLogo = payload.useCustomLogo ? form.elements.masjidLogo.value : 'masjid-logo.png';
+            payload.masjidBuildingImage = payload.useCustomBuildingImage ? form.elements.masjidBuildingImage.value : 'masjid-building-optimized.svg';
+            payload.useCustomPrayersSchedule = form.elements.useCustomPrayersSchedule.checked;
+            payload.masjidFeatures = parseJsonTextarea('masjidFeatures', 'About features');
+            payload.ramadanFeaturesCards = parseJsonTextarea('ramadanFeaturesCards', 'Ramadan features');
+            payload.iqamahSettings = parseJsonTextarea('iqamahSettings', 'Iqamah settings');
+            payload.notificationsData = parseJsonTextarea('notificationsData', 'Notifications');
+            payload.nearbyMasjids = parseJsonTextarea('nearbyMasjids', 'Nearby masjids');
+            payload.prayersSchedule = payload.useCustomPrayersSchedule ? parseJsonTextarea('prayersSchedule', 'Full year schedule') : '';
+            payload.buildMode = buildMode;
+            return payload;
+        }
+
+        async function postJson(url, payload) {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!response.ok) {
+                let message = 'Request failed';
+                try {
+                    const err = await response.json();
+                    message = err.error || message;
+                } catch (_) {
+                    message = await response.text() || message;
+                }
+                throw new Error(message);
+            }
+            return response;
+        }
+
+        async function saveInfo() {
+            setLoading('Saving builder info...', true);
+            try {
+                await postJson('/save', collectPayload('save'));
+                showToast('Info saved. It will be restored next time.', 'success');
+            } finally {
+                setLoading('', false);
+            }
+        }
+
+        async function build(download) {
+            setLoading(download ? 'Building and downloading package...' : 'Building package...', true);
+            try {
+                const response = await postJson('/build', collectPayload(download ? 'download' : 'build'));
+                if (download) {
+                    const blob = await response.blob();
+                    const disposition = response.headers.get('Content-Disposition') || '';
+                    const match = disposition.match(/filename="(.+?)"/);
+                    const filename = match ? match[1] : 'masjid-pwa.tar.gz';
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    showToast('PWA package downloaded successfully.', 'success');
+                } else {
+                    const data = await response.json();
+                    showToast(`Build complete. Preview: ${data.previewUrl || 'temp directory not kept'}`, 'success');
+                }
+            } finally {
+                setLoading('', false);
+            }
+        }
+
+        async function testPwa() {
+            setLoading('Rebuilding preview PWA...', true);
+            try {
+                const payload = collectPayload('build');
+                payload.keepTempDir = true;
+                payload.keepArchive = form.elements.keepArchive.checked;
+                const response = await postJson('/build', payload);
+                const data = await response.json();
+                window.open(data.previewUrl || '/pwa/', '_blank');
+                showToast('Preview rebuilt and opened.', 'success');
+            } finally {
+                setLoading('', false);
+            }
+        }
+
+        async function cleanBuild() {
+            if (!confirm('Delete the local pwa-build-workspace directory? (Saved custom masjid data is NOT deleted)')) return;
+            setLoading('Deleting build directory...', true);
+            try {
+                await fetch('/clean-build', { method: 'POST' });
+                showToast('Build workspace directory deleted.', 'success');
+            } finally {
+                setLoading('', false);
+            }
+        }
+
+        async function cleanArchives() {
+            if (!confirm('Delete all generated .tar.gz files in the builder directory?')) return;
+            setLoading('Cleaning up archives...', true);
+            try {
+                const response = await fetch('/clean-archives', { method: 'POST' });
+                const data = await response.json();
+                showToast(data.message, 'success');
+            } finally {
+                setLoading('', false);
+            }
+        }
+
+        async function resetAll() {
+            if (!confirm('Reset everything, including saved builder state, custom images, custom schedules, temp directory, and generated .tar.gz files?')) return;
+            setLoading('Resetting everything...', true);
+            try {
+                await fetch('/reset-all', { method: 'POST' });
+                showToast('All local builder data reset.', 'success');
+                setTimeout(() => window.location.reload(), 800);
+            } finally {
+                setLoading('', false);
+            }
+        }
+
+        async function init() {
+            document.getElementById('toastClose').addEventListener('click', hideToast);
+            form.elements.appVersionPatch.addEventListener('input', syncAppVersion);
+            document.querySelectorAll('[data-custom-image-toggle]').forEach((toggle) => {
+                toggle.addEventListener('change', () => {
+                    document.getElementById(toggle.dataset.customImageToggle).hidden = !toggle.checked;
+                    setCustomImagePanels(builderDefaults);
+                });
+            });
+            document.querySelectorAll('[data-section] .section-header').forEach((button) => {
+                button.addEventListener('click', () => button.closest('[data-section]').classList.toggle('collapsed'));
+            });
+            document.querySelectorAll('[data-schedule-json-toggle]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const section = document.getElementById(button.dataset.scheduleJsonToggle);
+                    const jsonMode = !section.classList.contains('schedule-json-mode');
+                    try {
+                        if (jsonMode) {
+                            if (section.id === 'prayersScheduleSection') syncPrayersSchedule();
+                        } else {
+                            if (section.id === 'prayersScheduleSection') renderPrayersScheduleEditor(JSON.parse(form.elements.prayersSchedule.value || '{}'));
+                        }
+                        section.classList.toggle('schedule-json-mode', jsonMode);
+                        button.textContent = jsonMode ? 'Use form editor' : 'Edit JSON';
+                    } catch (err) {
+                        showToast(err.message);
+                    }
+                });
+            });
+            document.querySelectorAll('[data-json-toggle]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const sectionId = button.dataset.jsonToggle;
+                    try {
+                        setJsonMode(sectionId, !isJsonMode(sectionId), button);
+                    } catch (err) {
+                        showToast(err.message);
+                    }
+                });
+            });
+
+            document.getElementById('addFeatureBtn').addEventListener('click', () => {
+                const current = jsonOrDefault(form.elements.masjidFeatures.value, []);
+                current.push({ title: '', description: '', icon: 'mdi-star' });
+                renderFeatures(current);
+            });
+            document.getElementById('addRamadanFeatureBtn').addEventListener('click', () => {
+                const current = jsonOrDefault(form.elements.ramadanFeaturesCards.value, []);
+                current.push({ title: '', description: '', icon: 'mdi-star' });
+                renderRamadanFeatures(current);
+            });
+            document.getElementById('addIqamahBtn').addEventListener('click', () => {
+                const current = jsonOrDefault(form.elements.iqamahSettings.value, []);
+                current.push(DEFAULT_IQAMAH[0]);
+                renderIqamah(current);
+            });
+            document.getElementById('addNotificationBtn').addEventListener('click', () => {
+                const current = jsonOrDefault(form.elements.notificationsData.value, []);
+                current.push({ message: '', startDate: '', endDate: '', duration: 15, important: false, fontSize: 3, qrLink: '', 'hide-in-portrait': false, 'tv-only': false });
+                renderNotifications(current);
+            });
+            document.getElementById('addNearbyBtn').addEventListener('click', () => {
+                const current = jsonOrDefault(form.elements.nearbyMasjids.value, []);
+                current.push({ name: '', address: '', category: '', prayer_times_url: '', websites: [] });
+                renderNearbyMasjids(current);
+            });
+
+            form.addEventListener('input', (event) => {
+                if (event.target.closest('[data-feature-row]')) syncFeatures();
+                if (event.target.closest('[data-ramadan-feature-row]')) syncRamadanFeatures();
+                if (event.target.closest('[data-iqamah-row]')) syncIqamah();
+                if (event.target.closest('[data-notification-row]')) syncNotifications();
+                if (event.target.closest('[data-nearby-row]')) syncNearbyMasjids();
+            });
+            form.addEventListener('change', (event) => {
+                if (event.target.closest('[data-iqamah-row]')) syncIqamah();
+                if (event.target.closest('[data-notification-row]')) syncNotifications();
+                if (event.target.closest('[data-nearby-row]')) syncNearbyMasjids();
+                if (event.target.closest('[data-prayer-row]')) syncPrayersSchedule();
+                if (event.target.closest('[data-ramadan-feature-row]')) syncRamadanFeatures();
+            });
+            form.addEventListener('click', (event) => {
+                const monthToggle = event.target.closest('[data-month-toggle]');
+                if (monthToggle) {
+                    monthToggle.closest('.month-panel').classList.toggle('collapsed');
+                    return;
+                }
+                const toggle = event.target.closest('[data-item-toggle]');
+                if (toggle) {
+                    toggle.closest('.editor-card').classList.toggle('collapsed');
+                    return;
+                }
+                const addJumuah = event.target.closest('[data-add-jumuah]');
+                if (addJumuah) {
+                    const list = addJumuah.previousElementSibling;
+                    if (list.children.length >= 3) return; // Enforce max 3
+                    const entry = document.createElement('div');
+                    entry.className = 'jumuah-entry';
+                    entry.setAttribute('data-jumuah-entry', '');
+                    entry.innerHTML = `
+                        <div class="form-group"><label>Time</label><input type="time" name="jumuahTime" value=""></div>
+                        <div class="form-group"><label>Label</label><input type="text" name="jumuahLabel" value="" placeholder="e.g. Men Only"></div>
+                        <button class="btn danger small" type="button" data-remove-jumuah>\u2715</button>
+                    `;
+                    list.appendChild(entry);
+                    if (list.children.length >= 3) {
+                        addJumuah.style.display = 'none';
+                    }
+                    syncIqamah();
+                    return;
+                }
+                const removeJumuah = event.target.closest('[data-remove-jumuah]');
+                if (removeJumuah) {
+                    const list = removeJumuah.closest('[data-jumuah-list]');
+                    removeJumuah.closest('[data-jumuah-entry]').remove();
+                    if (list && list.nextElementSibling && list.nextElementSibling.hasAttribute('data-add-jumuah')) {
+                        list.nextElementSibling.style.display = '';
+                    }
+                    syncIqamah();
+                    return;
+                }
+                const remove = event.target.closest('[data-remove-row]');
+                if (!remove) return;
+                const row = remove.closest('.editor-card');
+                row.remove();
+                syncFeatures();
+                syncIqamah();
+                syncNotifications();
+                syncNearbyMasjids();
+            });
+
+            // Prayer type select: toggle value field visibility and input type
+            form.addEventListener('change', (event) => {
+                const typeSelect = event.target.closest('[data-prayer-type-select]');
+                if (typeSelect) {
+                    const valueGroup = typeSelect.closest('.editor-card-body').querySelector(
+                        `[name="${typeSelect.name.replace('_type', '_value')}"]`
+                    );
+                    if (valueGroup) {
+                        const container = valueGroup.closest('[data-prayer-value-group]');
+                        const newType = typeSelect.value;
+                        if (newType === 'maghrib') {
+                            container.style.display = 'none';
+                            valueGroup.value = '';
+                        } else {
+                            container.style.display = '';
+                            if (newType === 'offset') {
+                                valueGroup.type = 'number';
+                                valueGroup.min = '0';
+                                valueGroup.max = '60';
+                                valueGroup.step = '1';
+                                valueGroup.placeholder = '0\u201360 min';
+                            } else {
+                                valueGroup.type = 'time';
+                                valueGroup.placeholder = 'HH:MM';
+                                valueGroup.removeAttribute('min');
+                                valueGroup.removeAttribute('max');
+                                valueGroup.removeAttribute('step');
+                            }
+                        }
+                    }
+                    syncIqamah();
+                }
+            });
+
+            document.querySelectorAll('[data-export]').forEach((button) => {
+                button.addEventListener('click', async () => {
+                    const kind = button.dataset.export;
+                    const response = await fetch(`/export/${kind}`);
+                    const text = await response.text();
+                    const filename = kind === 'prayers' ? 'prayers-schedule.json' : 'ramadan-schedule.json';
+                    downloadText(filename, text);
+                });
+            });
+
+            document.querySelectorAll('[data-import-target]').forEach((input) => {
+                input.addEventListener('change', async () => {
+                    const file = input.files[0];
+                    if (!file) return;
+                    try {
+                        const text = await file.text();
+                        const parsed = JSON.parse(text);
+                        form.elements[input.dataset.importTarget].value = JSON.stringify(parsed, null, 2);
+                        if (input.dataset.importTarget === 'prayersSchedule') {
+                            form.elements.useCustomPrayersSchedule.checked = true;
+                            renderPrayersScheduleEditor(parsed);
+                        }
+                        showToast('Imported JSON loaded into the form.', 'success');
+                    } catch (err) {
+                        showToast('Import failed: invalid JSON — ' + err.message);
+                        input.value = '';
+                    }
+                });
+            });
+
+            document.querySelectorAll('[data-use-original]').forEach((button) => {
+                button.addEventListener('click', async () => {
+                    const kind = button.dataset.useOriginal;
+                    if (!confirm(`Use the original ${kind} schedule for future saves/builds?`)) return;
+                    const response = await fetch(`/export/${kind}`);
+                    const parsed = await response.json();
+                    if (kind === 'prayers') {
+                        form.elements.useCustomPrayersSchedule.checked = false;
+                        form.elements.prayersSchedule.value = prettyJson(parsed);
+                        renderPrayersScheduleEditor(parsed);
+                    }
+                    showToast('Original schedule restored in the form.', 'success');
+                });
+            });
+
+            document.querySelectorAll('[data-image-upload]').forEach((input) => {
+                input.addEventListener('change', async () => {
+                    const file = input.files[0];
+                    if (!file) return;
+                    const ext = file.name.split('.').pop().toLowerCase();
+                    if (!['svg', 'png', 'webp'].includes(ext)) {
+                        showToast('Please upload svg, png, or webp only.');
+                        input.value = '';
+                        return;
+                    }
+                    const dataUrl = await readFileAsDataUrl(file);
+                    const prefix = input.dataset.imageUpload;
+                    form.elements[`${prefix}Name`].value = file.name;
+                    form.elements[`${prefix}Data`].value = dataUrl;
+                    if (prefix === 'masjidLogoUpload') {
+                        form.elements.useCustomLogo.checked = true;
+                        form.elements.masjidLogo.value = `custom-masjid-logo.${ext}`;
+                        builderDefaults.customLogoFilename = form.elements.masjidLogo.value;
+                    }
+                    if (prefix === 'masjidBuildingUpload') {
+                        form.elements.useCustomBuildingImage.checked = true;
+                        form.elements.masjidBuildingImage.value = `custom-masjid-building.${ext}`;
+                        builderDefaults.customBuildingFilename = form.elements.masjidBuildingImage.value;
+                    }
+                    setCustomImagePanels({
+                        customLogoFilename: form.elements.masjidLogo.value,
+                        customBuildingFilename: form.elements.masjidBuildingImage.value
+                    });
+                    showToast(`${file.name} ready for the next build.`, 'success');
+                });
+            });
+
+            document.getElementById('saveBtn').addEventListener('click', () => saveInfo().catch((err) => showToast(err.message)));
+            document.getElementById('buildDownloadBtn').addEventListener('click', () => build(true).catch((err) => showToast(err.message)));
+            document.getElementById('buildOnlyBtn').addEventListener('click', () => build(false).catch((err) => showToast(err.message)));
+            document.getElementById('testBtn').addEventListener('click', () => testPwa().catch((err) => showToast(err.message)));
+            document.getElementById('cleanBuildBtn').addEventListener('click', () => cleanBuild().catch((err) => showToast(err.message)));
+            document.getElementById('cleanArchivesBtn').addEventListener('click', () => cleanArchives().catch((err) => showToast(err.message)));
+            document.getElementById('resetAllBtn').addEventListener('click', () => resetAll().catch((err) => showToast(err.message)));
+
+            try {
+                const response = await fetch('/state');
+                const data = await response.json();
+                applyState(data.state || {}, data.defaults || {});
+            } catch (err) {
+                renderFeatureToggles(FORM_DEFAULTS);
+                renderFeatures(DEFAULT_FEATURES);
+                renderIqamah(DEFAULT_IQAMAH);
+                renderNotifications(DEFAULT_NOTIFICATIONS);
+                renderNearbyMasjids(DEFAULT_NEARBY_MASJIDS);
+                showToast('Loaded local defaults because saved state could not be read.');
+            }
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
