@@ -139,9 +139,8 @@
         "Need the latest mosque news?",
         "Ask me anything about " + APP_CONFIG.masjidName + "!",
         "What is the Hijri date?",
-        "Where else can I pray in Dublin?",
         "Tell me about Tajweed rules.",
-        "Find masjids near Blanchardstown!"
+        "Find masjids nearby!"
     ];
 
     function showRandomHint() {

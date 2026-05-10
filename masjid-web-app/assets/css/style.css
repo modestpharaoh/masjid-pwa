@@ -1115,7 +1115,7 @@ body.night-mode .next-label strong {
 }
 
 .notif-fab-button.has-notif {
-  color: #DB8D0D;
+  color: rgba(var(--primary-gold-rgb), 1);
 }
 
 .notif-fab-button.has-notif i {
