@@ -570,11 +570,12 @@
             align-items: center;
         }
 
+        /* AI Chatbot Hint Styles */
         #chat-hint {
             position: absolute;
             right: 50px;
             bottom: 5px;
-            background: white;
+            background: rgba(255, 255, 255, 0.65);
             padding: 8px 14px;
             border-radius: 12px;
             border-bottom-right-radius: 2px;
@@ -590,6 +591,7 @@
             z-index: 10000;
             pointer-events: none;
             border: 1px solid rgba(16, 185, 129, 0.1);
+            height: auto;
         }
 
         #chat-hint.visible {
@@ -599,16 +601,23 @@
         }
 
         .dark-mode #chat-hint {
-            background: #102118;
+            background: rgba(16, 21, 24, 0.65);
             color: #db8d0d;
             border: 1px solid rgba(219, 141, 13, 0.3);
+        }
+
+        @media (orientation: portrait) {
+            #chat-hint {
+                width: 35vw;
+                white-space: normal;
+            }
         }
 
         #chatbot-fab {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: #10b981;
+            background: rgba(16, 185, 129, 0.45);
             color: white;
             border: none;
             cursor: pointer;
@@ -929,7 +938,7 @@
         <div class="corner-decor top-right"></div>
         <div class="sidebar-header">
             <a id="sidebar-logo-link" href="#" target="_blank" rel="noopener noreferrer">
-                <img id="sidebar-logo" src="" alt="Masjid Logo" 
+                <img id="sidebar-logo" src="" alt="Masjid Logo"
                     onerror="if(this.src && !this.dataset.retried){this.dataset.retried=1; setTimeout(()=>{this.src=this.src;}, 1500);}else{this.style.display='none';}">
             </a>
             <h2 id="sidebar-title">Web App</h2>
@@ -1234,6 +1243,36 @@
         updateOnlineStatus();
 
         document.getElementById('version-number').textContent = typeof APP_VERSION !== 'undefined' ? APP_VERSION : 'unknown';
+
+        // Clear caches on version upgrade
+        (function checkVersion() {
+            if (typeof APP_VERSION === 'undefined') return;
+            var storedVersion = localStorage.getItem('app_version');
+            if (storedVersion !== APP_VERSION) {
+                console.log('Version changed from ' + storedVersion + ' to ' + APP_VERSION + '. Clearing caches.');
+
+                // OPTIMIZATION: We only remove the timestamp (_time / _ts_) keys, while keeping the actual data.
+                // This forces the cache validation logic in the JS files to consider the cache expired,
+                // triggering a fresh network fetch. However, if the user is offline or the network fails,
+                // the app will gracefully fall back to the retained cache data.
+                localStorage.removeItem('masjid_iqamah_settings_cache_time');
+                localStorage.removeItem('masjid_notify_cache_time');
+                localStorage.removeItem('masjid_prayers_today'); // Safe to fully delete, as it is rebuilt locally
+
+                // Clear prayer times year timestamps
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('masjid_prayer_times_year_ts_')) {
+                        keysToRemove.push(key);
+                    }
+                }
+                keysToRemove.forEach(k => localStorage.removeItem(k));
+
+                // Update stored version
+                localStorage.setItem('app_version', APP_VERSION);
+            }
+        })();
 
         // What's New button — show only first 3 views after a version upgrade
         (function initWhatsNew() {

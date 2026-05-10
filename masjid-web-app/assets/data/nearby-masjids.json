@@ -4,13 +4,17 @@
     "address": "123 Faith Street, Cityville, CV1 2BT",
     "category": "Nearby",
     "prayer_times_url": "https://example-masjid.com/prayers",
-    "websites": ["https://example-masjid.com"]
+    "websites": [
+      "https://example-masjid.com"
+    ]
   },
   {
     "name": "Second Masjid Example",
     "address": "456 Example Road, Example Town, EX2 4GH",
     "category": "Vicinity",
     "prayer_times_page": "https://example-masjid-2.com/prayers",
-    "websites": ["https://example-masjid-2.com"]
+    "websites": [
+      "https://example-masjid-2.com"
+    ]
   }
 ]
