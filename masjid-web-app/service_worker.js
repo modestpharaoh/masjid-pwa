@@ -116,6 +116,7 @@ const staticUrlsToCache = [
     'assets/data/notifications.json',
     'assets/data/iqamah-settings.json',
     'assets/data/quran-juz.json',
+    'assets/data/quran-chapters.json',
     'assets/data/azkar.json',
     'assets/data/nearby-masjids.json',
     'assets/data/quran-resources.json',

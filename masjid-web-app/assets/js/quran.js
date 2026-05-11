@@ -731,29 +731,15 @@ document.addEventListener("DOMContentLoaded", function () {
         surahListContainer.innerHTML = "";
 
         try {
-            // Check cache
-            const cached = localStorage.getItem("quran_chapters");
-            if (cached) {
-                chaptersData = JSON.parse(cached);
-                renderChapters(chaptersData);
-            }
-
-            // Background fetch to update
-            const response = await fetch("https://api.quran.com/api/v4/chapters?language=en");
+            const response = await fetch("../data/quran-chapters.json");
             if (!response.ok) throw new Error('Chapters HTTP ' + response.status);
             const data = await response.json();
 
             chaptersData = data.chapters;
-            localStorage.setItem("quran_chapters", JSON.stringify(chaptersData));
-
-            if (!cached) {
-                renderChapters(chaptersData);
-            }
+            renderChapters(chaptersData);
         } catch (error) {
             console.error("Failed to fetch chapters:", error);
-            if (!chaptersData.length) {
-                surahListContainer.innerHTML = "<p>Error loading Surahs. Please check your connection.</p>";
-            }
+            surahListContainer.innerHTML = "<p>Error loading Surahs. Please check your connection.</p>";
         } finally {
             document.getElementById("loading-list").style.display = "none";
         }

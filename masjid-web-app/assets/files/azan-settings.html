@@ -34,6 +34,7 @@
 
     .section-title:first-of-type {
       margin-top: 16px;
+      color: var(--primary-green);
     }
 
     .prayer-setting {
@@ -220,6 +221,112 @@
     .notif-permission-status i {
       font-size: 1rem;
     }
+
+    /* Collapsible Sections */
+    details.settings-group {
+      margin-bottom: 16px;
+    }
+
+    details.settings-group>summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    details.settings-group>summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.settings-group>summary::after {
+      content: '\F0140';
+      /* mdi-chevron-down */
+      font-family: 'Material Design Icons';
+      font-size: 1.5rem;
+      transition: transform 0.3s;
+      color: var(--primary-green);
+    }
+
+    details[open].settings-group>summary::after {
+      transform: rotate(180deg);
+    }
+
+    /* Advanced Settings Buttons */
+    .adv-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: var(--card-bg);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .dark-mode .adv-btn {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .adv-btn:hover {
+      background: rgba(var(--primary-green-rgb), 0.2);
+      border-color: var(--primary-green);
+    }
+
+    .dark-mode .adv-btn:hover {
+      background: rgba(var(--primary-gold-rgb), 0.2);
+      border-color: var(--primary-gold);
+    }
+
+    .adv-btn-title {
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary-green);
+    }
+
+    .dark-mode .adv-btn-title {
+      color: var(--primary-gold);
+    }
+
+    .adv-btn-desc {
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .adv-btn-danger {
+      background: rgba(211, 47, 47, 0.05);
+    }
+
+    .dark-mode .adv-btn-danger {
+      background: rgba(211, 47, 47, 0.1);
+    }
+
+    .adv-btn-danger .adv-btn-title {
+      color: #d32f2f;
+    }
+
+    .dark-mode .adv-btn-danger .adv-btn-title {
+      color: #ff6b6b;
+    }
+
+    .adv-btn-danger:hover {
+      background: rgba(211, 47, 47, 0.1);
+      border-color: #d32f2f !important;
+    }
+
+    .dark-mode .adv-btn-danger:hover {
+      background: rgba(211, 47, 47, 0.2);
+      border-color: #ff6b6b !important;
+    }
   </style>
 </head>
 
@@ -242,134 +349,165 @@
     </div>
 
     <div class="scroll-content">
-      <h2 class="section-title">
-        <i class="mdi mdi-bell-ring"></i> Azan Notifications
-      </h2>
+      <details open class="settings-group">
+        <summary class="section-title">
+          <span><i class="mdi mdi-bell-ring"></i> Azan Notifications</span>
+        </summary>
 
-      <div id="notif-permission-status" class="notif-permission-status">
-        <!-- Populated by JS -->
-      </div>
+        <div id="notif-permission-status" class="notif-permission-status">
+          <!-- Populated by JS -->
+        </div>
 
-      <div class="prayer-setting">
-        <div class="prayer-info">
-          <i class="mdi mdi-volume-medium mdi-24px" style="color: var(--primary-green)"></i>
-          <span class="prayer-name">Beep at Iqamah/Jumuah Times</span>
-        </div>
-        <div class="controls">
-          <button class="test-btn" id="test-beep-event">Test</button>
-          <label class="switch">
-            <input type="checkbox" id="beep-event-toggle" />
-            <span class="slider"></span>
-          </label>
-        </div>
-      </div>
-
-      <div id="settings-list">
-        <!-- Settings will be injected here -->
-      </div>
-
-      <h2 class="section-title"><i class="mdi mdi-monitor"></i> Display</h2>
-      <div class="prayer-setting">
-        <div class="prayer-info">
-          <i class="mdi mdi-theme-light-dark mdi-24px" style="color: var(--primary-green)"></i>
-          <span class="prayer-name">Show Sun & Moon Path</span>
-        </div>
-        <div class="controls">
-          <label class="switch">
-            <input type="checkbox" id="celestial-toggle" />
-            <span class="slider"></span>
-          </label>
-        </div>
-      </div>
-
-      <div class="prayer-setting" id="weather-animation-setting-group">
-        <div class="prayer-info">
-          <i class="mdi mdi-weather-partly-cloudy mdi-24px" style="color: var(--primary-green)"></i>
-          <span class="prayer-name">Weather Animation</span>
-        </div>
-        <div class="controls">
-          <label class="switch">
-            <input type="checkbox" id="weather-animation-toggle" />
-            <span class="slider"></span>
-          </label>
-        </div>
-      </div>
-
-      <div class="prayer-setting">
-        <div class="prayer-info">
-          <i class="mdi mdi-thermometer mdi-24px" style="color: var(--primary-green)"></i>
-          <span class="prayer-name">Show Weather Stats</span>
-        </div>
-        <div class="controls">
-          <label class="switch">
-            <input type="checkbox" id="weather-stats-toggle" />
-            <span class="slider"></span>
-          </label>
-        </div>
-      </div>
-
-      <div class="prayer-setting">
-        <div class="prayer-info">
-          <i class="mdi mdi-clock-outline mdi-24px" style="color: var(--primary-green)"></i>
-          <span class="prayer-name">Show Seconds on Clock</span>
-        </div>
-        <div class="controls">
-          <label class="switch">
-            <input type="checkbox" id="seconds-toggle" />
-            <span class="slider"></span>
-          </label>
-        </div>
-      </div>
-
-      <div class="prayer-setting" style="border-bottom: none;">
-        <div class="prayer-info">
-          <i class="mdi mdi-fullscreen mdi-24px" style="color: var(--primary-green)"></i>
-          <div style="display: flex; flex-direction: column;">
-            <span class="prayer-name">Enable Iqamah Full Screen</span>
-            <span style="font-size: 0.8rem; color: var(--text-secondary);">Duration (15s - 10m)</span>
+        <div class="prayer-setting">
+          <div class="prayer-info">
+            <i class="mdi mdi-volume-medium mdi-24px" style="color: var(--primary-green)"></i>
+            <span class="prayer-name">Beep at Iqamah/Jumuah Times</span>
+          </div>
+          <div class="controls">
+            <button class="test-btn" id="test-beep-event">Test</button>
+            <label class="switch">
+              <input type="checkbox" id="beep-event-toggle" />
+              <span class="slider"></span>
+            </label>
           </div>
         </div>
-        <div class="controls">
-          <div style="display: flex; align-items: center; gap: 8px; margin-right: 12px;">
-            <input type="range" id="iqamah-range" min="15" max="600" step="5"
-              style="accent-color: var(--primary-green); width: 120px;" />
-            <span id="iqamah-duration-val"
-              style="width: 32px; text-align: center; font-weight: bold; font-size: 1rem; color: var(--primary-green);"></span>
-            <span style="font-size: 0.8rem; color: var(--text-secondary);">s</span>
-          </div>
-          <label class="switch">
-            <input type="checkbox" id="iqamah-fullscreen-toggle" />
-            <span class="slider"></span>
-          </label>
-        </div>
-      </div>
 
-      <div class="prayer-setting" style="margin-top: -10px;">
-        <div class="prayer-info">
-          <i class="mdi mdi-fullscreen mdi-24px" style="color: var(--primary-gold)"></i>
-          <div style="display: flex; flex-direction: column;">
-            <span class="prayer-name">Enable Jumuah Full Screen</span>
-            <span style="font-size: 0.8rem; color: var(--text-secondary);">Duration (1m - 35m)</span>
-          </div>
+        <div id="settings-list">
+          <!-- Settings will be injected here -->
         </div>
-        <div class="controls">
-          <div style="display: flex; align-items: center; gap: 8px; margin-right: 12px;">
-            <input type="range" id="jumuah-range" min="1" max="35" step="1"
-              style="accent-color: var(--primary-gold); width: 120px;" />
-            <span id="jumuah-duration-val"
-              style="width: 32px; text-align: center; font-weight: bold; font-size: 1rem; color: var(--primary-gold);"></span>
-            <span style="font-size: 0.8rem; color: var(--text-secondary);">m</span>
-          </div>
-          <label class="switch">
-            <input type="checkbox" id="jumuah-fullscreen-toggle" />
-            <span class="slider"></span>
-          </label>
-        </div>
-      </div>
+      </details>
 
-      <div id="save-status" class="save-status">
-        Settings saved automatically
-      </div>
+      <details open class="settings-group">
+        <summary class="section-title">
+          <span><i class="mdi mdi-monitor"></i> Display</span>
+        </summary>
+        <div class="prayer-setting">
+          <div class="prayer-info">
+            <i class="mdi mdi-theme-light-dark mdi-24px" style="color: var(--primary-green)"></i>
+            <span class="prayer-name">Show Sun & Moon Path</span>
+          </div>
+          <div class="controls">
+            <label class="switch">
+              <input type="checkbox" id="celestial-toggle" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="prayer-setting" id="weather-animation-setting-group">
+          <div class="prayer-info">
+            <i class="mdi mdi-weather-partly-cloudy mdi-24px" style="color: var(--primary-green)"></i>
+            <span class="prayer-name">Weather Animation</span>
+          </div>
+          <div class="controls">
+            <label class="switch">
+              <input type="checkbox" id="weather-animation-toggle" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="prayer-setting">
+          <div class="prayer-info">
+            <i class="mdi mdi-thermometer mdi-24px" style="color: var(--primary-green)"></i>
+            <span class="prayer-name">Show Weather Stats</span>
+          </div>
+          <div class="controls">
+            <label class="switch">
+              <input type="checkbox" id="weather-stats-toggle" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="prayer-setting">
+          <div class="prayer-info">
+            <i class="mdi mdi-clock-outline mdi-24px" style="color: var(--primary-green)"></i>
+            <span class="prayer-name">Show Seconds on Clock</span>
+          </div>
+          <div class="controls">
+            <label class="switch">
+              <input type="checkbox" id="seconds-toggle" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="prayer-setting" style="border-bottom: none;">
+          <div class="prayer-info">
+            <i class="mdi mdi-fullscreen mdi-24px" style="color: var(--primary-green)"></i>
+            <div style="display: flex; flex-direction: column;">
+              <span class="prayer-name">Enable Iqamah Full Screen</span>
+              <span style="font-size: 0.8rem; color: var(--text-secondary);">Duration (15s - 10m)</span>
+            </div>
+          </div>
+          <div class="controls">
+            <div style="display: flex; align-items: center; gap: 8px; margin-right: 12px;">
+              <input type="range" id="iqamah-range" min="15" max="600" step="5"
+                style="accent-color: var(--primary-green); width: 120px;" />
+              <span id="iqamah-duration-val"
+                style="width: 32px; text-align: center; font-weight: bold; font-size: 1rem; color: var(--primary-green);"></span>
+              <span style="font-size: 0.8rem; color: var(--text-secondary);">s</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="iqamah-fullscreen-toggle" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="prayer-setting" style="margin-top: -10px;">
+          <div class="prayer-info">
+            <i class="mdi mdi-fullscreen mdi-24px" style="color: var(--primary-gold)"></i>
+            <div style="display: flex; flex-direction: column;">
+              <span class="prayer-name">Enable Jumuah Full Screen</span>
+              <span style="font-size: 0.8rem; color: var(--text-secondary);">Duration (1m - 35m)</span>
+            </div>
+          </div>
+          <div class="controls">
+            <div style="display: flex; align-items: center; gap: 8px; margin-right: 12px;">
+              <input type="range" id="jumuah-range" min="1" max="35" step="1"
+                style="accent-color: var(--primary-gold); width: 120px;" />
+              <span id="jumuah-duration-val"
+                style="width: 32px; text-align: center; font-weight: bold; font-size: 1rem; color: var(--primary-gold);"></span>
+              <span style="font-size: 0.8rem; color: var(--text-secondary);">m</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="jumuah-fullscreen-toggle" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div id="save-status" class="save-status">
+          Settings saved automatically
+        </div>
+      </details>
+
+      <details class="settings-group advanced-section">
+        <summary class="section-title">
+          <span style="color: var(--primary-gold);"><i class="mdi mdi-shield-alert-outline"
+              style="color: var(--primary-gold);"></i> Advanced Settings</span>
+        </summary>
+
+        <button class="adv-btn" id="btn-clear-basic" style="margin-top: 12px;">
+          <div class="adv-btn-title"><i class="mdi mdi-cached"></i> Clear Basic Cache</div>
+          <div class="adv-btn-desc">Forces a refresh of prayer times, iqamah settings, events, posts, and weather. Does
+            not affect your personal settings.</div>
+        </button>
+
+        <button class="adv-btn" id="btn-reset-settings">
+          <div class="adv-btn-title"><i class="mdi mdi-restore"></i> Reset Settings</div>
+          <div class="adv-btn-desc">Clears the basic cache AND resets all your layout preferences, theme, and custom
+            azan alerts back to default.</div>
+        </button>
+
+        <button class="adv-btn adv-btn-danger" id="btn-factory-reset">
+          <div class="adv-btn-title"><i class="mdi mdi-alert-circle-outline"></i> Factory Reset</div>
+          <div class="adv-btn-desc">Completely resets the app. Erases all storage, settings, and downloaded Quran
+            media/text. Use this if the app is heavily malfunctioning.</div>
+        </button>
+      </details>
 
     </div><!-- end scroll-content -->
 
