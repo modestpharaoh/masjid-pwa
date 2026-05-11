@@ -604,4 +604,75 @@ document.addEventListener("DOMContentLoaded", function () {
       showSaveStatus();
     });
   }
+
+  // Advanced Settings Actions
+  const btnClearBasic = document.getElementById("btn-clear-basic");
+  if (btnClearBasic) {
+    btnClearBasic.addEventListener("click", () => {
+      if (confirm("Are you sure you want to clear the basic cache? This will force a refresh of prayer times, events, and weather.")) {
+        sessionStorage.clear();
+        localStorage.removeItem("masjid_iqamah_settings_cache");
+        localStorage.removeItem("masjid_iqamah_settings_cache_time");
+        localStorage.removeItem("masjid_notify_cache");
+        localStorage.removeItem("masjid_notify_cache_time");
+        localStorage.removeItem("masjid_prayers_today");
+        localStorage.removeItem("lastKnownJumuah");
+        localStorage.removeItem("masjid_qr_cache");
+
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && (key.startsWith("masjid_prayer_times_year_") ||
+            key.startsWith("masjid_posts_cache") ||
+            key.startsWith("masjid_events_cache") ||
+            key.startsWith("masjid_weather_cache"))) {
+            keysToRemove.push(key);
+          }
+        }
+        keysToRemove.forEach(k => localStorage.removeItem(k));
+
+        alert("Basic cache cleared. The page will now reload.");
+        window.location.reload();
+      }
+    });
+  }
+
+  const btnResetSettings = document.getElementById("btn-reset-settings");
+  if (btnResetSettings) {
+    btnResetSettings.addEventListener("click", () => {
+      if (confirm("Are you sure you want to reset all settings? This will clear all your personal preferences and the basic cache. Quran data will not be affected.")) {
+        localStorage.clear();
+        sessionStorage.clear();
+        alert("Settings reset. The page will now reload.");
+        window.location.reload();
+      }
+    });
+  }
+
+  const btnFactoryReset = document.getElementById("btn-factory-reset");
+  if (btnFactoryReset) {
+    btnFactoryReset.addEventListener("click", () => {
+      if (confirm("WARNING: This will completely factory reset the app. All storage, settings, offline data, and downloaded Quran media will be permanently deleted. Are you absolutely sure?")) {
+        localStorage.clear();
+        sessionStorage.clear();
+
+        const clearCaches = ('caches' in window)
+          ? caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))))
+          : Promise.resolve();
+
+        const unregisterSW = ('serviceWorker' in navigator)
+          ? navigator.serviceWorker.getRegistrations().then(regs => Promise.all(regs.map(r => r.unregister())))
+          : Promise.resolve();
+
+        Promise.all([clearCaches, unregisterSW]).then(() => {
+          alert("Factory reset complete. The page will now reload.");
+          window.location.reload();
+        }).catch(err => {
+          console.error("Error during factory reset", err);
+          alert("Factory reset finished with some errors. The page will now reload.");
+          window.location.reload();
+        });
+      }
+    });
+  }
 });

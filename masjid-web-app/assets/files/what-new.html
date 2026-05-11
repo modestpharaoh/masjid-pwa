@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta charset="UTF-8">
     <title>What's New</title>
     <script src="../js/theme-init.js"></script>
@@ -152,6 +152,10 @@
             background: linear-gradient(135deg, #f43f5e, #e11d48);
         }
 
+        .wn-icon-settings {
+            background: linear-gradient(135deg, #0f766e, #115e59);
+        }
+
         .wn-card-title {
             font-size: 1.05rem;
             font-weight: 700;
@@ -207,6 +211,11 @@
             color: #e11d48;
         }
 
+        .wn-tag.teal {
+            background: rgba(15, 118, 110, 0.08);
+            color: #0f766e;
+        }
+
         .wn-tip {
             text-align: center;
             margin-top: 24px;
@@ -229,6 +238,28 @@
         <p>Your Masjid App just got a major upgrade with powerful new Islamic tools!</p>
     </div>
 
+    <!-- Advanced Settings -->
+    <div class="wn-card">
+        <div class="wn-card-head">
+            <div class="wn-icon-box wn-icon-settings">
+                <i class="mdi mdi-shield-alert-outline"></i>
+            </div>
+            <div>
+                <div class="wn-card-title">Advanced Settings</div>
+                <div class="wn-card-subtitle">App Cache Management</div>
+            </div>
+        </div>
+        <div class="wn-card-body">
+            You now have full control over the app's local storage. Easily clear basic caches to force updates for
+            prayer times and weather, reset your layout and notification preferences, or perform a full factory reset if
+            the app is malfunctioning.
+        </div>
+        <div class="wn-tags">
+            <span class="wn-tag teal">Cache Clearing</span>
+            <span class="wn-tag teal">Factory Reset</span>
+        </div>
+    </div>
+
     <!-- Masjid AI Assistant -->
     <div class="wn-card">
         <div class="wn-card-head">
@@ -241,7 +272,9 @@
             </div>
         </div>
         <div class="wn-card-body">
-            Meet our new AI-powered companion, specifically trained on Masjid services and Islamic knowledge. Ask about prayer times, upcoming mosque events, recent news, or even Tajweed rules for Quran recitation. The assistant can also guide you to other local masjids across Dublin and provide direct links to their schedules.
+            Meet our new AI-powered companion, specifically trained on Masjid services and Islamic knowledge. Ask about
+            prayer times, upcoming mosque events, recent news, or even Tajweed rules for Quran recitation. The assistant
+            can also guide you to other local masjids across Dublin and provide direct links to their schedules.
         </div>
         <div class="wn-tags">
             <span class="wn-tag pink">Masjid Context Aware</span>
