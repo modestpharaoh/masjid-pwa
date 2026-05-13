@@ -307,6 +307,18 @@ document.addEventListener("DOMContentLoaded", function () {
       return Promise.resolve(parsedCache);
     }
 
+    if (typeof APP_CONFIG !== 'undefined' && !APP_CONFIG.alternativeIqamahSettingsPath) {
+      return fetch(FALLBACK_URL, { cache: 'no-store' })
+        .then(res => res.json())
+        .catch(() => []);
+    }
+
+    if (!PRIMARY_URL) {
+      return fetch(FALLBACK_URL, { cache: 'no-store' })
+        .then(res => res.json())
+        .catch(() => []);
+    }
+
     return fetch(`${PRIMARY_URL}?_t=${now}`, { cache: 'no-store' })
       .then(res => {
         if (!res.ok) throw new Error("HTTP " + res.status);
@@ -1406,6 +1418,28 @@ document.addEventListener("DOMContentLoaded", function () {
       } catch (e) {
         parsedCache = null;
       }
+    }
+
+    if (typeof APP_CONFIG !== 'undefined' && !APP_CONFIG.alternativeNotificationsPath) {
+      notifFetchPromise = fetch(FALLBACK_URL, { cache: 'no-store' })
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+          cachedNotifications = data;
+          renderNotifications(data);
+        })
+        .catch(function () { renderNotifications([]); });
+      return;
+    }
+
+    if (!PRIMARY_URL) {
+      notifFetchPromise = fetch(FALLBACK_URL, { cache: 'no-store' })
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+          cachedNotifications = data;
+          renderNotifications(data);
+        })
+        .catch(function () { renderNotifications([]); });
+      return;
     }
 
     const fetchUrl = `${PRIMARY_URL}?_t=${now}`;

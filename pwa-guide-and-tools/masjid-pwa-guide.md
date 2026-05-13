@@ -331,4 +331,3 @@ The application interacts with several external services. If you use a strict Co
 | **AI Chatbot** | `text.pollinations.ai` | AI response engine |
 | **Analytics** | `*.sentry.io` | Error tracking and performance |
 | **Geo IP** | `geolocation-db.com` | Automatic location detection |
-
