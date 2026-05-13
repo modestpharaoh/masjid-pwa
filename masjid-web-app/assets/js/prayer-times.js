@@ -92,6 +92,18 @@
             return Promise.resolve(parsedCache);
         }
 
+        if (typeof APP_CONFIG !== 'undefined' && !APP_CONFIG.alternativeIqamahSettingsPath) {
+            return fetch(FALLBACK_URL, { cache: 'no-store' })
+                .then(res => res.json())
+                .catch(() => []);
+        }
+
+        if (!PRIMARY_URL) {
+            return fetch(FALLBACK_URL, { cache: 'no-store' })
+                .then(res => res.json())
+                .catch(() => []);
+        }
+
         return fetch(`${PRIMARY_URL}?_t=${now}`, { cache: 'no-store' })
             .then(res => {
                 if (!res.ok) throw new Error("HTTP " + res.status);

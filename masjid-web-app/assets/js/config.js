@@ -116,6 +116,17 @@ const MASJID_DATA = () => ({
         }
     ],
 
+
+    // Alernative URL for iqamah-settings.json, This will override the assets/data/iqamah-settings.json.
+    // This is use case if admin want to update the iqamah settings without rebuilding the app.
+    // If this unreachable then it will fallback to assets/data/iqamah-settings.json.
+    alternativeIqamahSettingsPath: "/wp-content/custom/iqamah-settings.json",
+
+    // Alernative URL for notifications.json, This will override the assets/data/notifications.json.
+    // This is use case if admin want to update the notifications without rebuilding the app.
+    // If this unreachable then it will fallback to assets/data/notifications.json.
+    alternativeNotificationsPath: "/wp-content/custom/notifications.json",
+
     // --- Cache Settings ---
     // Shared caching duration for remote JSON configuration files (e.g. notifications.json, iqamah-settings.json)
     // means how long the web/app client will wait before checking for new updates from the server
@@ -150,6 +161,18 @@ const MASJID_DATA = () => ({
     // --- Mobile App Settings ---
     // masjidCapacitorHostname: Used for internal routing in Capacitor/Android environments.
     masjidCapacitorHostname: "masjid-app",
+
+    // Events Path for masjids- WordPress default
+    // If you have installed Wordpress events plugin, then this will be the path to the events.
+    // Update this path if you are using different events app that is compatible with the Wordpress
+    // Events plugin API.
+    masjidEventsPath: "/wp-json/tribe/events/v1/events",
+
+    // Posts Path for masjids - Wordpress default
+    // If you have installed Wordpress posts plugin, then this will be the path to the posts.
+    // Update this path if you are using different posts app that is compatible with the Wordpress
+    // Posts plugin API.
+    masjidPostsPath: "/wp-json/wp/v2/posts",
 });
 
 const APP_CONFIG = {
@@ -175,9 +198,9 @@ const APP_CONFIG = {
     // the fallback is assets/data/iqamah-settings.json
     get iqamahSettingsPath() {
         if (this.isAndroid) {
-            return this.apiBaseUrl + "/wp-content/app-config/iqamah-settings.json";
+            return this.apiBaseUrl + this.alternativeIqamahSettingsPath;
         }
-        return this.apiBaseUrl + "/wp-content/app-config/iqamah-settings.json";
+        return this.apiBaseUrl + this.alternativeIqamahSettingsPath;
     },
 
     // Path to the JSON file containing dynamic notifications
@@ -186,20 +209,20 @@ const APP_CONFIG = {
     // the fallback is assets/data/notifications.json
     get notificationPath() {
         if (this.isAndroid) {
-            return this.apiBaseUrl + "/wp-content/app-config/notifications.json";
+            return this.apiBaseUrl + this.alternativeNotificationsPath;
         }
-        return this.apiBaseUrl + "/wp-content/app-config/notifications.json";
+        return this.apiBaseUrl + this.alternativeNotificationsPath;
     },
 
     // Path to the WordPress Events API endpoint - If the masjid website has the events
     // You can disable the events feature by setting enableEvents to false in the MASJID_DATA object
     get eventsPath() {
-        return this.apiBaseUrl + "/wp-json/tribe/events/v1/events";
+        return this.apiBaseUrl + this.masjidEventsPath;
     },
 
     // Path to the WordPress Posts API endpoint - If the masjid website has the posts
     // You can disable the posts feature by setting enablePosts to false in the MASJID_DATA object
     get postsPath() {
-        return this.apiBaseUrl + "/wp-json/wp/v2/posts";
+        return this.apiBaseUrl + this.masjidPostsPath;
     },
 };

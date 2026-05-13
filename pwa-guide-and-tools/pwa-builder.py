@@ -70,7 +70,9 @@ STRING_KEYS = [
     'masjidDonationMessage',
     'masjidBankName', 'masjidBankAccountName', 'masjidBankIban',
     'masjidBankBic', 'masjidBankAccountNumber',
-    'masjidDonationSumUpUrl', 'masjidDonationPayPalUrl'
+    'masjidDonationSumUpUrl', 'masjidDonationPayPalUrl',
+    'alternativeIqamahSettingsPath', 'alternativeNotificationsPath',
+    'masjidEventsPath', 'masjidPostsPath'
 ]
 
 NUMBER_KEYS = ['masjidLat', 'masjidLng', 'ishaIqamahOffsetFromMaghrib', 'ramadanDaysBefore']

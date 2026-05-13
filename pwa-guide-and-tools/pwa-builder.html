@@ -70,6 +70,10 @@
             padding-right: 20px;
         }
 
+        .wrapper {
+            padding-bottom: 40px;
+        }
+
         .topbar-inner {
             display: flex;
             align-items: center;
@@ -403,6 +407,27 @@
         .btn.danger {
             background: var(--danger);
             box-shadow: none;
+        }
+
+        #saveBtn {
+            background: #2563eb;
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.24);
+        }
+
+        #testBtn {
+            background: #7c3aed;
+            box-shadow: 0 6px 18px rgba(124, 58, 237, 0.24);
+        }
+
+        #cleanBuildBtn,
+        #cleanArchivesBtn {
+            background: #e70d7a;
+            box-shadow: 0 6px 18px rgba(236, 72, 153, 0.24);
+        }
+
+        #buildOnlyBtn {
+            background: #059669;
+            box-shadow: 0 6px 18px rgba(5, 150, 105, 0.24);
         }
 
         .btn.small {
@@ -803,7 +828,7 @@
                 </div>
             </section>
 
-            <section class="section" data-section>
+            <section class="section collapsed" data-section>
                 <button class="section-header" type="button">
                     <span class="icon">📍</span>
                     <span class="header-text">
@@ -855,7 +880,73 @@
                 </div>
             </section>
 
-            <section class="section" data-section>
+            <section class="section collapsed" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">🌐</span>
+                    <span class="header-text">
+                        <h2>Social Media</h2>
+                        <p>Leave blank to hide individual social icons</p>
+                    </span>
+                </button>
+                <div class="section-body">
+                    <div class="grid">
+                        <div class="form-group"><label>Facebook</label><input type="url" name="social_facebook"
+                                placeholder=""></div>
+                        <div class="form-group"><label>Instagram</label><input type="url" name="social_instagram"
+                                placeholder=""></div>
+                        <div class="form-group"><label>X (Twitter)</label><input type="url" name="social_x"
+                                placeholder=""></div>
+                        <div class="form-group"><label>YouTube</label><input type="url" name="social_youtube"
+                                placeholder=""></div>
+                        <div class="form-group"><label>WhatsApp</label><input type="url" name="social_whatsapp"
+                                placeholder=""></div>
+                        <div class="form-group"><label>Telegram</label><input type="url" name="social_telegram"
+                                placeholder=""></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section collapsed" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">🎨</span>
+                    <span class="header-text">
+                        <h2>PWA Manifest & Versioning</h2>
+                        <p>Manifest colors and version.js override</p>
+                    </span>
+                </button>
+                <div class="section-body">
+                    <div class="grid">
+                        <div class="form-group">
+                            <label>Theme Color</label>
+                            <input type="color" name="themeColor" value="#C4D56B" style="height:42px;padding:4px;">
+                        </div>
+                        <div class="form-group">
+                            <label>Background Color</label>
+                            <input type="color" name="backgroundColor" value="#C4D56B" style="height:42px;padding:4px;">
+                        </div>
+                        <div class="form-group full">
+                            <label>App Version <span class="hint">(patch only - increase for new build, so users get new
+                                    build installed instead of keep old cached version)</span></label>
+                            <div class="grid">
+                                <div class="form-group">
+                                    <label>Major.Minor</label>
+                                    <input type="text" name="appVersionBase" readonly placeholder="8.7"
+                                        class="input-readonly" title="Derived from the source PWA — read only">
+                                </div>
+                                <div class="form-group">
+                                    <label>Patch</label>
+                                    <input type="number" name="appVersionPatch" min="0" step="1" placeholder="2">
+                                </div>
+                            </div>
+                            <input type="hidden" name="appVersion">
+                            <span class="hint">Uses the original PWA major.minor and only lets this build change the
+                                patch number.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section collapsed" data-section>
                 <button class="section-header" type="button">
                     <span class="icon">⚙️</span>
                     <span class="header-text">
@@ -870,7 +961,7 @@
                 </div>
             </section>
 
-            <section class="section" data-section>
+            <section class="section collapsed" data-section>
                 <button class="section-header" type="button">
                     <span class="icon">🤲</span>
                     <span class="header-text">
@@ -912,72 +1003,6 @@
                         <div class="form-group full-line">
                             <label>PayPal URL <span class="hint">(leave blank to hide)</span></label>
                             <input type="url" name="masjidDonationPayPalUrl" placeholder="">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" data-section>
-                <button class="section-header" type="button">
-                    <span class="icon">🌐</span>
-                    <span class="header-text">
-                        <h2>Social Media</h2>
-                        <p>Leave blank to hide individual social icons</p>
-                    </span>
-                </button>
-                <div class="section-body">
-                    <div class="grid">
-                        <div class="form-group"><label>Facebook</label><input type="url" name="social_facebook"
-                                placeholder=""></div>
-                        <div class="form-group"><label>Instagram</label><input type="url" name="social_instagram"
-                                placeholder=""></div>
-                        <div class="form-group"><label>X (Twitter)</label><input type="url" name="social_x"
-                                placeholder=""></div>
-                        <div class="form-group"><label>YouTube</label><input type="url" name="social_youtube"
-                                placeholder=""></div>
-                        <div class="form-group"><label>WhatsApp</label><input type="url" name="social_whatsapp"
-                                placeholder=""></div>
-                        <div class="form-group"><label>Telegram</label><input type="url" name="social_telegram"
-                                placeholder=""></div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" data-section>
-                <button class="section-header" type="button">
-                    <span class="icon">🎨</span>
-                    <span class="header-text">
-                        <h2>PWA Manifest & Advanced</h2>
-                        <p>Manifest colors and version.js override</p>
-                    </span>
-                </button>
-                <div class="section-body">
-                    <div class="grid">
-                        <div class="form-group">
-                            <label>Theme Color</label>
-                            <input type="color" name="themeColor" value="#C4D56B" style="height:42px;padding:4px;">
-                        </div>
-                        <div class="form-group">
-                            <label>Background Color</label>
-                            <input type="color" name="backgroundColor" value="#C4D56B" style="height:42px;padding:4px;">
-                        </div>
-                        <div class="form-group full">
-                            <label>App Version <span class="hint">(patch only - increase for new build, so users get new
-                                    build installed instead of keep old cached version)</span></label>
-                            <div class="grid">
-                                <div class="form-group">
-                                    <label>Major.Minor</label>
-                                    <input type="text" name="appVersionBase" readonly placeholder="8.7"
-                                        class="input-readonly" title="Derived from the source PWA — read only">
-                                </div>
-                                <div class="form-group">
-                                    <label>Patch</label>
-                                    <input type="number" name="appVersionPatch" min="0" step="1" placeholder="2">
-                                </div>
-                            </div>
-                            <input type="hidden" name="appVersion">
-                            <span class="hint">Uses the original PWA major.minor and only lets this build change the
-                                patch number.</span>
                         </div>
                     </div>
                 </div>
@@ -1087,6 +1112,13 @@
                             <span class="hint">When Isha iqamah type is set to 'After-Maghrib' (combined prayers), Isha
                                 Iqamah = Maghrib Iqamah + this offset.</span>
                         </div>
+                        <div class="form-group full">
+                            <label>Alternative Iqamah Settings Path</label>
+                            <input type="text" name="alternativeIqamahSettingsPath"
+                                placeholder="/wp-content/custom/iqamah-settings.json">
+                            <div class="hint">Override the default fallback path (/assets/data/iqamah-settings.json).
+                                Leave empty to use the default fallback.</div>
+                        </div>
                     </div>
                     <div class="editor-tools">
                         <button class="btn secondary small" type="button" data-json-toggle="iqamahSection">Edit
@@ -1111,6 +1143,15 @@
                     </span>
                 </button>
                 <div class="section-body">
+                    <div class="grid" style="margin-bottom:18px;">
+                        <div class="form-group full">
+                            <label>Alternative Notifications Path</label>
+                            <input type="text" name="alternativeNotificationsPath"
+                                placeholder="/wp-content/custom/notifications.json">
+                            <div class="hint">Override the default fallback path (/assets/data/notifications.json).
+                                Leave empty to use the default fallback.</div>
+                        </div>
+                    </div>
                     <p class="note">Fields follow notifications.json: message, startDate, endDate, duration, important,
                         and fontSize.</p>
                     <div class="editor-tools">
@@ -1124,6 +1165,34 @@
                     <div class="row-actions">
                         <button class="btn secondary small" type="button" id="addNotificationBtn">Add
                             notification</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section collapsed" data-section>
+                <button class="section-header" type="button">
+                    <span class="icon">📝</span>
+                    <span class="header-text">
+                        <h2>Compatible WordPress Posts & Events</h2>
+                        <p>Configure API paths for WordPress Posts/Events plugins integrations</p>
+                    </span>
+                </button>
+                <div class="section-body">
+                    <p class="note">This is only if you are hosting your website/PWA on WordPress and have the Posts or
+                        Events plugins installed to communicate with the WordPress API.</p>
+                    <div class="grid">
+                        <div class="form-group full">
+                            <label>Posts API Path</label>
+                            <input type="text" name="masjidPostsPath" placeholder="/wp-json/wp/v2/posts">
+                            <div class="hint">Path to the WordPress Posts API endpoint. Leave as default if using the
+                                standard WordPress configuration.</div>
+                        </div>
+                        <div class="form-group full">
+                            <label>Events API Path</label>
+                            <input type="text" name="masjidEventsPath" placeholder="/wp-json/tribe/events/v1/events">
+                            <div class="hint">Path to the WordPress Events plugin API endpoint. Leave as default if
+                                using The Events Calendar plugin.</div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1157,12 +1226,12 @@
     <footer class="bottombar">
         <div class="bottombar-inner">
             <div class="footer-actions">
-                <button class="btn secondary" type="button" id="saveBtn">Save Info</button>
+                <button class="btn" type="button" id="saveBtn">Save Info</button>
                 <button class="btn" type="button" id="buildDownloadBtn">Build & Download .tar.gz</button>
                 <button class="btn" type="button" id="buildOnlyBtn">Build only .tar.gz</button>
-                <button class="btn secondary" type="button" id="testBtn">Test PWA</button>
-                <button class="btn secondary" type="button" id="cleanBuildBtn">Delete temp build directory</button>
-                <button class="btn secondary" type="button" id="cleanArchivesBtn">Clean up old tar.gz builds</button>
+                <button class="btn" type="button" id="testBtn">Test PWA</button>
+                <button class="btn" type="button" id="cleanBuildBtn">Delete temp build directory</button>
+                <button class="btn" type="button" id="cleanArchivesBtn">Clean up old tar.gz builds</button>
                 <button class="btn danger" type="button" id="resetAllBtn">Reset everything</button>
             </div>
             <div class="footer-checks">
@@ -1227,6 +1296,10 @@
             useCustomBuildingImage: false,
             useCustomPrayersSchedule: false,
             ishaIqamahOffsetFromMaghrib: 10,
+            alternativeIqamahSettingsPath: '/wp-content/custom/iqamah-settings.json',
+            alternativeNotificationsPath: '/wp-content/custom/notifications.json',
+            masjidEventsPath: '/wp-json/tribe/events/v1/events',
+            masjidPostsPath: '/wp-json/wp/v2/posts',
             keepTempDir: true,
             keepArchive: true
         };
