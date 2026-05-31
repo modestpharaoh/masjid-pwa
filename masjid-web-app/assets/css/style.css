@@ -597,6 +597,18 @@ body.night-mode .next-label strong {
   min-width: 6em;
 }
 
+.p-card-name-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.azan-sub {
+  margin-top: 2px;
+  text-align: left;
+}
+
 /* Right side: iqamah + sub-text */
 .p-card-right {
   text-align: right;
@@ -627,6 +639,7 @@ body.night-mode .next-label strong {
   margin-top: 2px;
 }
 
+.azan-fixed,
 .iq-fixed {
   font-size: 0.55em;
   text-transform: uppercase;

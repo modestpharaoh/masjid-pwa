@@ -104,6 +104,7 @@ const staticUrlsToCache = [
     'assets/files/azkar.html',
     'assets/files/quran.html',
     'assets/files/what-new.html',
+    'assets/files/404.html',
     'assets/js/radio.js',
     'assets/js/events.js',
     'assets/js/posts.js',
@@ -119,6 +120,7 @@ const staticUrlsToCache = [
     'assets/data/quran-chapters.json',
     'assets/data/azkar.json',
     'assets/data/nearby-masjids.json',
+    'assets/data/app-config.json',
     'assets/data/quran-resources.json',
     'assets/data/reciters.json',
     'assets/data/tajweed-rules.json',
@@ -131,6 +133,22 @@ const staticUrlsToCache = [
 ];
 
 // --- Legacy dynamic URLs removed (migrated to local JSON/Admin API) ---
+
+/** Paths served outside the PWA (Vue admin, API). SW must not intercept these. */
+function isNonPwaPath(urlString) {
+    try {
+        const path = new URL(urlString).pathname;
+        return path === '/masjid-admin' ||
+            path === '/health' ||
+            path.startsWith('/masjid-admin/') ||
+            path.startsWith('/api/') ||
+            path.startsWith('/wp-content/') ||
+            path.startsWith('/masjid-content/') ||
+            path.startsWith('/wp-json/');
+    } catch {
+        return false;
+    }
+}
 
 // Function to update cache with optional timestamp
 async function updateCache(cacheName, request, networkResponse, addTimestamp = false) {
@@ -194,6 +212,11 @@ self.addEventListener('install', event => {
 self.addEventListener('fetch', event => {
     const requestUrl = event.request.url;
 
+    // Admin panel + API live on the same origin — never cache or SPA-fallback these.
+    if (isNonPwaPath(requestUrl)) {
+        return;
+    }
+
     // Bypass radio streams (external) to avoid Mixed Content and handle redirects natively
     // Service Worker fetch has issues with redirects to http and media range requests
     // Also bypass notify.json to allow JS to properly handle fetch failures and fallbacks
@@ -213,7 +236,11 @@ self.addEventListener('fetch', event => {
         event.request.destination === 'document' &&
         new URL(requestUrl).origin === self.location.origin &&
         !requestUrl.includes('/wp-content/') &&
-        !requestUrl.match(/\.(png|jpg|jpeg|gif|svg|ico|webp|mp3|mp4|pdf|woff2?|ttf|otf|eot)$/i)) {
+        !requestUrl.includes('/masjid-content/') &&
+        !requestUrl.includes('/api/') &&
+        !requestUrl.includes('/wp-json/') &&
+        !requestUrl.includes('/masjid-admin') &&
+        !requestUrl.match(/\.(png|jpg|jpeg|gif|svg|ico|webp|mp3|mp4|pdf|woff2?|ttf|otf|eot|json)$/i)) {
         event.respondWith(
             caches.match('index.html').then(response => {
                 return response || fetch(event.request);
