@@ -91,15 +91,6 @@
             }
         },
         {
-            "id": 8,
-            "reciter_name": "Mohamed Siddiq al-Minshawi",
-            "style": "Mujawwad",
-            "translated_name": {
-                "name": "Mohamed Siddiq al-Minshawi",
-                "language_name": "english"
-            }
-        },
-        {
             "id": 10,
             "reciter_name": "Sa`ud ash-Shuraym",
             "style": null,

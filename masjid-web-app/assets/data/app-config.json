@@ -1,0 +1,77 @@
+{
+  "masjidName": "My Masjid",
+  "masjidFullTitle": "My Masjid Cultural Centre",
+  "masjidSite": "masjid.example.com",
+  "masjidBaseUrl": "https://masjid.example.com",
+  "masjidLogo": "custom-masjid-logo.png",
+  "masjidBuildingImage": "custom-masjid-building.svg",
+  "masjidDescription": "Your masjid description goes here. This permanent worship space acts as a vital hub for daily prayers, educational services, and positive integration within the community.",
+  "masjidFeatures": [
+    {
+      "title": "Daily Prayers",
+      "description": "Our Masjid hosts the five daily prayers, providing a spiritual home for worship and reflection, with a dedicated space for women.",
+      "icon": "mdi-mosque"
+    },
+    {
+      "title": "Community Engagement",
+      "description": "We organize cultural events and outreach programs to build bridges and foster positive integration within the community.",
+      "icon": "mdi-account-group"
+    }
+  ],
+  "masjidLat": 53.3498,
+  "masjidLng": -6.2603,
+  "masjidTimeZone": "Europe/Dublin",
+  "masjidAddress": "123 Faith Street, Cityville, CV1 2BT",
+  "showGoogleMap": true,
+  "masjidPhone": "+00 123 456 789",
+  "masjidEmail": "info@example.com",
+  "masjidDonationMessage": "<strong>Your support matters.</strong><br>By contributing, you help create a welcoming space for prayer, learning, and kindness that serves the local community.",
+  "masjidBankName": "Example Bank",
+  "masjidBankAccountName": "My Masjid Name",
+  "masjidBankIban": "IE00 EXAM 0000 0000 0000 00",
+  "masjidBankBic": "EXAMIE2D",
+  "masjidBankAccountNumber": "00000000",
+  "masjidDonationSumUpUrl": "",
+  "masjidDonationPayPalUrl": "",
+  "masjidSocialLinks": {
+    "facebook": "",
+    "instagram": "",
+    "x": "",
+    "youtube": "",
+    "whatsapp": "",
+    "telegram": ""
+  },
+  "enableRamadan": true,
+  "enablePrayerTimesYear": true,
+  "enableRadio": true,
+  "enableQuran": true,
+  "enableAzkar": true,
+  "enableTasbih": true,
+  "enableQiblah": true,
+  "enableSettings": true,
+  "enablePosts": true,
+  "enableEvents": true,
+  "enableDonation": true,
+  "enableAbout": true,
+  "enableContact": true,
+  "showRamadanAnimation": true,
+  "ramadanDaysBefore": 5,
+  "ramadanFeaturesCards": [
+    {
+      "title": "Prayer Times",
+      "description": "<ul><li><strong>Isha & Taraweeh:</strong> Isha prayer is fixed at 20:30, followed immediately by Taraweeh.</li><li><strong>Last 10 Nights (Qiyam/Tahajjud):</strong> Special late-night prayers from 23:30 – 00:30 nightly.</li><li><strong>Attendance:</strong> Taraweeh and Tahajjud are available for both men and women.</li></ul>",
+      "icon": "mdi-clock-outline"
+    },
+    {
+      "title": "Community & Support",
+      "description": "<ul><li><strong>Limited Capacity:</strong> Masjid space is limited. Attendance is on a first-come, first-served basis.</li><li><strong>Parking & Transport:</strong> Local attendees are strongly encouraged to walk. For those coming from a distance, please carpool with neighbors to accommodate limited parking.</li></ul>",
+      "icon": "mdi-car-multiple"
+    }
+  ],
+  "alternativeIqamahSettingsPath": "/wp-content/custom/iqamah-settings.json",
+  "alternativeNotificationsPath": "/wp-content/custom/notifications.json",
+  "ishaIqamahOffsetFromMaghrib": 10,
+  "masjidCapacitorHostname": "masjid-app",
+  "masjidEventsPath": "/wp-json/tribe/events/v1/events",
+  "masjidPostsPath": "/wp-json/wp/v2/posts"
+}

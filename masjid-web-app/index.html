@@ -24,7 +24,8 @@
             '/donate': 'assets/files/donate.html',
             '/about': 'assets/files/about.html',
             '/contact': 'assets/files/contact.html',
-            '/what-new': 'assets/files/what-new.html'
+            '/what-new': 'assets/files/what-new.html',
+            '/404': 'assets/files/404.html'
         };
 
         // Dynamically set the base path to support migration from subfolders to root
@@ -121,6 +122,7 @@
             let path = window.location.pathname;
             const normalizedBasePath = BASE_PATH.replace(/\/$/, '');
             const appPath = path.substring(normalizedBasePath.length) || '/';
+            // if (appPath.startsWith('/api/') || appPath.startsWith('/wp-json/')) return;
 
             if (appPath.length > 1 && appPath.endsWith('/')) {
                 const cleanAppPath = appPath.slice(0, -1);
@@ -131,8 +133,13 @@
             }
 
             const finalAppPath = path.substring(normalizedBasePath.length) || '/';
-            const url = PATH_MAP[finalAppPath] || PATH_MAP['/'];
-            loadContent(url, null, false);
+            if (PATH_MAP[finalAppPath]) {
+                loadContent(PATH_MAP[finalAppPath], null, false);
+            } else if (finalAppPath === '/') {
+                loadContent(PATH_MAP['/'], null, false);
+            } else {
+                loadContent(PATH_MAP['/404'], null, false);
+            }
         });
 
         // Initialize content based on URL on load
@@ -140,6 +147,7 @@
             let path = window.location.pathname;
             const normalizedBasePath = BASE_PATH.replace(/\/$/, '');
             const appPath = path.substring(normalizedBasePath.length) || '/';
+            // if (appPath.startsWith('/api/') || appPath.startsWith('/wp-json/')) return;
 
             if (appPath.length > 1 && appPath.endsWith('/')) {
                 const cleanAppPath = appPath.slice(0, -1);
@@ -151,9 +159,9 @@
 
             const finalAppPath = path.substring(normalizedBasePath.length) || '/';
 
-            // If the path was not the root of the app, load the mapped content
-            if (finalAppPath !== '/' && PATH_MAP[finalAppPath]) {
-                const url = PATH_MAP[finalAppPath];
+            // If the path was not the root of the app, load the mapped content or 404
+            if (finalAppPath !== '/') {
+                const url = PATH_MAP[finalAppPath] || PATH_MAP['/404'];
                 loadContent(url, null, false);
             }
         });

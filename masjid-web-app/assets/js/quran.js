@@ -705,11 +705,6 @@ document.addEventListener("DOMContentLoaded", function () {
             userSettings.translation = selectedIds;
             saveSettings();
 
-            // Refresh view
-            if (currentChapterId) {
-                loadVersesAndAudio(currentChapterId, false, currentPageNum);
-            }
-
             transModal.classList.remove("active");
         });
     }
@@ -1483,6 +1478,13 @@ document.addEventListener("DOMContentLoaded", function () {
             let response;
             try {
                 response = await fetch(url);
+                if (response.status === 404) {
+                    overlayTafsirContent.innerHTML = isTafsir 
+                        ? "No tafsir content available for this Ayah." 
+                        : "No translation found for this Ayah.";
+                    setTimeout(updateOverlayPosition, 50);
+                    return;
+                }
                 if (!response.ok) throw new Error("Fetch failed");
             } catch (fetchErr) {
                 // 3. OFFLINE PROXY: If per-verse fetch fails, try extracting it from the chapter-page cache
@@ -1502,6 +1504,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 response = await fetch(fallbackUrl);
+                if (response.status === 404) {
+                    overlayTafsirContent.innerHTML = isTafsir 
+                        ? "No tafsir content available for this Ayah." 
+                        : "No translation found for this Ayah.";
+                    setTimeout(updateOverlayPosition, 50);
+                    return;
+                }
                 if (!response.ok) throw fetchErr; // Give up
 
                 const pageData = await response.json();
@@ -1525,7 +1534,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     setTimeout(updateOverlayPosition, 50);
                     return;
                 }
-                throw fetchErr;
+
+                overlayTafsirContent.innerHTML = isTafsir 
+                    ? "No tafsir content available for this Ayah." 
+                    : "No translation found for this Ayah.";
+                setTimeout(updateOverlayPosition, 50);
+                return;
             }
 
             const data = await response.json();
@@ -2733,7 +2747,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // For simplicity, let's just reload verses and audio if reader is active.
         if (readerView.classList.contains("active") && currentChapterId) {
             resetAudio();
-            loadVersesAndAudio(currentChapterId);
+            loadVersesAndAudio(currentChapterId, false, currentPageNum);
         }
     }
 

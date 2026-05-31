@@ -54,28 +54,8 @@ STATE_EXCLUDED_KEYS = {
     'rfTitle', 'rfIcon', 'rfDescription',
 }
 
-FEATURE_KEYS = [
-    'enableRamadan', 'enablePrayerTimesYear', 'enableRadio', 'enableQuran',
-    'enableAzkar', 'enableTasbih', 'enableQiblah', 'enableSettings',
-    'enablePosts', 'enableEvents', 'enableDonation', 'enableAbout',
-    'enableContact', 'showRamadanAnimation',
-    'showGoogleMap'
-]
-
-STRING_KEYS = [
-    'masjidName', 'masjidFullTitle', 'masjidSite', 'masjidBaseUrl',
-    'masjidDescription', 'masjidLogo', 'masjidBuildingImage',
-    'masjidAddress', 'masjidPhone', 'masjidEmail',
-    'masjidTimeZone', 'masjidCapacitorHostname',
-    'masjidDonationMessage',
-    'masjidBankName', 'masjidBankAccountName', 'masjidBankIban',
-    'masjidBankBic', 'masjidBankAccountNumber',
-    'masjidDonationSumUpUrl', 'masjidDonationPayPalUrl',
-    'alternativeIqamahSettingsPath', 'alternativeNotificationsPath',
-    'masjidEventsPath', 'masjidPostsPath'
-]
-
-NUMBER_KEYS = ['masjidLat', 'masjidLng', 'ishaIqamahOffsetFromMaghrib', 'ramadanDaysBefore']
+# These key lists are kept at module level only for persist/state filtering.
+# The build_app_config_json function uses its own local copies.
 SOCIAL_KEYS = ['facebook', 'instagram', 'x', 'youtube', 'whatsapp', 'telegram']
 
 SOURCE_DATA_FILES = {
@@ -135,11 +115,6 @@ def escape_js_string(value):
     value = value.replace('\r', '')
     return value
 
-
-def html_line_breaks(value):
-    return str(value).replace('\r\n', '\n').replace('\r', '\n').replace('\n', '<br>')
-
-
 def is_enabled(params, key):
     return bool_param(params, key)
 
@@ -148,87 +123,103 @@ def plain_text(value):
     return re.sub(r'\s+', ' ', str(value or '').replace('<br>', ' ')).strip()
 
 
-def update_config_js(content, params):
-    """Update config.js content with user-provided values."""
+def build_app_config_json(params):
+    """Build the app-config JSON dict from builder params.
+    Maps flat social keys (social_facebook, etc.) to nested masjidSocialLinks,
+    and ensures all feature toggles are proper booleans.
+    """
+    FEATURE_KEYS = [
+        'enableRamadan', 'enablePrayerTimesYear', 'enableRadio', 'enableQuran',
+        'enableAzkar', 'enableTasbih', 'enableQiblah', 'enableSettings',
+        'enablePosts', 'enableEvents', 'enableDonation', 'enableAbout',
+        'enableContact', 'showRamadanAnimation', 'showGoogleMap'
+    ]
+    _SOCIAL_KEYS = ['facebook', 'instagram', 'x', 'youtube', 'whatsapp', 'telegram']
+    STRING_KEYS = [
+        'masjidName', 'masjidFullTitle', 'masjidSite', 'masjidBaseUrl',
+        'masjidDescription', 'masjidLogo', 'masjidBuildingImage',
+        'masjidAddress', 'masjidPhone', 'masjidEmail',
+        'masjidTimeZone', 'masjidCapacitorHostname',
+        'masjidDonationMessage',
+        'masjidBankName', 'masjidBankAccountName', 'masjidBankIban',
+        'masjidBankBic', 'masjidBankAccountNumber',
+        'masjidDonationSumUpUrl', 'masjidDonationPayPalUrl',
+        'alternativeIqamahSettingsPath', 'alternativeNotificationsPath',
+        'masjidEventsPath', 'masjidPostsPath'
+    ]
+    NUMBER_KEYS = ['masjidLat', 'masjidLng', 'ishaIqamahOffsetFromMaghrib', 'ramadanDaysBefore']
+    ARRAY_KEYS = ['masjidFeatures', 'ramadanFeaturesCards']
+
+    config = {}
+
+    # String keys
     for key in STRING_KEYS:
-        val = params.get(key, '')
-        if key in MULTILINE_STRING_KEYS:
-            val = html_line_breaks(val)
-        escaped = escape_js_string(val)
-        pattern = rf'({key}:\s*)"(?:[^"\\]|\\.)*"'
-        content = re.sub(pattern, rf'\g<1>"{escaped}"', content)
+        val = params.get(key)
+        if val is not None:
+            config[key] = str(val)
 
+    # Number keys
     for key in NUMBER_KEYS:
-        val = params.get(key, '0')
-        try:
-            float(val)
-        except (TypeError, ValueError):
-            val = '0'
-        pattern = rf'({key}:\s*)[\d.eE+-]+'
-        # Use a lambda replacement to avoid regex back-reference injection
-        # (a val like '\g<1>' would be interpreted as a group reference otherwise).
-        content = re.sub(pattern, lambda m: m.group(1) + val, content)
+        val = params.get(key)
+        if val is not None:
+            try:
+                config[key] = float(val)
+            except (TypeError, ValueError):
+                config[key] = 0
 
+    # Boolean feature keys
     for key in FEATURE_KEYS:
-        val = 'true' if is_enabled(params, key) else 'false'
-        pattern = rf'({key}:\s*)(true|false)'
-        content = re.sub(pattern, rf'\g<1>{val}', content)
+        val = params.get(key)
+        if val is not None:
+            config[key] = bool_param(params, key)
 
-    for key in SOCIAL_KEYS:
-        val = params.get(f'social_{key}', '')
-        escaped = escape_js_string(val)
-        pattern = rf'({key}:\s*)"(?:[^"\\]|\\.)*"'
-        content = re.sub(pattern, rf'\g<1>"{escaped}"', content)
+    # Social links -> nested object
+    social_links = {}
+    has_social = False
+    for key in _SOCIAL_KEYS:
+        val = params.get(f'social_{key}')
+        if val is not None:
+            social_links[key] = str(val)
+            has_social = True
+    if has_social:
+        config['masjidSocialLinks'] = social_links
 
-    features_json = str(params.get('masjidFeatures', '')).strip()
-    if features_json:
-        features_list = json.loads(features_json)
-        if not isinstance(features_list, list):
-            raise ValueError('About features must be a JSON array.')
+    # Array keys (masjidFeatures, ramadanFeaturesCards)
+    for key in ARRAY_KEYS:
+        raw = params.get(key)
+        if raw is not None:
+            if isinstance(raw, str):
+                raw = raw.strip()
+                if raw:
+                    parsed = json.loads(raw)
+                    if isinstance(parsed, list):
+                        config[key] = parsed
+            elif isinstance(raw, list):
+                config[key] = raw
 
-        items = []
-        for feat in features_list:
-            if not isinstance(feat, dict):
-                continue
-            title = escape_js_string(feat.get('title', ''))
-            desc = escape_js_string(html_line_breaks(feat.get('description', '')))
-            icon = escape_js_string(feat.get('icon', 'mdi-star'))
-            items.append(
-                '        {\n'
-                f'            title: "{title}",\n'
-                f'            description: "{desc}",\n'
-                f'            icon: "{icon}"\n'
-                '        }'
-            )
-        replacement = '[\n' + ',\n'.join(items) + '\n    ]' if items else '[]'
-        pattern = r'masjidFeatures:\s*\[[\s\S]*?\n    \]'
-        content = re.sub(pattern, f'masjidFeatures: {replacement}', content)
+    return config
 
-    ramadan_features_json = str(params.get('ramadanFeaturesCards', '')).strip()
-    if ramadan_features_json:
-        rf_list = json.loads(ramadan_features_json)
-        if not isinstance(rf_list, list):
-            raise ValueError('Ramadan features must be a JSON array.')
 
-        rf_items = []
-        for feat in rf_list:
-            if not isinstance(feat, dict):
-                continue
-            title = escape_js_string(feat.get('title', ''))
-            desc = escape_js_string(html_line_breaks(feat.get('description', '')))
-            icon = escape_js_string(feat.get('icon', 'mdi-star'))
-            rf_items.append(
-                '        {\n'
-                f'            title: "{title}",\n'
-                f'            description: "{desc}",\n'
-                f'            icon: "{icon}"\n'
-                '        }'
-            )
-        rf_replacement = '[\n' + ',\n'.join(rf_items) + '\n    ]' if rf_items else '[]'
-        rf_pattern = r'ramadanFeaturesCards:\s*\[[\s\S]*?\n    \]'
-        content = re.sub(rf_pattern, f'ramadanFeaturesCards: {rf_replacement}', content)
+def write_app_config_json(build_dir, params):
+    """Write the resolved app config as assets/data/app-config.json in the build output."""
+    config = build_app_config_json(params)
+    config_path = os.path.join(build_dir, 'assets', 'data', 'app-config.json')
+    write_json_file(config_path, config)
+    return config
 
-    return content
+
+def inject_config_into_js(build_dir, config_obj):
+    """Inject the resolved config into config.js by replacing the _LOADED_CONFIG placeholder.
+    This is a single string replacement — no regex-patching of individual keys.
+    """
+    config_path = os.path.join(build_dir, 'assets', 'js', 'config.js')
+    content = read_text(config_path)
+    json_str = json.dumps(config_obj, ensure_ascii=False)
+    content = content.replace(
+        'const _LOADED_CONFIG = {};',
+        f'const _LOADED_CONFIG = {json_str};'
+    )
+    write_text(config_path, content)
 
 
 def update_manifest(content, params):
@@ -260,9 +251,10 @@ def update_index_html(content, params):
     name = params.get('masjidName', 'Masjid')
     full = params.get('masjidFullTitle', name)
     desc = plain_text(params.get('masjidDescription', ''))
-    safe_name = html_mod.escape(str(name))
-    safe_full = html_mod.escape(str(full))
-    safe_desc = html_mod.escape(str(desc)[:200]) if desc else f"{safe_full} Prayers Web App"
+    # quote=True ensures " is escaped to &quot; for safe injection into HTML attributes
+    safe_name = html_mod.escape(str(name), quote=True)
+    safe_full = html_mod.escape(str(full), quote=True)
+    safe_desc = html_mod.escape(str(desc)[:200], quote=True) if desc else f"{safe_full} Prayers Web App"
 
     content = re.sub(r'<title>.*?</title>', f'<title>{safe_name} Prayers</title>', content)
     content = re.sub(
@@ -516,9 +508,9 @@ def generate_pwa(params):
     persist_external_inputs(params)
     copy_custom_images_to_build(BUILD_DIR, params)
 
-    config_path = os.path.join(BUILD_DIR, 'assets', 'js', 'config.js')
-    config_content = update_config_js(read_text(config_path), params)
-    write_text(config_path, config_content)
+    # Write app-config.json and inject into config.js
+    app_config = write_app_config_json(BUILD_DIR, params)
+    inject_config_into_js(BUILD_DIR, app_config)
 
     manifest_path = os.path.join(BUILD_DIR, 'manifest.json')
     manifest_content = update_manifest(read_text(manifest_path), params)
@@ -556,29 +548,14 @@ def get_source_json(kind):
     return read_json_file(path, None)
 
 
-def extract_js_features(content, key):
-    """Extract feature arrays from config.js using regex."""
-    pattern = rf'{key}:\s*\[([\s\S]*?)\]'
-    match = re.search(pattern, content)
-    if not match:
-        return []
-    array_content = match.group(1)
-    objects = []
-    # Match { title: "...", description: "...", icon: "..." }
-    for obj_match in re.finditer(r'\{([\s\S]*?)\}', array_content):
-        obj_text = obj_match.group(1)
-        obj = {}
-        for field in ['title', 'description', 'icon']:
-            # Search for field: "value" (supporting both single and double quotes)
-            f_match = re.search(rf'{field}:\s*["\']([\s\S]*?)["\']', obj_text)
-            if f_match:
-                val = f_match.group(1)
-                # Basic unescape
-                val = val.replace('\\"', '"').replace("\\'", "'").replace('\\n', '\n').replace('\\\\', '\\')
-                obj[field] = val
-        if obj:
-            objects.append(obj)
-    return objects
+def read_app_config_defaults():
+    """Read default feature arrays from assets/data/app-config.json."""
+    config_path = os.path.join(SOURCE_DIR, 'assets', 'data', 'app-config.json')
+    config = read_json_file(config_path, {})
+    return {
+        'masjidFeatures': config.get('masjidFeatures', []),
+        'ramadanFeaturesCards': config.get('ramadanFeaturesCards', []),
+    }
 
 
 def current_version():
@@ -614,12 +591,10 @@ def collect_defaults():
     for key in SOURCE_DATA_FILES:
         defaults[f'{key}Data'] = get_source_json(key)
 
-    # Extract features from config.js to use as defaults
-    config_path = os.path.join(SOURCE_DIR, 'assets', 'js', 'config.js')
-    if os.path.exists(config_path):
-        content = read_text(config_path)
-        defaults['masjidFeatures'] = extract_js_features(content, 'masjidFeatures')
-        defaults['ramadanFeaturesCards'] = extract_js_features(content, 'ramadanFeaturesCards')
+    # Read features from app-config.json (no more regex parsing of config.js)
+    app_config_defaults = read_app_config_defaults()
+    defaults['masjidFeatures'] = app_config_defaults.get('masjidFeatures', [])
+    defaults['ramadanFeaturesCards'] = app_config_defaults.get('ramadanFeaturesCards', [])
 
     return defaults
 

@@ -666,14 +666,19 @@ document.addEventListener("DOMContentLoaded", function () {
               const azanTime = dateToTimeString(scheduleMap.get(name + " Azan"));
               const iqamahTime = dateToTimeString(scheduleMap.get(name + " Iqamah"));
 
+              let azanDisplay = "";
               let subText = "";
               if (!activePrayerData.isFallback) {
                 if (isFriday && key === "zuhr") {
-                  const azanDisplay = (azanTime !== prayerTime) ? `<span class="iq-prefix">Azan:</span> <span id="azan-time-${key}">${azanTime}</span>` : "";
-                  subText = azanDisplay ? `<div class="p-card-sub" id="subtext-${key}">${azanDisplay}</div>` : "";
+                  if (azanTime !== prayerTime) {
+                    azanDisplay = `<span class="azan-fixed">Azan:</span> <span id="azan-time-${key}" class="azan-fixed">${azanTime}</span>`;
+                  }
+                  subText = "";
                 } else {
                   const iqType = (activePrayerData.iqamah_types && activePrayerData.iqamah_types[key]) || 'offset';
-                  const azanDisplay = (azanTime !== prayerTime && iqType !== 'maghrib') ? `<span class="iq-prefix">Azan:</span> <span id="azan-time-${key}">${azanTime}</span> · ` : "";
+                  if (azanTime !== prayerTime && iqType !== 'maghrib') {
+                    azanDisplay = `<span class="azan-fixed">Azan:</span> <span id="azan-time-${key}" class="azan-fixed">${azanTime}</span>`;
+                  }
 
                   let iqLabel = '<span class="iq-prefix">IQ:</span>';
                   if (iqType === 'fixed') {
@@ -681,14 +686,17 @@ document.addEventListener("DOMContentLoaded", function () {
                   } else if (iqType === 'maghrib') {
                     iqLabel = '<span class="iq-fixed">After Mgrb</span> <span class="iq-prefix">IQ:</span>';
                   }
-                  subText = `<div class="p-card-sub" id="subtext-${key}">${azanDisplay}<span id="iqamah-time-${key}">${iqLabel} ${iqamahTime}</span></div>`;
+                  subText = `<div class="p-card-sub" id="subtext-${key}"><span id="iqamah-time-${key}">${iqLabel} ${iqamahTime}</span></div>`;
                 }
               }
 
               card.innerHTML = `
                 <div class="p-card-left">
                   <i class="mdi ${icon} p-card-icon"></i>
-                  <span class="p-card-name">${name}</span>
+                  <div class="p-card-name-container">
+                    <span class="p-card-name">${name}</span>
+                    ${azanDisplay ? `<div class="p-card-sub azan-sub">${azanDisplay}</div>` : ""}
+                  </div>
                 </div>
                 <div class="p-card-right">
                   <div class="p-card-iqamah" id="prayer-time-${key}">${prayerTime}</div>
