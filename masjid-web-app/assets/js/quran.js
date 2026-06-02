@@ -279,37 +279,32 @@ document.addEventListener("DOMContentLoaded", function () {
     async function fetchRecitationChapterAudio(reciterId, chapterId) {
         const requestUrl = getRecitationChapterUrl(reciterId, chapterId);
 
-        try {
-            const response = await fetch(requestUrl);
-            if (!response.ok) throw new Error(`Audio HTTP ${response.status}`);
+        const cache = await caches.open(quranRecitationCache(reciterId, chapterId));
+        const cachedResponse = await cache.match(requestUrl)
+            || await cache.match(getRecitationChapterUrl(reciterId, chapterId, true))
+            || await caches.match(requestUrl)
+            || await caches.match(getRecitationChapterUrl(reciterId, chapterId, true));
 
-            const cache = await caches.open(quranRecitationCache(reciterId, chapterId));
-            await cache.put(requestUrl, response.clone());
-
-            const data = await response.json();
+        if (cachedResponse) {
+            const data = await cachedResponse.json();
             const files = data.audio_files || [];
             if (chapterId === 1 && files.length > 0) {
                 bismillahAudioData = { ...files[0], reciterId };
             }
             return files;
-        } catch (error) {
-            const cache = await caches.open(quranRecitationCache(reciterId, chapterId));
-            const cachedResponse = await cache.match(requestUrl)
-                || await cache.match(getRecitationChapterUrl(reciterId, chapterId, true))
-                || await caches.match(requestUrl)
-                || await caches.match(getRecitationChapterUrl(reciterId, chapterId, true));
-
-            if (cachedResponse) {
-                const data = await cachedResponse.json();
-                const files = data.audio_files || [];
-                if (chapterId === 1 && files.length > 0) {
-                    bismillahAudioData = { ...files[0], reciterId };
-                }
-                return files;
-            }
-
-            throw error;
         }
+
+        const response = await fetch(requestUrl);
+        if (!response.ok) throw new Error(`Audio HTTP ${response.status}`);
+
+        await cache.put(requestUrl, response.clone());
+
+        const data = await response.json();
+        const files = data.audio_files || [];
+        if (chapterId === 1 && files.length > 0) {
+            bismillahAudioData = { ...files[0], reciterId };
+        }
+        return files;
     }
 
     async function ensureBismillahAudioData(reciterId) {
@@ -367,7 +362,19 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             if (results.every(Boolean)) {
-                await fetch(fullUrl);
+                try {
+                    const cachedMetaData = await cache.match(getRecitationChapterUrl(reciterId, chapterId));
+                    if (cachedMetaData) {
+                        await cache.put(fullUrl, cachedMetaData.clone());
+                    } else {
+                        const fullResp = await fetch(fullUrl);
+                        if (fullResp && fullResp.ok) {
+                            await cache.put(fullUrl, fullResp.clone());
+                        }
+                    }
+                } catch (e) {
+                    console.warn("Failed to cache fullUrl metadata:", e);
+                }
             }
         } finally {
             backgroundDownloadQueue.delete(queueKey);
@@ -866,14 +873,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 let response;
                 try {
-                    response = await fetch(url);
-                    if (!response.ok) throw new Error('Verses HTTP ' + response.status);
+                    const cachedRes = await caches.match(url);
+                    if (cachedRes) {
+                        response = cachedRes;
+                    } else {
+                        response = await fetch(url);
+                        if (!response.ok) throw new Error('Verses HTTP ' + response.status);
+                    }
                 } catch (err) {
                     // Offline fallback: try to load the text-only version if we have translations selected but offline
                     if (selectedTranslations.length > 0) {
                         const fallbackUrl = `https://api.quran.com/api/v4/verses/by_chapter/${chapterId}?language=en&words=false&fields=${scriptField},hizb_number,rub_el_hizb_number,juz_number&page=${page}&per_page=50`;
-                        const fbRes = await fetch(fallbackUrl);
-                        if (!fbRes.ok) throw err; // Re-throw original error if fallback also fails
+                        let fbRes = await caches.match(fallbackUrl);
+                        if (!fbRes) {
+                            try {
+                                fbRes = await fetch(fallbackUrl);
+                            } catch (fbErr) {
+                                throw err; // Re-throw original error if fallback fetch also fails
+                            }
+                        }
+                        if (!fbRes || !fbRes.ok) throw err; // Re-throw original error if fallback also fails
                         response = fbRes;
                         console.log("Using offline fallback (text only for script " + scriptField + ")");
                     } else {
@@ -915,7 +934,10 @@ document.addEventListener("DOMContentLoaded", function () {
                                 // Match the storage manager canonical URL (all scripts)
                                 const allScripts = quranScriptsList.map(s => `text_${s.id}`).join(',');
                                 const url = `https://api.quran.com/api/v4/verses/by_chapter/${chapterId}?language=en&words=false&fields=${allScripts},hizb_number,rub_el_hizb_number,juz_number&page=${recPage}&per_page=50&translations=${transId}`;
-                                const resp = await fetch(url);
+                                let resp = await caches.match(url);
+                                if (!resp) {
+                                    resp = await fetch(url);
+                                }
                                 if (!resp.ok) break;
                                 const data = await resp.json();
                                 if (data && data.verses) {
@@ -955,7 +977,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         let chapterTafsirs = [];
 
                         do {
-                            const tafRes = await fetch(`https://api.quran.com/api/v4/tafsirs/${tafsirId}/by_chapter/${chapterId}?page=${tafPage}&per_page=100`);
+                            const tafUrl = `https://api.quran.com/api/v4/tafsirs/${tafsirId}/by_chapter/${chapterId}?page=${tafPage}&per_page=100`;
+                            let tafRes = await caches.match(tafUrl);
+                            if (!tafRes) {
+                                tafRes = await fetch(tafUrl);
+                            }
                             if (tafRes.ok) {
                                 const tafData = await tafRes.json();
                                 if (tafData && tafData.tafsirs) {
@@ -1477,15 +1503,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let response;
             try {
-                response = await fetch(url);
-                if (response.status === 404) {
-                    overlayTafsirContent.innerHTML = isTafsir 
-                        ? "No tafsir content available for this Ayah." 
-                        : "No translation found for this Ayah.";
-                    setTimeout(updateOverlayPosition, 50);
-                    return;
+                const cachedRes = await caches.match(url);
+                if (cachedRes) {
+                    response = cachedRes;
+                } else {
+                    response = await fetch(url);
+                    if (response.status === 404) {
+                        overlayTafsirContent.innerHTML = isTafsir 
+                            ? "No tafsir content available for this Ayah." 
+                            : "No translation found for this Ayah.";
+                        setTimeout(updateOverlayPosition, 50);
+                        return;
+                    }
+                    if (!response.ok) throw new Error("Fetch failed");
                 }
-                if (!response.ok) throw new Error("Fetch failed");
             } catch (fetchErr) {
                 // 3. OFFLINE PROXY: If per-verse fetch fails, try extracting it from the chapter-page cache
                 console.log("Overlay: Offline fallback search for", verseKey);
@@ -1503,8 +1534,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     fallbackUrl = `https://api.quran.com/api/v4/verses/by_chapter/${chId}?language=en&words=false&fields=${allScripts},hizb_number,rub_el_hizb_number,juz_number&page=${transPage}&per_page=50&translations=${resourceId}`;
                 }
 
-                response = await fetch(fallbackUrl);
-                if (response.status === 404) {
+                let fbRes = await caches.match(fallbackUrl);
+                if (!fbRes) {
+                    try {
+                        fbRes = await fetch(fallbackUrl);
+                    } catch (fbFetchErr) {
+                        throw fetchErr; // Re-throw original error if offline fallback also fails
+                    }
+                }
+                response = fbRes;
+                if (!response || response.status === 404) {
                     overlayTafsirContent.innerHTML = isTafsir 
                         ? "No tafsir content available for this Ayah." 
                         : "No translation found for this Ayah.";
@@ -2194,15 +2233,105 @@ document.addEventListener("DOMContentLoaded", function () {
         return a.name.localeCompare(b.name);
     }
 
-    function getSimpleResourceSortMeta(type, resource, quranCacheNames) {
-        let isFull = false;
-        if (type === "translation") isFull = quranCacheNames.includes(quranTranslationCache(resource.id));
-        else if (type === "tafsir") isFull = quranCacheNames.includes(quranTafsirCache(resource.id));
+    function getTranslationCacheMeta(translationId, cacheUrls) {
+        const transUrls = cacheUrls[quranTranslationCache(translationId)] || [];
+        let fullSurahs = 0;
+        let partSurahs = 0;
+
+        if (chaptersData && chaptersData.length > 0) {
+            chaptersData.forEach(ch => {
+                const pages = Math.ceil(ch.verses_count / 50);
+                let pagesFound = 0;
+                for (let p = 1; p <= pages; p++) {
+                    if (transUrls.some(urlString => {
+                        try {
+                            const u = new URL(urlString);
+                            const pathPattern = `/api/v4/verses/by_chapter/${ch.id}`;
+                            if (!u.pathname.endsWith(pathPattern)) return false;
+                            const params = u.searchParams;
+                            if (params.get("page") !== p.toString()) return false;
+                            if (params.get("per_page") !== "50") return false;
+                            const translationsParam = params.get("translations");
+                            if (!translationsParam) return false;
+                            const ids = translationsParam.split(',');
+                            return ids.includes(translationId.toString());
+                        } catch (e) {
+                            return false;
+                        }
+                    })) {
+                        pagesFound++;
+                    }
+                }
+                if (pagesFound === pages) fullSurahs++;
+                else if (pagesFound > 0) partSurahs++;
+            });
+        }
+
+        const isFull = fullSurahs === 114;
+        const isPart = !isFull && (fullSurahs > 0 || partSurahs > 0);
 
         return {
             isFull,
+            isPart,
+            fullSurahs,
+            partSurahs,
+            sortRank: isFull ? 0 : (isPart ? 1 : 2)
+        };
+    }
+
+    function getTafsirCacheMeta(tafsirId, cacheUrls) {
+        const tafUrls = cacheUrls[quranTafsirCache(tafsirId)] || [];
+        let fullSurahs = 0;
+        let partSurahs = 0;
+
+        if (chaptersData && chaptersData.length > 0) {
+            chaptersData.forEach(ch => {
+                const pages = Math.ceil(ch.verses_count / 100);
+                let pagesFound = 0;
+                for (let p = 1; p <= pages; p++) {
+                    if (tafUrls.some(urlString => {
+                        try {
+                            const u = new URL(urlString);
+                            const pathPattern = `/api/v4/tafsirs/${tafsirId}/by_chapter/${ch.id}`;
+                            if (!u.pathname.endsWith(pathPattern)) return false;
+                            const params = u.searchParams;
+                            if (params.get("page") !== p.toString()) return false;
+                            if (params.get("per_page") !== "100") return false;
+                            return true;
+                        } catch (e) {
+                            return false;
+                        }
+                    })) {
+                        pagesFound++;
+                    }
+                }
+                if (pagesFound === pages) fullSurahs++;
+                else if (pagesFound > 0) partSurahs++;
+            });
+        }
+
+        const isFull = fullSurahs === 114;
+        const isPart = !isFull && (fullSurahs > 0 || partSurahs > 0);
+
+        return {
+            isFull,
+            isPart,
+            fullSurahs,
+            partSurahs,
+            sortRank: isFull ? 0 : (isPart ? 1 : 2)
+        };
+    }
+
+    function getSimpleResourceSortMeta(type, resource, cacheUrls) {
+        if (type === "translation") {
+            return getTranslationCacheMeta(resource.id, cacheUrls);
+        } else if (type === "tafsir") {
+            return getTafsirCacheMeta(resource.id, cacheUrls);
+        }
+        return {
+            isFull: false,
             isPart: false,
-            sortRank: isFull ? 0 : 2
+            sortRank: 2
         };
     }
 
@@ -2239,9 +2368,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 const pages = Math.ceil(ch.verses_count / 50);
                 let pagesFound = 0;
                 for (let p = 1; p <= pages; p++) {
-                    const pagePattern = `/verses/by_chapter/${ch.id}?`;
-                    const pageSuffix = `page=${p}&per_page=50`;
-                    if (textUrls.some(url => url.includes(pagePattern) && url.includes(pageSuffix))) {
+                    if (textUrls.some(urlString => {
+                        try {
+                            const u = new URL(urlString);
+                            const pathPattern = `/api/v4/verses/by_chapter/${ch.id}`;
+                            if (!u.pathname.endsWith(pathPattern)) return false;
+                            const params = u.searchParams;
+                            if (params.get("page") !== p.toString()) return false;
+                            if (params.get("per_page") !== "50") return false;
+                            if (params.has("translations")) return false;
+                            const fields = params.get("fields") || "";
+                            return fields.split(',').includes(`text_${script.id}`);
+                        } catch (e) {
+                            return false;
+                        }
+                    })) {
                         pagesFound++;
                     }
                 }
@@ -2330,7 +2471,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const sortedResources = resources.map(res => ({
             ...res,
-            ...getSimpleResourceSortMeta(type, res, quranCacheNames)
+            ...getSimpleResourceSortMeta(type, res, cacheUrls)
         })).sort(compareStorageItemsByStatus);
 
         container.innerHTML = "";
@@ -2339,13 +2480,22 @@ document.addEventListener("DOMContentLoaded", function () {
             row.className = "storage-item-row";
 
             const isCached = res.isFull;
+            const isPart = res.isPart;
 
-            if (isCached) row.classList.add("is-full-cached");
+            if (isCached) {
+                row.classList.add("is-full-cached");
+            } else if (isPart) {
+                row.classList.add("is-part-cached");
+            }
+
+            const statusText = isCached ? '<span style="color:var(--primary-green)">Cached</span>' :
+                isPart ? `<span style="color:var(--primary-amber)">Partially Cached (${res.fullSurahs}/114)</span>` :
+                    'Not cached';
 
             row.innerHTML = `
                 <div class="storage-item-info">
                     <div class="storage-item-name">${escapeHTML(res.name)}</div>
-                    <div class="storage-item-meta">${isCached ? '<span style="color:var(--primary-green)">Cached</span>' : 'Not cached'}</div>
+                    <div class="storage-item-meta">${statusText}</div>
                 </div>
                 <div class="storage-item-actions">
                     ${isCached ? "" : `<button class="storage-action-btn dl-btn" data-id="${res.id}" data-type="${type}" title="Download"><i class="mdi mdi-cloud-download-outline"></i></button>`}
@@ -2532,21 +2682,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
         backgroundDownloadQueue.add(queueKey);
         try {
+            const cache = await caches.open(quranTextCache(scriptId));
             const apiField = `text_${scriptId}`;
             // Perform downloads in chunks (batches of surahs) to not overload
             const batchSize = 10;
             for (let i = 1; i <= 114; i += batchSize) {
                 let promises = [];
+                const urls = [];
                 for (let j = i; j < i + batchSize && j <= 114; j++) {
                     const chapter = chaptersData.find(c => c.id === j);
                     if (!chapter) continue;
                     const versesCount = chapter.verses_count;
                     const pages = Math.ceil(versesCount / 50);
                     for (let p = 1; p <= pages; p++) {
-                        promises.push(fetch(`https://api.quran.com/api/v4/verses/by_chapter/${j}?language=en&words=false&fields=${apiField},hizb_number,rub_el_hizb_number,juz_number&page=${p}&per_page=50`));
+                        const url = `https://api.quran.com/api/v4/verses/by_chapter/${j}?language=en&words=false&fields=${apiField},hizb_number,rub_el_hizb_number,juz_number&page=${p}&per_page=50`;
+                        urls.push(url);
+                        promises.push(fetch(url));
                     }
                 }
-                await Promise.all(promises);
+                const responses = await Promise.all(promises);
+                for (let idx = 0; idx < responses.length; idx++) {
+                    const resp = responses[idx];
+                    const url = urls[idx];
+                    if (resp && resp.ok) {
+                        await cache.put(url, resp.clone());
+                    }
+                }
             }
         } catch (e) {
             console.warn("Full script background cache failed", e);
@@ -2563,20 +2724,31 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!confirm(`Download ${label} text for all 114 Surahs for offline use?`)) return;
         row.classList.add("downloading");
         try {
+            const cache = await caches.open(quranTextCache(scriptId));
             const apiField = `text_${scriptId}`;
             // Perform downloads in chunks (batches of surahs) to not overload
             const batchSize = 10;
             for (let i = 1; i <= 114; i += batchSize) {
                 let promises = [];
+                const urls = [];
                 for (let j = i; j < i + batchSize && j <= 114; j++) {
                     const chapter = chaptersData.find(c => c.id === j);
                     const versesCount = chapter ? chapter.verses_count : 100;
                     const pages = Math.ceil(versesCount / 50);
                     for (let p = 1; p <= pages; p++) {
-                        promises.push(fetch(`https://api.quran.com/api/v4/verses/by_chapter/${j}?language=en&words=false&fields=${apiField},hizb_number,rub_el_hizb_number,juz_number&page=${p}&per_page=50`));
+                        const url = `https://api.quran.com/api/v4/verses/by_chapter/${j}?language=en&words=false&fields=${apiField},hizb_number,rub_el_hizb_number,juz_number&page=${p}&per_page=50`;
+                        urls.push(url);
+                        promises.push(fetch(url));
                     }
                 }
-                await Promise.all(promises);
+                const responses = await Promise.all(promises);
+                for (let idx = 0; idx < responses.length; idx++) {
+                    const resp = responses[idx];
+                    const url = urls[idx];
+                    if (resp && resp.ok) {
+                        await cache.put(url, resp.clone());
+                    }
+                }
             }
             alert(`${label} text downloaded successfully.`);
         } catch (e) {
@@ -2675,24 +2847,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     async function downloadFullTranslation(id, name) {
+        const cache = await caches.open(quranTranslationCache(id));
         const scripts = ["uthmani", "uthmani_tajweed", "indopak"];
         const scriptFields = scripts.map(s => `text_${s}`).join(',');
         for (let i = 1; i <= 114; i++) {
             const chapter = chaptersData.find(c => c.id === i);
             const pages = Math.ceil((chapter ? chapter.verses_count : 100) / 50);
             for (let p = 1; p <= pages; p++) {
-                await fetch(`https://api.quran.com/api/v4/verses/by_chapter/${i}?language=en&words=false&fields=${scriptFields},hizb_number,rub_el_hizb_number,juz_number&page=${p}&per_page=50&translations=${id}`);
+                const url = `https://api.quran.com/api/v4/verses/by_chapter/${i}?language=en&words=false&fields=${scriptFields},hizb_number,rub_el_hizb_number,juz_number&page=${p}&per_page=50&translations=${id}`;
+                const resp = await fetch(url);
+                if (resp && resp.ok) {
+                    await cache.put(url, resp.clone());
+                }
             }
         }
     }
 
     async function downloadFullTafsir(id, name) {
+        const cache = await caches.open(quranTafsirCache(id));
         for (let i = 1; i <= 114; i++) {
             const chapter = chaptersData.find(c => c.id === i);
             const totalVerses = chapter ? chapter.verses_count : 100;
             const pages = Math.ceil(totalVerses / 100);
             for (let p = 1; p <= pages; p++) {
-                await fetch(`https://api.quran.com/api/v4/tafsirs/${id}/by_chapter/${i}?page=${p}&per_page=100`);
+                const url = `https://api.quran.com/api/v4/tafsirs/${id}/by_chapter/${i}?page=${p}&per_page=100`;
+                const resp = await fetch(url);
+                if (resp && resp.ok) {
+                    await cache.put(url, resp.clone());
+                }
             }
         }
     }
