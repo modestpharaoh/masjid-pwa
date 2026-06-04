@@ -671,13 +671,13 @@ document.addEventListener("DOMContentLoaded", function () {
               if (!activePrayerData.isFallback) {
                 if (isFriday && key === "zuhr") {
                   if (azanTime !== prayerTime) {
-                    azanDisplay = `<span class="azan-fixed">Azan:</span> <span id="azan-time-${key}" class="azan-fixed">${azanTime}</span>`;
+                    azanDisplay = `<span class="azan-fixed">Azan:</span> <span id="azan-time-${key}">${azanTime}</span>`;
                   }
                   subText = "";
                 } else {
                   const iqType = (activePrayerData.iqamah_types && activePrayerData.iqamah_types[key]) || 'offset';
                   if (azanTime !== prayerTime && iqType !== 'maghrib') {
-                    azanDisplay = `<span class="azan-fixed">Azan:</span> <span id="azan-time-${key}" class="azan-fixed">${azanTime}</span>`;
+                    azanDisplay = `<span class="azan-fixed">Azan:</span> <span id="azan-time-${key}">${azanTime}</span>`;
                   }
 
                   let iqLabel = '<span class="iq-prefix">IQ:</span>';
