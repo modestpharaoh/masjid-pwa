@@ -610,6 +610,12 @@ def _safe_filename(name: str) -> str:
 class PWABuilderHandler(http.server.BaseHTTPRequestHandler):
     """HTTP request handler for the PWA Builder portal."""
 
+    protocol_version = "HTTP/1.1"
+
+    def address_string(self):
+        # Bypasses reverse DNS lookup to prevent 2-5 second delay per request on some environments
+        return self.client_address[0]
+
     def log_message(self, format, *args):
         sys.stderr.write(f"[PWA Builder] {self.address_string()} - {format % args}\n")
 
@@ -812,6 +818,8 @@ class PWABuilderHandler(http.server.BaseHTTPRequestHandler):
             data = _html_cache
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
+            self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            self.send_header('Pragma', 'no-cache')
             self.send_header('Content-Length', str(len(data)))
             self.end_headers()
             self.wfile.write(data)
@@ -829,6 +837,8 @@ class PWABuilderHandler(http.server.BaseHTTPRequestHandler):
         filename = os.path.basename(SOURCE_DATA_FILES[kind])
         self.send_response(200)
         self.send_header('Content-Type', 'application/json; charset=utf-8')
+        self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+        self.send_header('Pragma', 'no-cache')
         self.send_header('Content-Disposition', f'attachment; filename="{filename}"')
         self.send_header('Content-Length', str(len(pretty)))
         self.end_headers()
@@ -870,13 +880,47 @@ class PWABuilderHandler(http.server.BaseHTTPRequestHandler):
         if not (full_path == build_root or full_path.startswith(build_root + os.sep)):
             self.send_error(403)
             return
+
+        # Auto-sync newer source files to build directory for instant preview updates
+        blacklist = {
+            'index.html', 'manifest.json', 'version.js', 'assets/js/config.js',
+            'assets/data/app-config.json', 'assets/data/prayers-schedule.json',
+            'assets/data/iqamah-settings.json', 'assets/data/notifications.json',
+            'assets/data/nearby-masjids.json'
+        }
+        if rel_path not in blacklist:
+            source_file = os.path.join(SOURCE_DIR, rel_path)
+            if os.path.isfile(source_file):
+                if not os.path.isfile(full_path) or os.path.getmtime(source_file) > os.path.getmtime(full_path):
+                    try:
+                        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+                        shutil.copy2(source_file, full_path)
+                    except Exception as e:
+                        sys.stderr.write(f"[PWA Builder] Failed to auto-sync {rel_path}: {e}\n")
+
         if os.path.isdir(full_path):
             full_path = os.path.join(full_path, 'index.html')
         if not os.path.isfile(full_path):
             self.send_error(404)
             return
         content_type = mimetypes.guess_type(full_path)[0] or 'application/octet-stream'
-        self._send_file(full_path, content_type)
+        self._serve_pwa_file(full_path, content_type)
+
+    def _serve_pwa_file(self, path, content_type, filename=None):
+        """Helper to send files specifically for PWA preview with cache disabling."""
+        with open(path, 'rb') as f:
+            data = f.read()
+        self.send_response(200)
+        self.send_header('Content-Type', content_type)
+        self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+        self.send_header('Pragma', 'no-cache')
+        if filename:
+            # Sanitize to prevent CRLF header injection via a crafted filename
+            safe_name = _safe_filename(filename)
+            self.send_header('Content-Disposition', f'attachment; filename="{safe_name}"')
+        self.send_header('Content-Length', str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
 
     def _send_file(self, path, content_type, filename=None):
         with open(path, 'rb') as f:
@@ -895,6 +939,8 @@ class PWABuilderHandler(http.server.BaseHTTPRequestHandler):
         data = json.dumps(obj, ensure_ascii=False).encode('utf-8')
         self.send_response(code)
         self.send_header('Content-Type', 'application/json; charset=utf-8')
+        self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+        self.send_header('Pragma', 'no-cache')
         self.send_header('Content-Length', str(len(data)))
         self.end_headers()
         self.wfile.write(data)
@@ -903,6 +949,8 @@ class PWABuilderHandler(http.server.BaseHTTPRequestHandler):
         data = f'<!doctype html><title>PWA Preview</title><p>{html_mod.escape(message)}</p>'.encode('utf-8')
         self.send_response(code)
         self.send_header('Content-Type', 'text/html; charset=utf-8')
+        self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+        self.send_header('Pragma', 'no-cache')
         self.send_header('Content-Length', str(len(data)))
         self.end_headers()
         self.wfile.write(data)

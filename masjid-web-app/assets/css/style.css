@@ -123,15 +123,11 @@ td {
 
   0%,
   100% {
-    box-shadow:
-      0 0 8px rgba(var(--primary-gold-rgb), 0.4),
-      inset 0 0 0 2px var(--primary-gold);
+    box-shadow: 0 0 8px rgba(var(--primary-gold-rgb), 0.4);
   }
 
   50% {
-    box-shadow:
-      0 0 20px rgba(var(--primary-gold-rgb), 0.7),
-      inset 0 0 0 2px var(--primary-gold);
+    box-shadow: 0 0 20px rgba(var(--primary-gold-rgb), 0.7);
   }
 }
 
@@ -568,7 +564,7 @@ body.night-mode .next-label strong {
 /* Active / Next prayer card */
 .p-card-active {
   background: rgba(var(--primary-gold-rgb), 0.18);
-  border-color: var(--primary-gold);
+  border: 2px solid var(--primary-gold) !important;
   animation: glowPulse 2.5s ease-in-out infinite;
 }
 
@@ -633,7 +629,8 @@ body.night-mode .next-label strong {
 }
 
 .p-card-sub {
-  font-size: clamp(0.9rem, 2.4vh, 1.4rem);
+  white-space: nowrap;
+  font-size: clamp(0.7rem, min(2.4vh, 3.5vw), 1.4rem);
   color: var(--text-secondary);
   font-weight: 500;
   margin-top: 2px;
@@ -748,7 +745,8 @@ body.night-mode .next-label strong {
 }
 
 .jumuah-sub-label {
-  font-size: clamp(0.65rem, 1.6vh, 1rem);
+  white-space: nowrap;
+  font-size: clamp(0.55rem, min(1.6vh, 2.5vw), 1rem);
   color: var(--text-secondary);
   font-weight: 500;
   text-align: left;
@@ -933,7 +931,7 @@ body.night-mode .next-label strong {
   .p-card {
     padding: 1vh 2.5vw;
     border-radius: 12px;
-    min-height: 8vh;
+    min-height: clamp(45px, 9.5vh, 95px);
   }
 
   .p-card-iqamah {
@@ -953,10 +951,15 @@ body.night-mode .next-label strong {
   }
 
   .p-card-sub {
-    font-size: clamp(1.1rem, 3.2vh, 2.2rem);
+    font-size: clamp(0.8rem, min(3.2vh, 3.5vw), 2.2rem);
     font-weight: 600;
     margin-top: 4px;
     opacity: 0.95;
+  }
+
+  .azan-fixed,
+  .iq-fixed {
+    font-size: 0.75em;
   }
 
   .jumuah-label {
@@ -980,7 +983,7 @@ body.night-mode .next-label strong {
   }
 
   .jumuah-card {
-    min-height: 8vh;
+    min-height: clamp(45px, 9.5vh, 95px);
     padding: 1vh 1.5vw;
   }
 
@@ -1111,8 +1114,8 @@ body.night-mode .next-label strong {
   position: fixed;
   bottom: calc(15px + env(safe-area-inset-bottom, 0px));
   left: calc(15px + env(safe-area-inset-left, 0px));
-  width: 30px;
-  height: 30px;
+  width: clamp(2rem, 5vh, 3rem);
+  height: clamp(2rem, 5vh, 3rem);
   background: transparent;
   color: var(--primary-gold);
   display: flex;
@@ -1120,11 +1123,16 @@ body.night-mode .next-label strong {
   align-items: center;
   z-index: 100;
   cursor: pointer;
-  font-size: 40px;
+  font-size: clamp(1.4rem, 3.8vh, 2.2rem);
   border: none;
   box-shadow: none;
-  transition: transform 0.2s;
+  opacity: 0.65;
+  transition: transform 0.2s, opacity 0.2s;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.notif-fab-button:hover {
+  opacity: 1;
 }
 
 .notif-fab-button.has-notif {
@@ -1248,6 +1256,8 @@ body.night-mode .next-label strong {
   gap: 16px;
   overflow-y: auto;
   padding-right: 8px;
+  flex: 1;
+  min-height: 0;
 }
 
 .notif-modal-card {
@@ -1306,6 +1316,8 @@ body.night-mode .next-label strong {
   font-weight: 500;
   line-height: 1.4;
   white-space: pre-line;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .notif-modal-card-image {
@@ -1850,6 +1862,12 @@ body.night-mode .notifications-container.important .notif-text {
     min-height: 7.5vh;
   }
 
+  .p-card-active {
+    min-height: 8.2vh !important;
+    padding-top: 1.2vh !important;
+    padding-bottom: 1.2vh !important;
+  }
+
   .p-card-iqamah {
     font-size: clamp(1.6rem, 4.5vw, 3.2rem);
   }
@@ -2352,4 +2370,254 @@ body.night-mode .weather-stats {
 body.night-mode .weather-stats .stat-item i {
   color: #db8d0d;
   /* Sync with Clock Gold value matches exactly */
+}
+
+/* Small height landscape screen fixes (e.g. Galaxy S8 and other phones in landscape) */
+@media (orientation: landscape) and (max-height: 380px) {
+  .prayer-cards {
+    padding: 3vh 2vw !important;
+    gap: 0.4vh !important;
+  }
+
+  .p-card {
+    padding: 0.5vh 2.5vw !important;
+    min-height: 0 !important;
+    border-radius: 10px !important;
+  }
+
+  .p-card-iqamah {
+    font-size: clamp(1rem, 3.5vh, 1.5rem) !important;
+  }
+
+  .p-card-active .p-card-iqamah {
+    font-size: clamp(1.1rem, 4vh, 1.8rem) !important;
+  }
+
+  .p-card-name {
+    font-size: clamp(0.85rem, 3.2vh, 1.4rem) !important;
+  }
+
+  .p-card-icon {
+    font-size: clamp(0.85rem, 2.8vh, 1.4rem) !important;
+    width: 1.5em !important;
+  }
+
+  .p-card-sub {
+    font-size: clamp(0.6rem, min(2vh, 3.5vw), 1rem) !important;
+    margin-top: 1px !important;
+  }
+
+  .azan-fixed,
+  .iq-fixed {
+    font-size: 0.75em !important;
+  }
+
+  .p-card-left {
+    gap: 1.5vw !important;
+  }
+
+  .jumuah-row {
+    gap: 0.4vh !important;
+  }
+
+  .jumuah-card {
+    min-height: 0 !important;
+    padding: 0.5vh 1.5vw !important;
+    border-radius: 10px !important;
+  }
+
+  .jumuah-label {
+    font-size: clamp(0.75rem, 2vh, 1.2rem) !important;
+  }
+
+  .jumuah-time {
+    font-size: clamp(0.85rem, 2.5vh, 1.6rem) !important;
+  }
+
+  .jumuah-sub-label {
+    font-size: clamp(0.55rem, 1.5vh, 0.9rem) !important;
+  }
+
+  .jumuah-count-3 .jumuah-label,
+  .jumuah-count-3 .jumuah-time {
+    font-size: clamp(0.7rem, 1.8vh, 1.1rem) !important;
+  }
+
+  /* Spacing and heights for Jumuah card inner rows */
+  .jumuah-row-1 {
+    gap: 0.5vw !important;
+  }
+
+  .jumuah-row-2 {
+    margin-top: -1px !important;
+    margin-bottom: 1px !important;
+    padding: 1px 0 !important;
+  }
+
+  /* Left panel tweaks to avoid overlapping weather / clock / date */
+  .prayer-header {
+    padding: 3vh 2vw !important;
+  }
+
+  .header-main {
+    gap: 2vh !important;
+  }
+
+  .header-logo img {
+    height: clamp(40px, 9vh, 70px) !important;
+  }
+
+  .header-clock {
+    font-size: clamp(2rem, 8vh, 4.5rem) !important;
+  }
+
+  .next-label {
+    font-size: clamp(0.8rem, 2.2vh, 1.2rem) !important;
+  }
+
+  .next-countdown {
+    font-size: clamp(1.1rem, 3.5vh, 2.2rem) !important;
+  }
+
+  .header-date-row {
+    font-size: clamp(0.9rem, 2.8vh, 1.6rem) !important;
+    gap: 0.5vh !important;
+  }
+
+  .prayer-page .geometric-divider {
+    height: 70vh !important;
+  }
+
+  /* Full Screen Iqamah Overlay tweaks for small landscape heights */
+  .iqamah-fs-logo img {
+    height: clamp(35px, 8vh, 55px) !important;
+  }
+
+  .iqamah-fs-clock {
+    font-size: clamp(1.5rem, 6vh, 2.8rem) !important;
+  }
+
+  .iqamah-fs-dates {
+    font-size: clamp(0.8rem, 2.2vh, 1.2rem) !important;
+  }
+
+  .iqamah-fs-content {
+    bottom: 4vh !important;
+  }
+
+  .iqamah-fs-english {
+    font-size: clamp(1.2rem, 4vh, 1.8rem) !important;
+  }
+
+  .iqamah-fs-arabic {
+    font-size: clamp(1.8rem, 6vh, 2.8rem) !important;
+  }
+
+  .iqamah-fs-icon {
+    margin: 1vh 0 !important;
+  }
+
+  .iqamah-fs-note {
+    font-size: clamp(0.9rem, 2.5vh, 1.3rem) !important;
+  }
+}
+
+/* Very narrow portrait screen fixes (e.g. iPhone SE and other small phones) */
+@media (max-width: 360px) and (orientation: portrait) {
+  .header-main {
+    padding-left: 45px !important;
+    gap: 1.5vw !important;
+  }
+
+  .header-logo img {
+    height: clamp(25px, 5vh, 35px) !important;
+  }
+
+  .header-clock {
+    font-size: clamp(1.4rem, 7vw, 2.2rem) !important;
+  }
+
+  .next-label {
+    font-size: clamp(0.75rem, 2vh, 1rem) !important;
+  }
+
+  .next-countdown {
+    font-size: clamp(0.95rem, 3.5vh, 1.4rem) !important;
+  }
+
+  .header-date-row {
+    font-size: clamp(0.85rem, 2.5vh, 1.2rem) !important;
+  }
+
+  .p-card {
+    padding: 1vh 3vw !important;
+  }
+
+  .p-card-name {
+    font-size: clamp(1rem, 5vw, 1.4rem) !important;
+    min-width: 4.5em !important;
+  }
+
+  .p-card-iqamah {
+    font-size: clamp(1.4rem, 8vw, 2.2rem) !important;
+  }
+
+  .notif-fab-button {
+    font-size: 1.25rem !important;
+    width: 2rem !important;
+    height: 2rem !important;
+    bottom: 8px !important;
+    left: 8px !important;
+  }
+
+  .notif-modal-content {
+    padding: 16px !important;
+    width: 92% !important;
+    max-height: 85vh !important;
+  }
+
+  .notif-modal-header {
+    margin-bottom: 12px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .notif-modal-title {
+    font-size: 1.25rem !important;
+    gap: 6px !important;
+  }
+
+  .notif-modal-close {
+    font-size: 1.8rem !important;
+  }
+
+  .notif-modal-list {
+    gap: 10px !important;
+    padding-right: 4px !important;
+  }
+
+  .notif-modal-card {
+    padding: 10px !important;
+    gap: 8px !important;
+  }
+
+  .notif-modal-card-top {
+    gap: 8px !important;
+  }
+
+  .notif-modal-card-icon {
+    font-size: 1.5rem !important;
+  }
+
+  .notif-modal-card-text {
+    font-size: 0.95rem !important;
+    line-height: 1.3 !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .notif-modal-card-image {
+    width: 60px !important;
+    height: 60px !important;
+    padding: 4px !important;
+  }
 }
